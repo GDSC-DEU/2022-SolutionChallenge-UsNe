@@ -4,18 +4,26 @@ import com.gdsc.backend.domain.enums.DwType;
 import com.gdsc.backend.domain.enums.PayType;
 import com.gdsc.backend.domain.enums.UseType;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.usertype.UserType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Consumption {
     @Id
-    @Column(nullable = false)
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int index;
+    private Long index;
 
-    @Column(nullable = false)
+    @CreationTimestamp
     private LocalDateTime datetime;
 
     @Column(nullable = true, columnDefinition = "varchar")
@@ -40,8 +48,7 @@ public class Consumption {
     private User user;
 
     @Builder
-    public Consumption(LocalDateTime datetime, String content, int cost, UseType useType, PayType payType, DwType dwType, User user){
-        this.datetime=datetime;
+    public Consumption(String content, int cost, UseType useType, PayType payType, DwType dwType, User user){
         this.content=content;
         this.cost=cost;
         this.useType=useType;
