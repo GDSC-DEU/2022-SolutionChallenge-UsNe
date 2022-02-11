@@ -1,6 +1,5 @@
 package com.gdsc.backend.domain;
 
-
 import lombok.*;
 
 import javax.persistence.Column;
@@ -10,7 +9,6 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 public class User {
 
