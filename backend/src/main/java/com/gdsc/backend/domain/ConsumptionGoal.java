@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class ConsumptionGoal {
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long index;
 
     @Column(nullable = false)
