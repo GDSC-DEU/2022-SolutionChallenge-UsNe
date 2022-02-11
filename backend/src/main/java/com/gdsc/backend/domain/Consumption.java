@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 public class Consumption {
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long index;
 
     @CreationTimestamp
