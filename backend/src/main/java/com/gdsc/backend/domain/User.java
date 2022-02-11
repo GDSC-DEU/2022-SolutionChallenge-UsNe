@@ -35,4 +35,5 @@ public class User {
         this.userName=userName;
         this.userBirth=userBirth;
     }
+
 }
