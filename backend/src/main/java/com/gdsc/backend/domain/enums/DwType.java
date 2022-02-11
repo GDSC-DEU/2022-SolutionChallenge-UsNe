@@ -3,6 +3,8 @@ package com.gdsc.backend.domain.enums;
 import ch.qos.logback.core.pattern.parser.FormattingNode;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.util.Locale;
+
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum DwType {
     EUCATION("교육"),
@@ -18,19 +20,14 @@ public enum DwType {
     private String name;
 
     DwType(String name) {
-        this.name = name;
+        this.name = name.toUpperCase();
     }
 
     public String getName() {
         return this.name;
     }
 
-    public static DwType nameOf(String name) {
-        for (DwType num : DwType.values()) {
-            if (num.getName().equals(name)) {
-                return num;
-            }
-        }
-        return null;
+    public boolean isEquals(String type){
+        return this.getName().equals(type);
     }
 }
