@@ -14,7 +14,6 @@ import javax.persistence.ManyToOne;
 @Setter
 @NoArgsConstructor
 public class Group {
-
     @Id
     @ManyToOne
     private GroupList groupList;
