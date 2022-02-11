@@ -2,6 +2,8 @@ package com.gdsc.backend.domain.enums;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.util.Locale;
+
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum PayType {
     ACCOUNTTRANSFER("게좌이체"),
@@ -12,19 +14,14 @@ public enum PayType {
     private String name;
 
     PayType(String name) {
-        this.name = name;
+        this.name = name.toUpperCase();
     }
 
     public String getName() {
         return this.name;
     }
 
-    public static PayType nameOf(String name) {
-        for (PayType num : PayType.values()) {
-            if (num.getName().equals(name)) {
-                return num;
-            }
-        }
-        return null;
+    public boolean isEquals(String type){
+        return this.getName().equals(type);
     }
 }

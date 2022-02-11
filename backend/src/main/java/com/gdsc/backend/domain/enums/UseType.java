@@ -14,12 +14,7 @@ public enum UseType {
         return this.name;
     }
 
-    public static UseType nameOf(String name) {
-        for (UseType num : UseType.values()) {
-            if (num.getName().equals(name)) {
-                return num;
-            }
-        }
-        return null;
+    public boolean isEquals(String type){
+        return this.getName().equals(type);
     }
 }
