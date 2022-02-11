@@ -15,10 +15,10 @@ public class ConsumptionGoal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long index;
 
-    @Column
+    @Column(nullable = false)
     private int price;
 
-    @Column
+    @Column(nullable = false)
     private LocalDateTime datetime;
 
     @ManyToOne
