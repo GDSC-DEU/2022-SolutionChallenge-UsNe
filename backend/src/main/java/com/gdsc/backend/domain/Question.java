@@ -15,7 +15,6 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 public class Question {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int index;
