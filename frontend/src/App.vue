@@ -40,11 +40,11 @@
           <td>-</td>
         </tr>
         <tr>
-          <td>{{ list[0].date }}</td>
-          <td>{{ list[0].description }}</td>
-          <td>{{ list[0].tag }}</td>
-          <td>{{ list[0].inout }}</td>
-          <td>{{ list[0].total }}</td>
+          <td>{{ lists[0].date }}</td>
+          <td>{{ lists[0].description }}</td>
+          <td>{{ lists[0].tag }}</td>
+          <td>{{ lists[0].inout }}</td>
+          <td>{{ lists[0].total }}</td>
         </tr>
       </tbody>
     </table>
@@ -55,7 +55,21 @@
 import { ref } from 'vue';
 export default {
   setup() {
-    const list = ref([]);
+    const lists = ref([{
+      date: '1',
+      description: '...?',
+      tag: '????????',
+      inout: '1',
+      total: 'v'
+    },
+    {
+      date: '2',
+      description: '...?',
+      tag: '????????',
+      inout: '1',
+      total: 'v'
+    },
+    ]);
     const date = ref('');
     const description = ref('');
     const tag = ref('');
@@ -63,15 +77,15 @@ export default {
     const total = ref('');
 
     const onSubmit = () => {
-      console.log(list.value)
+      console.log(lists.value)
 
-      list.value.push({
+      lists.value.push({
         id: Date.now(),
-        "date": date.value, 
-        "description": description.value, 
-        "tag": tag.value, 
-        "inout": inout.value, 
-        "total": total.value,
+        date: date.value, 
+        description: description.value, 
+        tag: tag.value, 
+        inout: inout.value, 
+        total: total.value,
       });
       
       date.value = "";
@@ -83,7 +97,7 @@ export default {
 
     return {
       onSubmit,
-      list,
+      lists,
       date,
       description,
       tag,
