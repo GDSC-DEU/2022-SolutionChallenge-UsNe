@@ -14,7 +14,7 @@
     <h2>usne</h2>
     <button id="new">New</button>
     <button id="delete">Delete</button>
-    <table>
+    <table id="accountBook">
       <thead>
         <tr>
           <th>Date</th>
@@ -39,13 +39,13 @@
           <td>-</td>
           <td>-</td>
         </tr>
-        <tr>
-          <td>{{ lists[0].date }}</td>
-          <td>{{ lists[0].description }}</td>
-          <td>{{ lists[0].tag }}</td>
-          <td>{{ lists[0].inout }}</td>
-          <td>{{ lists[0].total }}</td>
-        </tr>
+        <!-- <tr v-for="list in lists" :key="list.id">
+          <td>{{ list.date }}</td>
+          <td>{{ list.description }}</td>
+          <td>{{ list.tag }}</td>
+          <td>{{ list.inout }}</td>
+          <td>{{ list.total }}</td>
+        </tr> -->
       </tbody>
     </table>
   </div>
@@ -55,21 +55,14 @@
 import { ref } from 'vue';
 export default {
   setup() {
-    const lists = ref([{
+    const list = ref({
       date: '1',
       description: '...?',
       tag: '????????',
       inout: '1',
       total: 'v'
-    },
-    {
-      date: '2',
-      description: '...?',
-      tag: '????????',
-      inout: '1',
-      total: 'v'
-    },
-    ]);
+    });
+    const lists = ref([]);
     const date = ref('');
     const description = ref('');
     const tag = ref('');
@@ -78,16 +71,29 @@ export default {
 
     const onSubmit = () => {
       console.log(lists.value)
-
       lists.value.push({
         id: Date.now(),
-        date: date.value, 
-        description: description.value, 
-        tag: tag.value, 
-        inout: inout.value, 
-        total: total.value,
+        subject: {
+          date: date.value, 
+          description: description.value, 
+          tag: tag.value, 
+          inout: inout.value, 
+          total: total.value},
       });
+      const table = document.getElementById('accountBook');
+      const newRow = table.insertRow();
+      const newDate = newRow.insertCell(0);
+      const newDescription = newRow.insertCell(1);
+      const newTag = newRow.insertCell(2);
+      const newInout = newRow.insertCell(3);
+      const newTotal = newRow.insertCell(4);
       
+      newDate.innerText = date.value;
+      newDescription.innerText = description.value;
+      newTag.innerText = tag.value; 
+      newInout.innerText = inout.value;
+      newTotal.innerText = total.value;
+
       date.value = "";
       description.value = "";
       tag.value = "";
@@ -97,7 +103,7 @@ export default {
 
     return {
       onSubmit,
-      lists,
+      list,
       date,
       description,
       tag,
