@@ -25,93 +25,41 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>02.01</td>
-          <td>고기만두, 김치만두</td>
-          <td>#식비 #카드</td>
-          <td>-7,000</td>
-          <td>10,000</td>
-        </tr>
-        <tr>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-        </tr>
-        <!-- <tr v-for="list in lists" :key="list.id">
+        <tr v-for="list in lists" :key="list.key">
           <td>{{ list.date }}</td>
           <td>{{ list.description }}</td>
-          <td>{{ list.tag }}</td>
+          <td>{{ list.tag.join(", ") }}</td>
           <td>{{ list.inout }}</td>
           <td>{{ list.total }}</td>
-        </tr> -->
+        </tr>
       </tbody>
     </table>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
 export default {
-  setup() {
-    const list = ref({
-      date: '1',
-      description: '...?',
-      tag: '????????',
-      inout: '1',
-      total: 'v'
-    });
-    const lists = ref([]);
-    const date = ref('');
-    const description = ref('');
-    const tag = ref('');
-    const inout = ref('');
-    const total = ref('');
-
-    const onSubmit = () => {
-      console.log(lists.value)
-      lists.value.push({
-        id: Date.now(),
-        subject: {
-          date: date.value, 
-          description: description.value, 
-          tag: tag.value, 
-          inout: inout.value, 
-          total: total.value},
-      });
-      const table = document.getElementById('accountBook');
-      const newRow = table.insertRow();
-      const newDate = newRow.insertCell(0);
-      const newDescription = newRow.insertCell(1);
-      const newTag = newRow.insertCell(2);
-      const newInout = newRow.insertCell(3);
-      const newTotal = newRow.insertCell(4);
-      
-      newDate.innerText = date.value;
-      newDescription.innerText = description.value;
-      newTag.innerText = tag.value; 
-      newInout.innerText = inout.value;
-      newTotal.innerText = total.value;
-
-      date.value = "";
-      description.value = "";
-      tag.value = "";
-      inout.value = "";
-      total.value = "";
-    }
-
+  methods: {
+   onSubmit() {
+      this.lists.push({
+        date: this.date,
+        description: this.description,
+        tag: [this.tag.split(",")],
+        inout: this.inout,
+        total: this.total,
+      })
+      this.date = ""
+      this.description = ""
+      this.tag = ""
+      this.inout = ""
+      this.total = ""
+   }
+  },
+  data() {
     return {
-      onSubmit,
-      list,
-      date,
-      description,
-      tag,
-      inout,
-      total,
-    }
+      lists: []
+    };
   }
-
 }
 </script>
 
