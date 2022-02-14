@@ -12,7 +12,7 @@
       </form>
     </div>
     <h2>usne</h2>
-    <button id="new">New</button>
+    <button id="new" @click.stop="onNew">New</button>
     <button id="delete">Delete</button>
     <table id="accountBook">
       <thead>
@@ -34,11 +34,34 @@
         </tr>
       </tbody>
     </table>
+    <Modal 
+      v-if = "showNewModal"
+      @close="closeNewHodal"
+    />
   </div>
 </template>
 
 <script>
+import { ref } from "vue";
+import Modal from "@/components/newModal.vue";
 export default {
+  components: {
+    Modal
+  },
+  setup() {
+    const showNewModal = ref(false);
+    const onNew = () => {
+      showNewModal.value = true;
+    }
+    const closeNewHodal = () => {
+      showNewModal.value = false;
+    }
+    return {
+      showNewModal,
+      onNew,
+      closeNewHodal,
+    }
+  },
   methods: {
    onSubmit() {
       this.lists.push({
@@ -57,7 +80,7 @@ export default {
   },
   data() {
     return {
-      lists: []
+      lists: [],
     };
   }
 }
