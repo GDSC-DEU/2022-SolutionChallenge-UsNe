@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.usertype.UserType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,14 +18,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Consumption {
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long index;
+    private Long consumptionIndex;
 
     @CreationTimestamp
-    private LocalDateTime datetime;
+    private LocalDateTime consumptionDatetime;
 
-    @Column(nullable = true, columnDefinition = "varchar")
+    @Column(nullable = true)
     private String content;
 
     @Column(nullable = false)
@@ -44,16 +42,24 @@ public class Consumption {
     @Enumerated(EnumType.STRING)
     private DwType dwType;
 
-    @ManyToOne
-    private User user;
+    /*@ManyToOne
+    @JoinColumn(name = "userId",referencedColumnName = "userId",nullable = false)
+    private User user;*/
 
     @Builder
-    public Consumption(String content, int cost, UseType useType, PayType payType, DwType dwType, User user){
-        this.content=content;
-        this.cost=cost;
+    public Consumption(String content, int consumptionCost, UseType useType, PayType payType, DwType dwType){
+        this.content = content;
+        this.cost =consumptionCost;
         this.useType=useType;
         this.payType=payType;
         this.dwType=dwType;
-        this.user=user;
+    }
+
+    public void update(Consumption consumption){
+        this.content =consumption.getContent();
+        this.cost = consumption.getCost();
+        this.useType=consumption.getUseType();
+        this.payType=consumption.getPayType();
+        this.dwType=consumption.getDwType();
     }
 }

@@ -16,16 +16,16 @@ import java.time.LocalDateTime;
 public class Notice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int index;
+    private Long noticeIndex;
 
     @Column(nullable = false,columnDefinition = "varchar(40)")
     private String title;
 
-    @Column(nullable = true,columnDefinition = "varchar")
+    @Column(nullable = true)
     private String content;
 
     @CreationTimestamp
-    private LocalDateTime dateTime;
+    private LocalDateTime noticeDateTime;
 
     @Builder
     public Notice(String title,String content){

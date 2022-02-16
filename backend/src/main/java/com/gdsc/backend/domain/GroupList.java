@@ -16,13 +16,13 @@ import java.time.LocalDateTime;
 public class GroupList {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int index;
+    private Long groupListIndex;
 
     @Column(nullable = false,columnDefinition = "varchar(20)")
     private String name;
 
     @CreationTimestamp
-    private LocalDateTime dateTime;
+    private LocalDateTime GroupListDateTime;
 
     @Builder
     public GroupList(String name){

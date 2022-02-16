@@ -17,7 +17,7 @@ import java.util.Date;
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int index;
+    private Long questionIndex;
 
     @Column(nullable = false,columnDefinition = "varchar(40)")
     private String title;
@@ -26,12 +26,13 @@ public class Question {
     private String content;
 
     @CreationTimestamp
-    private LocalDate dateTime;
+    private LocalDate questionDateTime;
 
     @Column(nullable=true)
     private String answer;
 
     @ManyToOne
+    @JoinColumn(name = "userId",referencedColumnName = "userId",nullable = false)
     private User user;
 
     @Builder

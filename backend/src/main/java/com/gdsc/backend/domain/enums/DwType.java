@@ -7,7 +7,7 @@ import java.util.Locale;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum DwType {
-    EUCATION("교육"),
+    EDUCATION("교육"),
     TRAFFIC("교통"),
     BEAUTY("미용"),
     CULTURE("문화"),
