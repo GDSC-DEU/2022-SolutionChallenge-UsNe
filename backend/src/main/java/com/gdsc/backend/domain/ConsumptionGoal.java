@@ -13,20 +13,20 @@ public class ConsumptionGoal {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long index;
+    private Long consumptionGoalIndex;
 
     @Column(nullable = false)
     private int price;
 
     @Column(nullable = false)
-    private LocalDateTime datetime;
+    private LocalDateTime consumptionGoalDatetime;
 
     @ManyToOne
+    @JoinColumn(name = "userId",referencedColumnName = "userId",nullable = false)
     private User user;
 
     @Builder
-    public ConsumptionGoal(int price, User user){
+    public ConsumptionGoal(int price){
         this.price = price;
-        this.user = user;
     }
 }
