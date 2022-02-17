@@ -3,6 +3,7 @@ package com.gdsc.backend.domain;
 import com.gdsc.backend.domain.enums.DwType;
 import com.gdsc.backend.domain.enums.PayType;
 import com.gdsc.backend.domain.enums.UseType;
+import com.gdsc.backend.dto.request.ConsumptionRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,19 +48,19 @@ public class Consumption {
     private User user;*/
 
     @Builder
-    public Consumption(String content, int consumptionCost, UseType useType, PayType payType, DwType dwType){
+    public Consumption(String content, int cost, UseType useType, PayType payType, DwType dwType){
         this.content = content;
-        this.cost =consumptionCost;
+        this.cost =cost;
         this.useType=useType;
         this.payType=payType;
         this.dwType=dwType;
     }
 
-    public void update(Consumption consumption){
-        this.content =consumption.getContent();
-        this.cost = consumption.getCost();
-        this.useType=consumption.getUseType();
-        this.payType=consumption.getPayType();
-        this.dwType=consumption.getDwType();
+    public void update(ConsumptionRequest consumptionRequest){
+        this.content =consumptionRequest.getContent();
+        this.cost = consumptionRequest.getCost();
+        this.useType=consumptionRequest.getUseType();
+        this.payType=consumptionRequest.getPayType();
+        this.dwType=consumptionRequest.getDwType();
     }
 }
