@@ -81,7 +81,7 @@ export default {
         amount: data.amount,
         // total: data.countTotal(inout, money) 함수실행
       })
-      console.log(lists);
+      console.log(this.lists);
       this.date = ""
       this.description = ""
       this.tag = ""
