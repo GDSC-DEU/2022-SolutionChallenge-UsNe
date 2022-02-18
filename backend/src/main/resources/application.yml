@@ -8,3 +8,6 @@ spring:
     hibernate:
       ddl-auto: update
     generate-ddl: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher

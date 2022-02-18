@@ -3,9 +3,7 @@ package com.gdsc.backend.controller;
 import com.gdsc.backend.domain.Consumption;
 import com.gdsc.backend.dto.request.ConsumptionRequest;
 import com.gdsc.backend.dto.response.ConsumptionResponse;
-import com.gdsc.backend.repository.ConsumptionRepository;
 import com.gdsc.backend.service.ConsumptionManagementService;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/consumptions")
+@RequestMapping("/api/consumptions")
 public class ConsumptionController {
 
     private ConsumptionManagementService consumptionManagementService;
