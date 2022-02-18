@@ -1,16 +1,5 @@
 <template>
   <div>
-    <div>
-      <h2>input test</h2>
-      <form @submit.prevent='onSubmit'>
-        <input type="text" v-model="date" placeholder="date">
-        <input type="text" v-model="description" placeholder="Description">
-        <input type="text" v-model="tag" placeholder="tag">
-        <input type="text" v-model="inout" placeholder="in out">
-        <input type="text" v-model="total" placeholder="total">
-        <input type="button" @click="onSubmit" value="submit">
-      </form>
-    </div>
     <h2>usne</h2>
     <button id="new" @click.stop="onNew">New</button>
     <button id="delete">Delete</button>
@@ -20,7 +9,7 @@
           <th>Date</th>
           <th>Description</th>
           <th>tag</th>
-          <th>In/Out</th>
+          <th>Amount</th>
           <th>Total</th>
         </tr>
       </thead>
@@ -28,8 +17,8 @@
         <tr v-for="list in lists" :key="list.key">
           <td>{{ list.date }}</td>
           <td>{{ list.description }}</td>
-          <td>{{ list.tag.join(", ") }}</td>
-          <td>{{ list.inout }}</td>
+          <td>{{ list.tag?.join(", ") }}</td>
+          <td>{{ list.amount }}</td>
           <td>{{ list.total }}</td>
         </tr> 
       </tbody>
@@ -65,51 +54,46 @@
     </div>
     <Modal 
       v-if = "showNewModal"
-      @close="closeNewHodal"
+      @close="closeNewModal"
+      @insert="inputUpdate"
     />
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
 import Modal from "@/components/newModal.vue";
 export default {
   components: {
     Modal
   },
-  setup() {
-    const showNewModal = ref(false);
-    const onNew = () => {
-      showNewModal.value = true;
-    }
-    const closeNewHodal = () => {
-      showNewModal.value = false;
-    }
-    return {
-      showNewModal,
-      onNew,
-      closeNewHodal,
-    }
-  },
   methods: {
-   onSubmit() {
+    onNew() {
+      this.showNewModal = true;
+    },
+    closeNewModal() {
+      this.showNewModal = false;
+    },
+    inputUpdate(data) {
       this.lists.push({
-        date: this.date,
-        description: this.description,
-        tag: [this.tag.split(",")],
-        inout: this.inout,
-        total: this.total,
+        date: data.date,
+        description: data.description,
+        tag: data.tag?.split(","),
+        amount: data.amount,
+        // total: data.countTotal(inout, money) 함수실행
       })
+      console.log(lists);
       this.date = ""
       this.description = ""
       this.tag = ""
-      this.inout = ""
+      this.amount = ""
       this.total = ""
-   }
+      this.closeNewModal()
+    }
   },
   data() {
     return {
-      lists: [],
+      showNewModal: false,
+      lists: []
     };
   }
 }
