@@ -17,23 +17,23 @@
                     소비 용도 <br>
                     <hr>
                     <label class="inputTag">
-                        <input type="radio" v-model="tag" name="useTag" value="식비">
+                        <input type="radio" v-model="useTag" name="useTag" value="식비">
                         <span>식비</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="tag" name="useTag" value="교통비">
+                        <input type="radio" v-model="useTag" name="useTag" value="교통비">
                         <span>교통비</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="tag" name="useTag" value="생활비">
+                        <input type="radio" v-model="useTag" name="useTag" value="생활비">
                         <span>생활비</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="tag" name="useTag" value="문화활동">
+                        <input type="radio" v-model="useTag" name="useTag" value="문화활동">
                         <span>문화활동</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="tag" name="useTag" value="+">
+                        <input type="radio" v-model="useTag" name="useTag" value="+">
                         <span>+</span>
                     </label>
                     <br><br>
@@ -42,23 +42,23 @@
                     사용 수단 <br>
                     <hr>
                     <label class="inputTag">
-                        <input type="radio" v-model="tag" name="toolTag" value="카드">
+                        <input type="radio" v-model="toolTag" name="toolTag" value="카드">
                         <span>카드</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="tag" name="toolTag" value="현금" >
+                        <input type="radio" v-model="toolTag" name="toolTag" value="현금" >
                         <span>현금</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="tag" name="toolTag" value="계좌이체">
+                        <input type="radio" v-model="toolTag" name="toolTag" value="계좌이체">
                         <span>계좌이체</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="tag" name="toolTag" value="상품권">
+                        <input type="radio" v-model="toolTag" name="toolTag" value="상품권">
                         <span>상품권</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="tag" name="toolTag" value="+">
+                        <input type="radio" v-model="toolTag" name="toolTag" value="+">
                         <span>+</span>
                     </label>
                     <br><br>
@@ -67,11 +67,11 @@
                     수입/지출 <br>
                     <hr>
                     <label class="inputTag">
-                        <input type="radio" v-model="tag" name="inoutTag" value="in">
+                        <input type="radio" v-model="inoutTag" name="inoutTag" value="In">
                         <span>In</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="tag" name="inoutTag" value="out">
+                        <input type="radio" v-model="inoutTag" name="inoutTag" value="Out">
                         <span>Out</span>
                     </label>
                     <br><br>
@@ -108,7 +108,11 @@ export default {
             this.$emit('insert', {
                 date: this.date,
                 description: this.description,
-                tag: this.tag,
+                tag: {
+                    useTag: this.useTag,
+                    toolTag:this.toolTag,
+                    inoutTag: this.inoutTag 
+                },
                 amount: this.amount,
             })
         }
