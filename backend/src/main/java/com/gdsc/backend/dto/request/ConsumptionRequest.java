@@ -8,6 +8,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Getter
 public class ConsumptionRequest {
     @Schema(description = "소비 내용", nullable = true, example = "Content")
@@ -26,10 +28,10 @@ public class ConsumptionRequest {
     private UseType useType;
 
     @Schema(description = "소비 날짜", nullable = false,example = "20220530")
-    private int consumptionDatetime;
+    private LocalDateTime consumptionDatetime;
 
     @Builder
-    public ConsumptionRequest(String content, int cost, DwType dwType, PayType payType, UseType useType,int consumptionDatetime){
+    public ConsumptionRequest(String content, int cost, DwType dwType, PayType payType, UseType useType,LocalDateTime consumptionDatetime){
         this.content=content;
         this.cost=cost;
         this.dwType = dwType;

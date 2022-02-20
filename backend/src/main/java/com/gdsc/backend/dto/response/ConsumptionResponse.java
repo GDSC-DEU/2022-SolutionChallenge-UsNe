@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Setter
 @Getter
 public class ConsumptionResponse {
@@ -28,10 +30,10 @@ public class ConsumptionResponse {
     private UseType useType;
 
     @Schema(description = "소비 날짜", nullable = false,example = "20220530")
-    private int consumptionDatetime;
+    private LocalDateTime consumptionDatetime;
 
     @Builder
-    public ConsumptionResponse(String content, int cost, DwType dwType, PayType payType, UseType useType,int consumptionDatetime){
+    public ConsumptionResponse(String content, int cost, DwType dwType, PayType payType, UseType useType,LocalDateTime consumptionDatetime){
         this.content=content;
         this.cost=cost;
         this.dwType = dwType;
