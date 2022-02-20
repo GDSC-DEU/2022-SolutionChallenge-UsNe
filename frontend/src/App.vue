@@ -14,20 +14,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="list in lists" :key="list.key">
+        <tr v-for="(list, index) in lists" :key="index">
           <td>{{ list.date }}</td>
           <td>{{ list.description }}</td>
-          <td>{{ list.tag?.join(", ") }}</td>
+          <td>{{ Object.values(list.tag)?.join(",") }}</td>
           <td>{{ list.amount }}</td>
           <td>{{ list.total }}</td>
         </tr> 
       </tbody>
     </table>
-    <!-- <head>
-       <meta name="viewport" content="width=device-width">
-      <title>replit</title>
-    </head> -->
-    <input type="text">
+
     <h2>replit</h2>
     <div class="main">
       <div class="title">
@@ -74,26 +70,47 @@ export default {
       this.showNewModal = false;
     },
     inputUpdate(data) {
+      console.log(data.tag.inoutTag);
+      console.log(data)
       this.lists.push({
         date: data.date,
         description: data.description,
-        tag: data.tag?.split(","),
+        tag: {
+          useTag: data.tag.useTag,
+          toolTag: data.tag.toolTag,
+          inoutTag: data.tag.inoutTag
+        },
         amount: data.amount,
-        // total: data.countTotal(inout, money) 함수실행
+        total: this.countTotal(data.amount, data.tag.inoutTag)
       })
       console.log(this.lists);
       this.date = ""
       this.description = ""
-      this.tag = ""
+      this.tag = []
       this.amount = ""
       this.total = ""
       this.closeNewModal()
+    },
+    countTotal(amount, inoutTag) {
+      let newAmount = 0;
+      if(inoutTag === "Out") {
+        newAmount = -amount;
+      } else if(inoutTag === "In") {
+        newAmount = amount;
+      }
+
+      if (this.lists.length === 0) {
+        return newAmount;
+      } else {
+        return this.lists[this.lists.length - 1].total + newAmount;
+      }      
     }
   },
   data() {
     return {
       showNewModal: false,
-      lists: []
+      lists: [],
+      lastTotal: 0
     };
   }
 }
