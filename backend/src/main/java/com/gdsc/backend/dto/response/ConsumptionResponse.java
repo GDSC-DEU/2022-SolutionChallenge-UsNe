@@ -30,10 +30,10 @@ public class ConsumptionResponse {
     private UseType useType;
 
     @Schema(description = "소비 날짜", nullable = false,example = "20220530")
-    private LocalDateTime consumptionDatetime;
+    private int consumptionDatetime;
 
     @Builder
-    public ConsumptionResponse(String content, int cost, DwType dwType, PayType payType, UseType useType,LocalDateTime consumptionDatetime){
+    public ConsumptionResponse(String content, int cost, DwType dwType, PayType payType, UseType useType,int consumptionDatetime){
         this.content=content;
         this.cost=cost;
         this.dwType = dwType;
