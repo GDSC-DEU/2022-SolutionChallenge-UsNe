@@ -43,7 +43,7 @@ public class ConsumptionController {
 
     @Operation(summary = "전체 소비 조회", description = "전체 소비를 조회합니다.", tags = "consumption",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "전체 소비 조회 성공",
+                    @ApiResponse(responseCode = "'200'", description = "전체 소비 조회 성공",
                             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = Consumption.class)))
             }
     )
@@ -65,9 +65,9 @@ public class ConsumptionController {
         return new ResponseEntity<ConsumptionResponse>(consumptionResponse, HttpStatus.OK);
     }
 
-    @Operation(summary = "소비 등록", description = "소비를 입력합니다.", tags = "consumption",
+    @Operation(summary = "소비 수정", description = "소비를 수정합니다.", tags = "consumption",
             responses = {
-                    @ApiResponse(responseCode = "201", description = "소비 등록 성공",
+                    @ApiResponse(responseCode = "200", description = "소비 수정 성공",
                             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = Consumption.class)))
             }
     )
@@ -77,10 +77,10 @@ public class ConsumptionController {
         return new ResponseEntity<>(updation, HttpStatus.OK);
     }
 
-    @Operation(summary = "소비 등록", description = "소비를 입력합니다.", tags = "consumption",
+    @Operation(summary = "소비 삭제", description = "소비를 삭제합니다.", tags = "consumption",
             responses = {
-                    @ApiResponse(responseCode = "201", description = "소비 등록 성공",
-                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = Consumption.class)))
+                    @ApiResponse(responseCode = "200", description = "소비 삭제 성공",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
             }
     )
     @DeleteMapping("/{index}")
