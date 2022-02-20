@@ -24,7 +24,7 @@ public class GroupList {
     @Column(nullable = false,columnDefinition = "varchar(20)")
     private String name;
 
-    @Schema(description = "그룹 생성 시간", nullable = false, example = "20000215")
+    @Schema(description = "그룹 생성 시간", nullable = false)
     @CreationTimestamp
     private LocalDateTime GroupListDateTime;
 

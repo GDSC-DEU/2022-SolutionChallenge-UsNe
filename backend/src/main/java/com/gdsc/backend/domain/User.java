@@ -1,7 +1,10 @@
 package com.gdsc.backend.domain;
 
+import com.gdsc.backend.dto.request.ConsumptionRequest;
+import com.gdsc.backend.dto.request.UserRequest;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,12 +37,20 @@ public class User {
     int userBirth;
 
     @Builder
-    public User(String userId,String userPassword,int userPhoneNumber,String userName,int userBirth){
+    public User(String userId, String userPassword, int userPhoneNumber, String userName, int userBirth){
         this.userId=userId;
         this.userPassword=userPassword;
         this.userPhoneNumber=userPhoneNumber;
         this.userName=userName;
         this.userBirth=userBirth;
+    }
+
+
+    public void update(UserRequest userRequest) {
+        this.userPassword = userRequest.getUserPassword();
+        this.userPhoneNumber = userRequest.getUserPhoneNumber();
+        this.userName = userRequest.getUserName();
+        this.userBirth = userRequest.getUserBirth();
     }
 
 }
