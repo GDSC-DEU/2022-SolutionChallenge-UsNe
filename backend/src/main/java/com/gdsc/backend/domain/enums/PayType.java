@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Locale;
 
-@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum PayType {
     ACCOUNTTRANSFER("게좌이체"),
     CARD("카드"),

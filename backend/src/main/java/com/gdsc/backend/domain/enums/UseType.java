@@ -2,7 +2,6 @@ package com.gdsc.backend.domain.enums;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum UseType {
     EDUCATION("교육"),
     TRAFFIC("교통"),
