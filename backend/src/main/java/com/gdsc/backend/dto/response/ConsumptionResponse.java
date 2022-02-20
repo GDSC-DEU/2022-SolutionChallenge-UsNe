@@ -1,9 +1,9 @@
 package com.gdsc.backend.dto.response;
 
 import com.gdsc.backend.domain.Consumption;
-import com.gdsc.backend.domain.enums.DwType;
-import com.gdsc.backend.domain.enums.PayType;
 import com.gdsc.backend.domain.enums.UseType;
+import com.gdsc.backend.domain.enums.PayType;
+import com.gdsc.backend.domain.enums.DwType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,17 +13,18 @@ import lombok.Setter;
 public class ConsumptionResponse {
     private String content;
     private int cost;
-    private UseType useType;
-    private PayType payType;
     private DwType dwType;
-
+    private PayType payType;
+    private UseType useType;
+    private int consumptionDatetime;
     @Builder
-    public ConsumptionResponse(String content, int cost, UseType useType, PayType payType, DwType dwType){
+    public ConsumptionResponse(String content, int cost, DwType dwType, PayType payType, UseType useType,int consumptionDatetime){
         this.content=content;
         this.cost=cost;
-        this.useType=useType;
+        this.dwType = dwType;
         this.payType=payType;
-        this.dwType=dwType;
+        this.useType = useType;
+        this.consumptionDatetime=consumptionDatetime;
     }
 
     public static ConsumptionResponse from(Consumption consumption){
@@ -34,6 +35,7 @@ public class ConsumptionResponse {
                         .useType(consumption.getUseType())
                         .payType(consumption.getPayType())
                         .dwType(consumption.getDwType())
+                        .consumptionDatetime(consumption.getConsumptionDatetime())
                         .build();
 
         return consumptionResponse;

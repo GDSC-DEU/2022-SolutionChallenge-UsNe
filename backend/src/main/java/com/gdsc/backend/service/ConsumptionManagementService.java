@@ -4,16 +4,14 @@ import com.gdsc.backend.domain.Consumption;
 import com.gdsc.backend.dto.request.ConsumptionRequest;
 import com.gdsc.backend.dto.response.ConsumptionResponse;
 import com.gdsc.backend.repository.ConsumptionRepository;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Book;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ConsumptionManagementService {
+
     private ConsumptionRepository consumptionRepository;
 
     public ConsumptionManagementService(final ConsumptionRepository consumptionRepository){
@@ -27,6 +25,7 @@ public class ConsumptionManagementService {
                 .useType(consumptionRequest.getUseType())
                 .payType(consumptionRequest.getPayType())
                 .dwType(consumptionRequest.getDwType())
+                .consumptionDatetime(consumptionRequest.getConsumptionDatetime())
                 .build());
     }
 

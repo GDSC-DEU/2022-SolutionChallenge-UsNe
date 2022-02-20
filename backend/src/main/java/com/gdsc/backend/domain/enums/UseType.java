@@ -1,13 +1,23 @@
 package com.gdsc.backend.domain.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum UseType {
-    DEPOSIT("입금"),
-    WITHDRAW("출금");
+    EDUCATION("교육"),
+    TRAFFIC("교통"),
+    BEAUTY("미용"),
+    CULTURE("문화"),
+    FOOD("식비"),
+    LIFE("생활"),
+    MEDICALTREATMENT("의료"),
+    CLOTHES("의류"),
+    ETC("기타");
 
     private String name;
 
     UseType(String name) {
-        this.name = name;
+        this.name = name.toUpperCase();
     }
 
     public String getName() {
