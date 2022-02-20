@@ -14,10 +14,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="list in lists" :key="list.key">
+        <tr v-for="(list, index) in lists" :key="index">
           <td>{{ list.date }}</td>
           <td>{{ list.description }}</td>
-          <td>{{ Object.values(list.tag)?.join(", ") }}</td>
+          <td>{{ Object.values(list.tag)?.join(",") }}</td>
           <td>{{ list.amount }}</td>
           <td>{{ list.total }}</td>
         </tr> 
@@ -70,6 +70,7 @@ export default {
       this.showNewModal = false;
     },
     inputUpdate(data) {
+      console.log(data.tag.inoutTag);
       console.log(data)
       this.lists.push({
         date: data.date,
@@ -80,7 +81,7 @@ export default {
           inoutTag: data.tag.inoutTag
         },
         amount: data.amount,
-        // total: data.countTotal(inout, money) 함수실행
+        total: this.countTotal(data.amount, data.tag.inoutTag)
       })
       console.log(this.lists);
       this.date = ""
@@ -89,15 +90,27 @@ export default {
       this.amount = ""
       this.total = ""
       this.closeNewModal()
+    },
+    countTotal(amount, inoutTag) {
+      let newAmount = 0;
+      if(inoutTag === "Out") {
+        newAmount = -amount;
+      } else if(inoutTag === "In") {
+        newAmount = amount;
+      }
+
+      if (this.lists.length === 0) {
+        return newAmount;
+      } else {
+        return this.lists[this.lists.length - 1].total + newAmount;
+      }      
     }
-    // countTotal(inout, money) {
-    //   if(this.tag = "out")
-    // }
   },
   data() {
     return {
       showNewModal: false,
       lists: [],
+      lastTotal: 0
     };
   }
 }
