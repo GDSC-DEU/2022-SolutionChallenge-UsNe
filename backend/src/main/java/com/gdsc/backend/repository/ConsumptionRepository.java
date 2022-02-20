@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ConsumptionRepository extends JpaRepository<Consumption,Long> {
-
     public Consumption findConsumptionByConsumptionIndex(Long index);
 }
