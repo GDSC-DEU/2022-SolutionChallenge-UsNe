@@ -30,7 +30,6 @@ public class ConsumptionRequest {
 
     @Builder
     public ConsumptionRequest(String content, int cost, DwType dwType, PayType payType, UseType useType,int consumptionDatetime){
-
         this.content=content;
         this.cost=cost;
         this.dwType = dwType;
