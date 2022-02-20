@@ -27,7 +27,7 @@ public class Consumption {
 
     @Schema(description = "소비 날짜", nullable = false,example = "20220530")
     @Column(nullable = false)
-    private LocalDateTime consumptionDatetime;
+    private int consumptionDatetime;
 
     @Schema(description = "소비 내용", nullable = true, example = "Content")
     @Column(nullable = true,columnDefinition = "TEXT")
@@ -57,7 +57,7 @@ public class Consumption {
     private User user;*/
 
     @Builder
-    public Consumption(String content, int cost, DwType dwType, PayType payType, UseType useType,LocalDateTime consumptionDatetime){
+    public Consumption(String content, int cost, DwType dwType, PayType payType, UseType useType,int consumptionDatetime){
         this.content = content;
         this.cost =cost;
         this.dwType = dwType;
