@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/usne
+    url: jdbc:mysql://34.64.99.131:3306/usne
     username: usueuser
     password: usneuser
     driver-class-name: org.mariadb.jdbc.Driver
