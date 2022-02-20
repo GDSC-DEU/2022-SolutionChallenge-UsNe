@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class Consumption {
-
     @Id
     @Schema(description = "소비 인덱스", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
