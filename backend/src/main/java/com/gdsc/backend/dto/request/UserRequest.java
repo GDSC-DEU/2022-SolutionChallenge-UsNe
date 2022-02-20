@@ -15,7 +15,6 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 public class UserRequest {
-
     @NotBlank(message = "아이디를 입력하세요!")
     @Size(max = 10, message = "10자 이하로 입력하세요!")
     private String userId;
@@ -56,10 +55,6 @@ public class UserRequest {
                 .userBirth(userBirth)
                 .build();
         return user;
-    }
-
-    public void passwordEncoding(String encodingPassword) {
-        this.userPassword = encodingPassword;
     }
 
 }

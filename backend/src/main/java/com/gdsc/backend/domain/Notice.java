@@ -28,7 +28,7 @@ public class Notice {
     @Column(nullable = true)
     private String content;
 
-    @Schema(description = "공지사항 작성일", nullable = false, example = "20220123")
+    @Schema(description = "공지사항 작성일", nullable = false)
     @CreationTimestamp
     private LocalDateTime noticeDateTime;
 

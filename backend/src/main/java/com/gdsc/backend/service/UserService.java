@@ -19,7 +19,9 @@ public class UserService {
 
     public boolean joinCheck(UserRequest userRequest) {
         User findUser = userRepository.findByUserId(userRequest.getUserId());
-        if (findUser == null) {
+        User findPhoneNumber = userRepository.findByUserPhoneNumber(userRequest.getUserPhoneNumber());
+
+        if (findUser == null && findPhoneNumber == null) {
             return true;
         } else {
             return false;
@@ -28,27 +30,16 @@ public class UserService {
 
     @Transactional
     public String join(UserRequest userRequest) throws NoSuchAlgorithmException {
-        userRequest.passwordEncoding(encrypt(userRequest.toEntity().getUserPassword()));
         User user = userRequest.toEntity();
         User findUser = userRepository.findByUserId(user.getUserId());
-        if (findUser == null) {
+        User findPhoneNumber = userRepository.findByUserPhoneNumber(user.getUserPhoneNumber());
+
+        if (findUser == null && findPhoneNumber == null) {
             userRepository.save(user);
             return user.getUserId();
         } else{
             return null;
         }
-    }
-
-    public static String encrypt(String password) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        byte[] passByte = password.getBytes(StandardCharsets.UTF_8);
-        md.reset();
-        byte[] digested = md.digest(passByte);
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; digested.length; i++) {
-            sb.append(Integer.toHexString(0xff &amp; digested[i]));
-        }
-        return sb.toString();
     }
 
 }

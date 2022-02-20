@@ -29,7 +29,7 @@ public class Question {
     @Column(nullable = true)
     private String content;
 
-    @Schema(description = "문의사항 작성일", nullable = false, example = "20211203")
+    @Schema(description = "문의사항 작성일", nullable = false)
     @CreationTimestamp
     private LocalDate questionDateTime;
 

@@ -29,11 +29,4 @@ public class UserSignController {
         }
         return "redirect:login";
     }
-
-    @PostMapping("/api/idCheck")
-    @ResponseBody
-    public int idCheck(@ModelAttribute UserRequest userRequest) {
-        int count = userService.userIdCheck(userRequest.getUserId());
-        return count;
-    }
 }
