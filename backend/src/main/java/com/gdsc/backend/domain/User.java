@@ -16,6 +16,8 @@ import javax.persistence.Id;
 @Setter
 @NoArgsConstructor
 public class User {
+    public static final String INVALID_PASSWORD_MESSAGE = "비밀번호가 틀렸습니다.";
+
     @Id
     @Schema(description = "사용자의 아이디", nullable = false)
     String userId;
@@ -52,5 +54,16 @@ public class User {
         this.userName = userRequest.getUserName();
         this.userBirth = userRequest.getUserBirth();
     }
+
+    public void matchPassword(String password) { //비밀번호 확인인
+        if (!this.userPassword.equals(password)) {
+            throw new IllegalArgumentException(INVALID_PASSWORD_MESSAGE);
+        }
+    }
+
+    public boolean matchId(Long id) {
+        return (id != null) && (id.equals(getUserId()));
+    }
+
 
 }

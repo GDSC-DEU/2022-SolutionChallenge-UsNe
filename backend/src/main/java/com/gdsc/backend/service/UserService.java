@@ -2,6 +2,7 @@ package com.gdsc.backend.service;
 
 import com.gdsc.backend.domain.User;
 import com.gdsc.backend.dto.request.UserRequest;
+import com.gdsc.backend.dto.response.UserResponse;
 import com.gdsc.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,16 @@ public class UserService {
         } else{
             return null;
         }
+    }
+
+    @Transactional
+    public User findById(final String userId){
+        return userRepository.findByUserId(userId);
+    }
+
+    @Transactional
+    public UserResponse findUserResponseById(final String userId) {
+        return UserResponse.from(findById(userId));
     }
 
 }

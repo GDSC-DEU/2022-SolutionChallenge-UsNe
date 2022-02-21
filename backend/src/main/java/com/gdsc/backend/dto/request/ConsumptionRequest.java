@@ -7,10 +7,12 @@ import com.gdsc.backend.domain.enums.DwType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 public class ConsumptionRequest {
     @Schema(description = "소비 내용", nullable = true, example = "Content")
     private String content;
