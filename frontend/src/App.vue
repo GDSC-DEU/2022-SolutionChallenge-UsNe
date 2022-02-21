@@ -93,9 +93,9 @@ export default {
     },
     countTotal(amount, inoutTag) {
       let newAmount = 0;
-      if(inoutTag === "Out") {
+      if(inoutTag === "지출") {
         newAmount = -amount;
-      } else if(inoutTag === "In") {
+      } else if(inoutTag === "수입") {
         newAmount = amount;
       }
 
@@ -187,8 +187,14 @@ export default {
   #new {
     background-color: rgb(255, 160, 160);
   }
+  #new:hover {
+    background-color: rgb(241, 91, 91);
+  }
   #delete {
     background-color: rgb(100, 170, 235);
+  }
+  #delete:hover {
+    background-color: rgb(50, 134, 212);
   }
   table {
     width: 55%;
