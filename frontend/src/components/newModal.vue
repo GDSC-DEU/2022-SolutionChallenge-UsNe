@@ -5,6 +5,9 @@
             <div>
             <div>
                 <h1>Add</h1>
+                <div v-show="hasError" id="error">
+                    모든 문항을 입력해주세요!
+                </div>
             </div>
             <div>
                 <div>
@@ -33,8 +36,20 @@
                         <span>문화활동</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="useTag" name="useTag" value="+">
-                        <span>+</span>
+                        <input type="radio" v-model="useTag" name="useTag" value="용돈">
+                        <span>용돈</span>
+                    </label>
+                    <label class="inputTag">
+                        <input type="radio" v-model="useTag" name="useTag" value="월급">
+                        <span>월급</span>
+                    </label>
+                    <label class="inputTag">
+                        <input type="radio" v-model="useTag" name="useTag" value="장학금">
+                        <span>장학금</span>
+                    </label>
+                    <label class="inputTag">
+                        <input type="radio" v-model="useTag" name="useTag" value="기타">
+                        <span>기타</span>
                     </label>
                     <br><br>
                 </div>
@@ -58,8 +73,8 @@
                         <span>상품권</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="toolTag" name="toolTag" value="+">
-                        <span>+</span>
+                        <input type="radio" v-model="toolTag" name="toolTag" value="기타">
+                        <span>기타</span>
                     </label>
                     <br><br>
                 </div>
@@ -67,12 +82,12 @@
                     수입/지출 <br>
                     <hr>
                     <label class="inputTag">
-                        <input type="radio" v-model="inoutTag" name="inoutTag" value="In">
-                        <span>In</span>
+                        <input type="radio" v-model="inoutTag" name="inoutTag" value="수입">
+                        <span>수입</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="inoutTag" name="inoutTag" value="Out">
-                        <span>Out</span>
+                        <input type="radio" v-model="inoutTag" name="inoutTag" value="지출">
+                        <span>지출</span>
                     </label>
                     <br><br>
                 </div>
@@ -105,22 +120,44 @@
 export default {
     methods: {
         onSubmit() {
-            this.$emit('insert', {
-                date: this.date,
-                description: this.description,
-                tag: {
-                    useTag: this.useTag,
-                    toolTag:this.toolTag,
-                    inoutTag: this.inoutTag 
-                },
-                amount: this.amount,
-            })
+            if(this.description === undefined || 
+            this.useTag === undefined || 
+            this.toolTag === undefined ||
+            this.inoutTag === undefined ||
+            this.amount === undefined ||
+            this.date === undefined) 
+            { 
+                this.hasError = true;
+            }
+            else{
+                this.$emit('insert', {
+                    date: this.date,
+                    description: this.description,
+                    tag: {
+                        useTag: this.useTag,
+                        toolTag:this.toolTag,
+                        inoutTag: this.inoutTag 
+                    },
+                    amount: this.amount,
+                })
+                this.hasError = false;
+            }
+        }
+    },
+    data() {
+        return {
+            hasError: false
         }
     }
 }
 </script>
 
 <style scoped>
+    #error {
+        color: red;
+        font-size: 12px;
+        text-align: center;
+    }
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button {
         -webkit-appearance: none;
@@ -189,6 +226,10 @@ export default {
         border: none;
         color: black;
     }
+    button:hover {
+        color: white;
+        background-color: #5a5a5a;
+    }
 
     .inputTag input[type="radio"] {
         display: none;
@@ -206,6 +247,11 @@ export default {
     }
  
     .inputTag input[type="radio"]:checked + span {
+        background-color: #113a6b;
+        border: 1px solid #113a6b;
+        color: #ffffff;
+    }
+    .inputTag input[type="radio"]:hover + span {
         background-color: #113a6b;
         border: 1px solid #113a6b;
         color: #ffffff;
