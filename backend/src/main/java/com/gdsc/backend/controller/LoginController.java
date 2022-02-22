@@ -1,6 +1,7 @@
 package com.gdsc.backend.controller;
 
 import com.gdsc.backend.annotation.LoginUser;
+import com.gdsc.backend.config.SessionConfig;
 import com.gdsc.backend.domain.Consumption;
 import com.gdsc.backend.dto.request.LoginRequest;
 import com.gdsc.backend.dto.response.UserResponse;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import static com.gdsc.backend.service.UserSession.USER_SESSION_KEY;
@@ -47,8 +50,14 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<UserResponse> login(@RequestBody LoginRequest loginRequest, HttpSession httpSession){
         UserSession userSession = loginService.login(loginRequest);
-        httpSession.setAttribute(USER_SESSION_KEY, userSession);
-        return new ResponseEntity<UserResponse>(userService.findUserResponseById(userSession.getUsreId()), HttpStatus.OK);
+
+        if(userSession == null) {
+            httpSession.setAttribute(USER_SESSION_KEY, null);
+        } else {
+            httpSession.setAttribute("user_id", loginRequest.getUserId());
+        }
+
+        return new ResponseEntity<UserResponse>(userService.findUserResponseById(userSession.getUserId()), HttpStatus.OK);
     }
 
     @Operation(summary = "로그아웃", description = "로그아웃 합니다.", tags = "login",
@@ -59,8 +68,8 @@ public class LoginController {
     )
     @PostMapping("/logout")
     public ResponseEntity logout(@LoginUser UserSession userSession, HttpSession httpSession) {
-        loginService.logout(userSession.getUsreId());
-        httpSession.removeAttribute(USER_SESSION_KEY);
+        loginService.logout(userSession.getUserId());
+        httpSession.invalidate();
         return new ResponseEntity<>("{}",HttpStatus.OK);
     }
 }

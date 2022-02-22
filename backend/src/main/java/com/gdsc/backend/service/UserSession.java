@@ -14,13 +14,13 @@ import javax.servlet.http.HttpSessionBindingListener;
 public class UserSession implements HttpSessionBindingListener {
     public static final String USER_SESSION_KEY = "loginUser";
 
-    private String usreId;
+    private String userId;
     private String userName;
 
     @Builder
     private UserSession(String userId,String userName) {
         this.userName=userName;
-        this.usreId=userId;
+        this.userId=userId;
     }
 
     public static UserSession from(User user) {
