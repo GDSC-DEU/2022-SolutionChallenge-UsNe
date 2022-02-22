@@ -51,18 +51,19 @@ public class Consumption {
     @Enumerated(EnumType.STRING)
     private UseType useType;
 
-    /*@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "userId",referencedColumnName = "userId",nullable = false)
-    private User user;*/
+    private User user;
 
     @Builder
-    public Consumption(String content, int cost, DwType dwType, PayType payType, UseType useType,int consumptionDatetime){
+    public Consumption(String content, int cost, DwType dwType, PayType payType, UseType useType,int consumptionDatetime,User user){
         this.content = content;
         this.cost =cost;
         this.dwType = dwType;
         this.payType=payType;
         this.useType = useType;
         this.consumptionDatetime=consumptionDatetime;
+        this.user=user;
     }
 
     public void update(ConsumptionRequest consumptionRequest){

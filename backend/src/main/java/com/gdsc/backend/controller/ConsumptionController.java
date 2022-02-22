@@ -1,9 +1,11 @@
 package com.gdsc.backend.controller;
 
+import com.gdsc.backend.annotation.LoginUser;
 import com.gdsc.backend.domain.Consumption;
 import com.gdsc.backend.dto.request.ConsumptionRequest;
 import com.gdsc.backend.dto.response.ConsumptionResponse;
 import com.gdsc.backend.service.ConsumptionManagementService;
+import com.gdsc.backend.service.UserSession;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -17,6 +19,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +29,7 @@ import java.util.Optional;
 @RequestMapping("/api/consumptions")
 public class ConsumptionController {
 
-    private ConsumptionManagementService consumptionManagementService;
+    private final ConsumptionManagementService consumptionManagementService;
 
     public ConsumptionController(final ConsumptionManagementService consumptionManagementService){
         this.consumptionManagementService=consumptionManagementService;
@@ -38,8 +42,8 @@ public class ConsumptionController {
             }
     )
     @PostMapping
-    public ResponseEntity<Consumption> createConsumption(@RequestBody ConsumptionRequest consumptionRequest){
-        Consumption creation= consumptionManagementService.save(consumptionRequest);
+    public ResponseEntity<Consumption> createConsumption(@RequestBody ConsumptionRequest consumptionRequest, HttpSession httpSession){
+        Consumption creation= consumptionManagementService.save(consumptionRequest,httpSession.getAttribute("user_id").toString());
         return new ResponseEntity<Consumption>(creation, HttpStatus.CREATED);
     }
 
@@ -63,8 +67,8 @@ public class ConsumptionController {
     )
     @GetMapping("/{index}")
     public ResponseEntity<ConsumptionResponse> showConsumptionByIndex(@Parameter(name = "index", in = ParameterIn.PATH, description = "조회할 소비의 인덱스")
-                                                                          @PathVariable("index")Long index){
-        ConsumptionResponse consumptionResponse= consumptionManagementService.showByIndex(index);
+                                                                          @PathVariable("index")Long index,HttpSession httpSession){
+        ConsumptionResponse consumptionResponse= consumptionManagementService.showByIndex(index,httpSession.getAttribute("user_id").toString());
         return new ResponseEntity<ConsumptionResponse>(consumptionResponse, HttpStatus.OK);
     }
 
