@@ -1,13 +1,15 @@
 <template>
   <div>
-    <router-view/>
+    Preferences
   </div>
 </template>
 
 <script>
 export default {
+  
 }
 </script>
 
 <style>
+
 </style>

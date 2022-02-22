@@ -1,13 +1,15 @@
 <template>
   <div>
-    <router-view/>
+    Community
   </div>
 </template>
 
 <script>
 export default {
+  
 }
 </script>
 
 <style>
+
 </style>
