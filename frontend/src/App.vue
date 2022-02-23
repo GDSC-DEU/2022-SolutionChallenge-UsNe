@@ -33,6 +33,8 @@ export default {
 <style>
   .routerView{
     width: 100%;
+    position: absolute;
+    top: 20%;
   }
 
   nav {
