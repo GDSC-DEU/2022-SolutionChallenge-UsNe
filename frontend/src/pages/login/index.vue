@@ -2,10 +2,10 @@
   <div>
     <div class="loginBar">
       <div class="ID">
-        ID <input type="text" class="inputLogin"><br>
+        ID <input type="text" class="inputLogin" placeholder="user id"><br>
       </div>
       <div class="PW">
-        PW <input type="text" class="inputLogin"><br>
+        PW <input type="text" class="inputLogin" placeholder="Password"><br>
       </div>
       <div class="loginButton">
         <input type="button" value="Log In" id="onlogin">
@@ -27,7 +27,7 @@ export default {
     border-radius: 43px;
     background-color: rgb(232, 232, 232);
     position: absolute;
-    top: 48%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     box-shadow: 5px 5px 5px gray;
@@ -66,6 +66,7 @@ export default {
     width: 225px;
     height: 28px;
     margin: 15px;
+    padding: 0px 10px;
     border: none;
   }
 </style>

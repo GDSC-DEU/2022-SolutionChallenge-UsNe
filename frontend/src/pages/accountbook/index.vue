@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2>usne</h2>
     <button id="new" @click.stop="onNew">New</button>
     <button id="delete">Delete</button>
     <table id="accountBook">
@@ -180,9 +179,7 @@ export default {
     border: none;
     color: white;
     position: relative;
-    top: -5px;
-    left: 68%;
-    
+    left: 65%;
   }
   #new {
     background-color: rgb(255, 160, 160);
