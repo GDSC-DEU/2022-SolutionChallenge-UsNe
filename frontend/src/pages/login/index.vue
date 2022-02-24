@@ -26,11 +26,11 @@ export default {
     height: 225px;
     border-radius: 43px;
     background-color: rgb(232, 232, 232);
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 5px 5px 5px gray;
+    box-shadow:0 5px 10px rgba(0, 0, 0, 0.5)
   }
   .ID, .PW {
     text-align: center;
@@ -50,10 +50,10 @@ export default {
     color: white;
     border-radius: 64px;
     font-size: 15px;
-    box-shadow: 2px 2px 2px  #202020;
+    box-shadow:0 2px 5px rgba(0, 0, 0, 0.5)
   }
   #onlogin:hover, #onlogin:checked {
-    box-shadow: 2px 2px 2px  #202020 inset;
+    box-shadow:0 2px 5px rgba(0, 0, 0, 0.5) inset;
   }
   .loginButton {
     text-align: center;
