@@ -68,7 +68,7 @@ public class LoginController {
     )
     @PostMapping("/logout")
     public ResponseEntity logout(HttpSession httpSession) {
-        loginService.logout(httpSession.getAttribute(USER_SESSION_KEY).toString());
+        loginService.logout(httpSession.getAttribute("user_id").toString());
         httpSession.invalidate();
         return new ResponseEntity<>("{}",HttpStatus.OK);
     }
