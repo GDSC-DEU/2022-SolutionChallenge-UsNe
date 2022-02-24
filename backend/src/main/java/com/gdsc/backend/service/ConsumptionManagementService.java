@@ -4,7 +4,9 @@ import com.gdsc.backend.domain.Consumption;
 import com.gdsc.backend.domain.User;
 import com.gdsc.backend.dto.request.ConsumptionRequest;
 import com.gdsc.backend.dto.response.ConsumptionResponse;
+import com.gdsc.backend.exception.ConsumptionDeleteFailException;
 import com.gdsc.backend.exception.ConsumptionGetFailException;
+import com.gdsc.backend.exception.ConsumptionUpdateFailException;
 import com.gdsc.backend.exception.LoginFailException;
 import com.gdsc.backend.repository.ConsumptionRepository;
 import com.gdsc.backend.repository.UserRepository;
@@ -39,32 +41,55 @@ public class ConsumptionManagementService {
                 .build());
     }
 
-    public Consumption update(Long index, final ConsumptionRequest consumptionRequest){
-        Consumption persistConsumption = consumptionRepository.findConsumptionByConsumptionIndex(index);
-        persistConsumption.update(consumptionRequest);
-        consumptionRepository.save(persistConsumption);
-        return persistConsumption;
+    @Transactional
+    public Consumption update(Long index, final ConsumptionRequest consumptionRequest, final String userId){
+        try{
+            Consumption persistConsumption = consumptionRepository.findConsumptionByConsumptionIndex(index);
+            if(persistConsumption.getUser().matchId(userId)){
+                persistConsumption.update(consumptionRequest);
+                consumptionRepository.save(persistConsumption);
+                return persistConsumption;
+            }
+            else throw new ConsumptionUpdateFailException("사용자가 아님");
 
+        }catch (Exception e){
+            throw new ConsumptionUpdateFailException(e.getMessage());
+        }
     }
 
-    public List<Consumption> showConsumptionsByPage(Pageable pageable){
-        return consumptionRepository.findAll(pageable).getContent();
+    @Transactional
+    public List<Consumption> showConsumptionsByPage(Pageable pageable, final String userId){
+        try{
+            User user= userRepository.findByUserId(userId);
+            return consumptionRepository.findAllByUser(pageable, user);
+        }catch (Exception e){
+            throw new ConsumptionGetFailException(e.getMessage());
+        }
     }
 
+    @Transactional
     public ConsumptionResponse showByIndex(Long index, final String userId) {
-        Consumption consumption;
         try {
             User user = userRepository.findByUserId(userId);
-            consumption = consumptionRepository.findConsumptionByConsumptionIndexAndAndUser(index, user);
+            Consumption consumption = consumptionRepository.findConsumptionByConsumptionIndexAndAndUser(index,user);
+            return ConsumptionResponse.from(consumption);
         } catch (Exception e) {
             throw new ConsumptionGetFailException(e.getMessage());
         }
-        return ConsumptionResponse.from(consumption);
     }
 
-    public void delete(Long index){
-        consumptionRepository.deleteById(index);
-        return;
+    @Transactional
+    public void delete(Long index, final String userId){
+        try{
+            Consumption consumption=consumptionRepository.findConsumptionByConsumptionIndex(index);
+            if(consumption.getUser().matchId(userId)){
+                consumptionRepository.deleteById(index);
+                return;
+            }
+            else throw new ConsumptionDeleteFailException("사용자가 아님");
+        }catch (Exception e){
+            throw new ConsumptionDeleteFailException(e.getMessage());
+        }
     }
 
 }

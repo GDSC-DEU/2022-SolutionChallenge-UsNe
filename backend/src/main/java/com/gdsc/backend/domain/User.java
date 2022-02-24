@@ -61,8 +61,8 @@ public class User {
         }
     }
 
-    public boolean matchId(Long id) {
-        return (id != null) && (id.equals(getUserId()));
+    public boolean matchId(final String id) {
+        return (id != null) && (id.equals(this.getUserId()));
     }
 
 

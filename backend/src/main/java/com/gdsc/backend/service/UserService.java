@@ -13,10 +13,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
 public class UserService {
     private final UserRepository userRepository;
+
+    public UserService(final UserRepository userRepository){
+        this.userRepository=userRepository;
+    }
 
     public boolean joinCheck(UserRequest userRequest) {
         User findUser = userRepository.findByUserId(userRequest.getUserId());
