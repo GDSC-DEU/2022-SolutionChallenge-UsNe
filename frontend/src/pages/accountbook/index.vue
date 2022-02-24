@@ -22,31 +22,18 @@
         </tr> 
       </tbody>
     </table>
-
-    <h2>replit</h2>
-    <div class="main">
-      <div class="title">
-        Goal
-      </div>
-      <div class="subtitle">
-        한 달 예산 <br><input class="subtitle-cost"> 원
-      <button class="button-set">
-      설정
-      </button>
-      </div>
-    <div class="account"> 
-     <p>식비<input class="account-cost"> 
-        문화<input class="account-cost"></p>
-     <p>생활<input class="account-cost">
-        의류<input class="account-cost"></p> 
-     <p>쇼핑<input class="account-cost">  
-        미용<input class="account-cost"></p> 
-     <p>금융<input class="account-cost">   
-        의료<input class="account-cost"></p>     
-      </div>
-      <button class="button-input">Input</button>
-      <button class="button-cancel">cancel</button>
+    
+   <body style="overflow: hidden;">
+    <div class="modalShow">
+     <h1>My Goal</h1>
+     <button class="btnPopup"> Goal Setting </button> 
+     <p>#식비 #문화 </p> <br>
+     <p>#생활 #의류 </p> <br>
+     <p>#쇼핑 #미용 </p> <br>
+     <p>#금융 #의료 </p> 
     </div>
+ </body>
+
     <Modal 
       v-if = "showNewModal"
       @close="closeNewModal"
@@ -115,56 +102,7 @@ export default {
 }
 </script>
 
-<style>
-.main {
-        text-align: center;
-        width: 800px;
-        margin: 0 auto;
-        font-family: inherit;
-        font-size: inherit;
-        line-height: inherit;
-      }
-      .title {
-        text-align: center;
-        font-size: 2rem;
-        font-weight: bold;
-        margin-top: 60px;
-      }
-
-      subtitle {
-        text-align: center;
-        font-size: 1rem;
-        font-weight: bold;
-        margin-top: 30px;
-      }   
-
-      account {
-        text-align: center;
-        margin-top: 100px;
-      }
-     
-      #button-set, #button-input, #button-cancel {
-        width: 55px;
-        padding: 4px;
-        margin: 5px;
-        border-radius: 35px;
-        border: none;
-        color: white;
-        position: relative;
-        top: -5px;
-        left: 68%;  
-      }
-        
-      #button-set {
-        color: black
-      }
-      #button-input {
-       background-color: rgb(100, 170, 235);
-      }
-     #button-cancel {
-        background-color: rgb(255, 160, 160);
-     }
-     
+<style>    
   * {
     font-family:serif; 
   }
