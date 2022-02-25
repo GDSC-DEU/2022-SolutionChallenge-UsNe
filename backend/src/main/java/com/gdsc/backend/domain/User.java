@@ -28,7 +28,7 @@ public class User {
 
     @Schema(description = "사용자의 휴대전화번호", nullable = false)
     @Column(nullable = false)
-    int userPhoneNumber;
+    String userPhoneNumber;
 
     @Schema(description = "사용자의 이름", nullable = false)
     @Column(nullable = false,columnDefinition = "varchar(20)")
@@ -36,17 +36,16 @@ public class User {
 
     @Schema(description = "사용자의 생일", nullable = false)
     @Column(nullable = true)
-    int userBirth;
+    String userBirth;
 
     @Builder
-    public User(String userId, String userPassword, int userPhoneNumber, String userName, int userBirth){
+    public User(String userId, String userPassword, String userPhoneNumber, String userName, String userBirth){
         this.userId=userId;
         this.userPassword=userPassword;
         this.userPhoneNumber=userPhoneNumber;
         this.userName=userName;
         this.userBirth=userBirth;
     }
-
 
     public void update(UserRequest userRequest) {
         this.userPassword = userRequest.getUserPassword();
@@ -64,6 +63,4 @@ public class User {
     public boolean matchId(Long id) {
         return (id != null) && (id.equals(getUserId()));
     }
-
-
 }

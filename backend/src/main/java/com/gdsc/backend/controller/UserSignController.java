@@ -1,8 +1,15 @@
 package com.gdsc.backend.controller;
 
+import com.gdsc.backend.domain.User;
 import com.gdsc.backend.dto.request.UserRequest;
+import com.gdsc.backend.dto.response.UserResponse;
 import com.gdsc.backend.service.UserService;
-import lombok.RequiredArgsConstructor;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
@@ -10,29 +17,37 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@Tag(name = "SignUp", description = "회원가입 관련 API")
 @RestController
-@RequiredArgsConstructor
+@RequestMapping("/api")
 public class UserSignController {
     private final UserService userService;
 
-    @GetMapping("/api/signup")
+    public UserSignController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @Operation(summary = "회원가입 폼", description = "회원가입 폼 합니다.", tags = "SignUp",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "회원가입 폼 이동 성공",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserResponse.class)))
+            }
+    )
+    @PostMapping("/signup")
     public String signUp(UserRequest request) {
         return "/user/signup";
     }
 
-    @PostMapping("/api/signup")
-    public String signUpPost(@Valid @ModelAttribute UserRequest userRequest, BindingResult bindingResult) throws Exception {
-        if (bindingResult.hasErrors()) {
-            List<ObjectError> list =  bindingResult.getAllErrors();
-            for(ObjectError e : list) {
-                System.out.println(e.getDefaultMessage());
+
+    @Operation(summary = "회원가입", description = "회원가입 합니다.", tags = "SignUp",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "회원가입 성공",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserResponse.class)))
             }
-            return "error";
-        } else {
-            if (userService.joinCheck(userRequest)) {
-                userService.join(userRequest);
-            }
-        }
-        return "redirect:login";
+    )
+    @PostMapping("/signup")
+    public String signUp(User user){
+        userService.joinUser(user);
+        return "index";
     }
 }
