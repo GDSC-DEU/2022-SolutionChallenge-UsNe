@@ -29,5 +29,4 @@ public class UserSession implements HttpSessionBindingListener {
                 .userName(user.getUserName())
                 .build();
     }
-
 }

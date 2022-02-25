@@ -19,7 +19,7 @@ public class UserService {
     @Autowired
     private final UserRepository userRepository;
 
-    public boolean joinCheck(UserRequest userRequest) {
+   public boolean joinCheck(UserRequest userRequest) {
         User findUser = userRepository.findByUserId(userRequest.getUserId());
         User findPhoneNumber = userRepository.findByUserPhoneNumber(userRequest.getUserPhoneNumber());
 

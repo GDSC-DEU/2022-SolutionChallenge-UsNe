@@ -25,6 +25,4 @@ public class LoginRequest {
         this.userId=userId;
         this.userPassword=userPassword;
     }
-
-
 }
