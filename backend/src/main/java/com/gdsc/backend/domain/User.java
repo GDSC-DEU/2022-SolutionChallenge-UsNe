@@ -47,6 +47,14 @@ public class User {
         this.userBirth=userBirth;
     }
 
+    public User(UserRequest userRequest){
+        this.userId=userRequest.getUserId();
+        this.userPassword=userRequest.getUserPassword();
+        this.userPhoneNumber=userRequest.getUserPhoneNumber();
+        this.userName=userRequest.getUserName();
+        this.userBirth=userRequest.getUserBirth();
+    }
+
     public void update(UserRequest userRequest) {
         this.userPassword = userRequest.getUserPassword();
         this.userPhoneNumber = userRequest.getUserPhoneNumber();
