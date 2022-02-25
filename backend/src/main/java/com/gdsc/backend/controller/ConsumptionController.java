@@ -87,6 +87,7 @@ public class ConsumptionController {
         Consumption updation= consumptionManagementService.update(index, consumptionRequest, httpSession.getAttribute("user_id").toString());
         return new ResponseEntity<>(updation, HttpStatus.OK);
     }
+
     @Operation(summary = "소비 삭제", description = "소비를 삭제합니다.", tags = "consumption",
             responses = {
                     @ApiResponse(responseCode = "200", description = "소비 삭제 성공",
