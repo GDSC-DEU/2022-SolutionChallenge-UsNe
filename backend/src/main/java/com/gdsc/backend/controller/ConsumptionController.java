@@ -24,6 +24,8 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
+import static com.gdsc.backend.service.UserSession.USER_SESSION_KEY;
+
 @Tag(name = "consumption", description = "소비 관련 API")
 @RestController
 @RequestMapping("/api/consumptions")
@@ -43,7 +45,7 @@ public class ConsumptionController {
     )
     @PostMapping
     public ResponseEntity<Consumption> createConsumption(@RequestBody ConsumptionRequest consumptionRequest, HttpSession httpSession){
-        Consumption creation= consumptionManagementService.save(consumptionRequest,httpSession.getAttribute("user_id").toString());
+        Consumption creation= consumptionManagementService.save(consumptionRequest, httpSession.getAttribute("user_id").toString());
         return new ResponseEntity<Consumption>(creation, HttpStatus.CREATED);
     }
 
@@ -54,8 +56,8 @@ public class ConsumptionController {
             }
     )
     @GetMapping
-    public ResponseEntity<List<Consumption>> showConsumptionList(final Pageable pageable){
-        List<Consumption> consumptions= consumptionManagementService.showConsumptionsByPage(pageable);
+    public ResponseEntity<List<Consumption>> showConsumptionList(final Pageable pageable,HttpSession httpSession){
+        List<Consumption> consumptions= consumptionManagementService.showConsumptionsByPage(pageable, httpSession.getAttribute("user_id").toString());
         return new ResponseEntity<List<Consumption>>(consumptions, HttpStatus.OK);
     }
 
@@ -67,8 +69,8 @@ public class ConsumptionController {
     )
     @GetMapping("/{index}")
     public ResponseEntity<ConsumptionResponse> showConsumptionByIndex(@Parameter(name = "index", in = ParameterIn.PATH, description = "조회할 소비의 인덱스")
-                                                                          @PathVariable("index")Long index,HttpSession httpSession){
-        ConsumptionResponse consumptionResponse= consumptionManagementService.showByIndex(index,httpSession.getAttribute("user_id").toString());
+                                                                          @PathVariable("index")Long index, HttpSession httpSession){
+        ConsumptionResponse consumptionResponse= consumptionManagementService.showByIndex(index, httpSession.getAttribute("user_id").toString());
         return new ResponseEntity<ConsumptionResponse>(consumptionResponse, HttpStatus.OK);
     }
 
@@ -80,8 +82,9 @@ public class ConsumptionController {
     )
     @PutMapping("/{index}")
     public ResponseEntity<?> updateConsumption(@Parameter(name = "index", in = ParameterIn.PATH, description = "수정할 소비의 인덱스")
-                                                   @PathVariable("index")Long index, @RequestBody ConsumptionRequest consumptionRequest){
-        Consumption updation= consumptionManagementService.update(index, consumptionRequest);
+                                                   @PathVariable("index")Long index, @RequestBody ConsumptionRequest consumptionRequest,
+                                               HttpSession httpSession){
+        Consumption updation= consumptionManagementService.update(index, consumptionRequest, httpSession.getAttribute("user_id").toString());
         return new ResponseEntity<>(updation, HttpStatus.OK);
     }
 
@@ -93,9 +96,9 @@ public class ConsumptionController {
     )
     @DeleteMapping("/{index}")
     public ResponseEntity deleteConsumption(@Parameter(name = "index", in = ParameterIn.PATH, description = "삭제할 소비의 인덱스")
-                                                @PathVariable("index")Long index){
-        consumptionManagementService.delete(index);
-        return new ResponseEntity<>("{}",HttpStatus.NO_CONTENT);
+                                                @PathVariable("index")Long index,HttpSession httpSession){
+        consumptionManagementService.delete(index, httpSession.getAttribute("user_id").toString());
+        return new ResponseEntity<>("{}", HttpStatus.NO_CONTENT);
     }
 
 }

@@ -52,7 +52,7 @@ public class LoginController {
         UserSession userSession = loginService.login(loginRequest);
 
         if(userSession == null) {
-            httpSession.setAttribute(USER_SESSION_KEY, null);
+            httpSession.setAttribute("user_id", null);
         } else {
             httpSession.setAttribute("user_id", loginRequest.getUserId());
         }
@@ -67,8 +67,8 @@ public class LoginController {
             }
     )
     @PostMapping("/logout")
-    public ResponseEntity logout(@LoginUser UserSession userSession, HttpSession httpSession) {
-        loginService.logout(userSession.getUserId());
+    public ResponseEntity logout(HttpSession httpSession) {
+        loginService.logout(httpSession.getAttribute("user_id").toString());
         httpSession.invalidate();
         return new ResponseEntity<>("{}",HttpStatus.OK);
     }

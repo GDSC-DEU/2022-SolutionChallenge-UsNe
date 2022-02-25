@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-
 @Service
 @Transactional
 public class LoginService {
@@ -32,6 +31,7 @@ public class LoginService {
     public void logout(final String userId) {
         User user = userService.findById(userId);
     }
+
 
 
 }
