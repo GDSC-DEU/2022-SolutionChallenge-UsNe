@@ -1,19 +1,19 @@
 <template>
-  <div>
+  <div class="home"> 
     <nav>
       <router-link to="/" class="navLogo"> UsNe </router-link>
       <ul>
         <li>
-          <router-link to="/accountbook"> Account Book </router-link>
+          <router-link to="/accountbook" class="navitem"> Account Book </router-link>
         </li>
         <li>
-          <router-link to="/data"> Data </router-link>
+          <router-link to="/data" class="navitem"> Data </router-link>
         </li>
         <li>
-          <router-link to="/community"> Community </router-link>
+          <router-link to="/community" class="navitem"> Community </router-link>
         </li>
         <li>
-          <router-link to="/preferences"> Preferences </router-link>
+          <router-link to="/preferences" class="navitem"> Preferences </router-link>
         </li>
       </ul>
     </nav>
@@ -25,35 +25,36 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 export default {
 }
 </script>
 
-<style>
+<style scoped>
+  .navLogo, .navitem {
+    text-decoration-line: none;
+    color: white;
+  }
+  .navLogo {
+    padding-top: 8px;
+  }
   .routerView{
     width: 100%;
-    position: absolute;
-    top: 20%;
   }
-
   nav {
     width: 100%;
     height: 50px;
+    margin-top: 50px;
+    padding: 10px 50px;
+    background-color: rgba(0, 0, 0, 0.7);
   }
-  .navLogo {
-    position: relative;
-    top: 50px;
-    left: 10%;
+  .navLogo, ul li {
+    float: left;
     font-size: 35px;
   }
   ul li {
     margin-left: 60px;
-    position: relative;
-    top: 3px;
-    left: 25%;
     list-style-type: none;
-    float: left;
     font-size: 20px;
   }
 </style>
