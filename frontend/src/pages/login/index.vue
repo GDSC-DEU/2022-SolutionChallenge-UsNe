@@ -20,7 +20,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .loginBar {
     width: 400px;
     height: 225px;

@@ -1,47 +1,80 @@
 <template>
-   <div>
-    <div class="signupBar">
-      <div class="signup">
-        <div class="item1"> [ 회원가입 ] </div>
-        <div class="items"> 회원 ID : </div>
-        <div class="inputitems"><input type="text"></div>
-        <div class="items"> 비밀번호 : </div>
-        <div class="inputitems"><input type="password"></div>
-        <div class="items"> 비밀번호 확인 : </div>
-        <div class="inputitems"><input type="password"></div>
-        <div class="items"> 이름 : </div>
-        <div class="inputitems"><input type="text"></div>
-        <div class="items"> 성별 : </div>
-        <div class="inputgender">
-          <label class="gender">
-            <input type="radio" name="gender" value="man">
-            <span style="font-size: 13px">남자</span>
-          </label>
-          <label class="gender">
-            <input type="radio" name="gender" value="woman">
-            <span style="font-size: 13px">여자</span>
-          </label>
+  <div>
+    <form @submit.prevent="submitSignup" class="signupform">
+      <div class="signupgrid">
+        <h2 id="signuphead">회원가입</h2>
+        <label for="username"> 회원 ID : </label>
+        <div>
+          <input type="text" id="username" v-model="username"/>
         </div>
-        <div class="items"> 휴대전화 : </div>
-        <div class="inputitems"><input type="tel"></div>
-        <div class="items"> 이메일 : </div>
-        <div class="inputitems"><input type="email"></div>
-        <div class="item1">
-        <input type="button" value="Sign Up" id="onsignup">
+        <label for="password"> 비밀번호 : </label>
+        <div>
+          <input type="password" id="password" v-model="password"/>
+        </div>
+        <label for="checkPassword"> 비밀번호 확인 : </label>
+        <div>
+          <input type="password" id="checkPassword" v-model="checkPassword"/>
+        </div>
+        <label for="nickname"> 닉네임 : </label>
+        <div>
+          <input type="text" id="nickname" v-model="nickname"/>
+        </div>
+        <label for="phonenumber"> 전화번호 : </label>
+        <div>
+          <input type="tel" id="phonenumber" v-model="phonenumber"/>
+        </div>
+        <label for="birth"> 생년월일 : </label>
+        <div>
+          <input type="date" id="birth" v-model="birth"/>
+        </div>
       </div>
-      </div>
-    </div>
+      <input type="submit" value="Sign Up" id="signupbutton">
+    </form>
   </div>
 </template>
 
 <script>
+import { registerUser } from "@/api/index.js";
 export default {
-  
+  methods: {
+    async submitSignup() {
+      console.log("submitSignup가 실행됨")
+      const userData = {
+        username: this.username,
+        password: this.password,
+        checkPassword: this.checkPassword,
+        nickname: this.nickname,
+        phonenumber: this.phonenumber,
+        birth: this.birth,
+      };
+      const { data } = await registerUser(userData);
+      console.log(data)
+      this.initForm();
+    },
+    initForm() {
+      this.username = "";
+      this.password = "";
+      this.checkPassword = "";
+      this.nickname = "";
+      this.phonenumber = "";
+      this.birth = "";
+    }
+  },
+  data() {
+    return {
+      username: "",
+      password: "",
+      checkPassword: "",
+      nickname: "",
+      phonenumber: "",
+      birth: "",
+    };
+  },
 }
 </script>
 
 <style scoped>
-  #onsignup {
+  #signupbutton {
     width: 114px;
     height: 45px;
     border: none;
@@ -51,39 +84,27 @@ export default {
     font-size: 15px;
     box-shadow:0 2px 5px rgba(0, 0, 0, 0.5)
   }
-  #onsignup:hover, #onsignup:checked {
+  #signupbutton:hover {
     box-shadow:0 2px 5px rgba(0, 0, 0, 0.5) inset;
   }
-  .inputgender {
-    padding: 5px 15px 10px 28px;
+  .signupgrid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50px;
+    text-align: center;
   }
-  .item1 {
+  .signupgrid > div,  .signupgrid > label {
+    line-height: 50px;
+  }
+  #signuphead {
     grid-column-start: 1;
     grid-column-end: 3;
     text-align: center;
-    padding-top: 10px;
-    font-size: 18px;
   }
-  .inputitems {
-    text-align: center;
-    width: 60%;
-    padding: 2px 5px;
-  }
-  .items {
-    padding: 15px;
-    padding-left: 28px;
-    font-size: 14px;
-  }
-  .signup {
-    display: grid;
-    grid-template-columns: 40% 60%;
-    grid-template-rows: 60px;
-    margin: 10px;
-  }
-  .signupBar {
-    width: 380px;
+  .signupform {
+    width: 350px;
     height: auto;
-    padding: 10px;
+    padding: 15px;
     border-radius: 43px;
     background-color: rgb(232, 232, 232);
     position: fixed;
