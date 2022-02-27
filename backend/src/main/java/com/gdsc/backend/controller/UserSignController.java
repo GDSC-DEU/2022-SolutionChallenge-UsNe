@@ -27,17 +27,6 @@ public class UserSignController {
         this.userService = userService;
     }
 
-   /* @Operation(summary = "회원가입 폼", description = "회원가입 폼 합니다.", tags = "SignUp",
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "회원가입 폼 이동 성공",
-                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserResponse.class)))
-            }
-    )
-    @GetMapping("/signup")
-    public String signUpForm(UserRequest request) {
-        return "/user/signup";
-    }*/
-
     @Operation(summary = "회원가입", description = "회원가입 합니다.", tags = "SignUp",
             responses = {
                     @ApiResponse(responseCode = "201", description = "회원가입 성공",
@@ -45,7 +34,7 @@ public class UserSignController {
             }
     )
     @PostMapping("/signup")
-    public String signUp(@RequestBody UserRequest userRequest){
+    public String signUp(@Valid @RequestBody UserRequest userRequest){
         userService.joinUser(userRequest);
         return "/user/signup";
     }

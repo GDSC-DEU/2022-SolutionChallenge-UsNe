@@ -19,10 +19,14 @@ public class UserRequest {
     @Schema(description = "사용자의 아이디", nullable = false, example = "ujeong1009")
     @NotBlank(message = "아이디를 입력하세요!")
     @Size(max = 10, message = "10자 이하로 입력하세요!")
+    //@Pattern(regexp = "(?=\\w)[\\w]{1,10}$") -> 숫자 또는 문자
+    @Pattern(regexp = "(?=.*[a-zA-Z])(?=.*[\\d])[a-zA-Z\\d]{1,10}$", message = "아이디 조건을 만족해주세요!")
     private String userId;
 
     @Schema(description = "사용자의 비밀번호", nullable = false, example = "asdf1234")
     @NotBlank(message = "비밀번호를 입력하세요!")
+    @Pattern(regexp = "(?=.*[a-zA-Z])(?=.*[\\d])(?=.*[~!@#$%^&*])[a-zA-Z\\d~!@#$%^&*]{8,20}$", message = "비밀번호 조건을 만족해주세요!")
+    //@Pattern(regexp = "([\\d])\\1\\1\\1", message = "연속된 숫자는 사용할 수 없습니다.")
     @Size(min = 8, max = 20, message = "8자~20자 입력하세요!")
     private String userPassword;
 
@@ -36,7 +40,7 @@ public class UserRequest {
     private String userName;
 
     @Schema(description = "사용자의 생일", nullable = true, example = "2000.12.24")
-    @Pattern(regexp = "^((19|20)\\d\\d)?([.])?(0[1-9]|1[012])([.])?(0[1-9]|[12][0-9]|3[01])$\n", message = "올바른 생년월일을 입력해주세요. (ex) xxxx.xx.xx)")
+    @Pattern(regexp = "((19|20)\\d{2}).?(0[1-9]|1[0-2]).?(0[1-9]|[1-2][0-9]|3[0-1])$", message = "올바른 생년월일을 입력해주세요. (ex) xxxx.xx.xx)")
     private String userBirth;
 
     @Builder
