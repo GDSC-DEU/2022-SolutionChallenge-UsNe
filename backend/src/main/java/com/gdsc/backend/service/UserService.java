@@ -41,7 +41,7 @@ public class UserService {
     }
 
     public boolean samePwd(UserRequest userRequest) {
-        final String p1 = "(\\w)\\1\\1";
+        final String p1 = "(\\w)\\1\\1\\1";
         String pwd = userRequest.getUserPassword();
 
         Matcher match = Pattern.compile(p1).matcher(pwd);
