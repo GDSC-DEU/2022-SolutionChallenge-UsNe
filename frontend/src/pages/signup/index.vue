@@ -9,23 +9,23 @@
         </div>
         <label for="password"> 비밀번호 : </label>
         <div>
-          <input type="password" id="password" v-model="password"/>
+          <input type="text" id="password" v-model="password"/>
         </div>
-        <label for="checkPassword"> 비밀번호 확인 : </label>
+        <!-- <label for="checkPassword"> 비밀번호 확인 : </label>
         <div>
-          <input type="password" id="checkPassword" v-model="checkPassword"/>
-        </div>
+          <input type="text" id="checkPassword" v-model="checkPassword"/>
+        </div> -->
         <label for="nickname"> 닉네임 : </label>
         <div>
           <input type="text" id="nickname" v-model="nickname"/>
         </div>
         <label for="phonenumber"> 전화번호 : </label>
         <div>
-          <input type="tel" id="phonenumber" v-model="phonenumber"/>
+          <input type="text" id="phonenumber" v-model="phonenumber"/>
         </div>
         <label for="birth"> 생년월일 : </label>
         <div>
-          <input type="date" id="birth" v-model="birth"/>
+          <input type="text" id="birth" v-model="birth"/>
         </div>
       </div>
       <input type="submit" value="Sign Up" id="signupbutton">
