@@ -18,6 +18,9 @@ import javax.validation.Valid;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 
 @Service
 @RequiredArgsConstructor
@@ -37,19 +40,18 @@ public class UserService {
         }
     }
 
+    public boolean samePwd(UserRequest userRequest) {
+        final String p1 = "(\\w)\\1\\1";
+        String pwd = userRequest.getUserPassword();
+
+        Matcher match = Pattern.compile(p1).matcher(pwd);
+
+        return match.find() ? false : true;
+    }
+
     public String joinUser(UserRequest userRequest) {
-//        if (bindingResult.hasErrors()) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
-//        }
-//
-//        /*
-//        	save Memeber
-//        */
-//
-//        return .ok(userRequest.getUserId());
 
-        if (joinCheck(userRequest)) {
-
+        if (joinCheck(userRequest) && samePwd(userRequest)) {
             User user = new User(userRequest);
             userRepository.save(user);
             return userRequest.getUserId();

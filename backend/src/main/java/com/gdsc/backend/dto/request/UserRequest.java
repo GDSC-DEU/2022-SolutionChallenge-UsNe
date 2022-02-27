@@ -26,6 +26,7 @@ public class UserRequest {
     @Schema(description = "사용자의 비밀번호", nullable = false, example = "asdf1234")
     @NotBlank(message = "비밀번호를 입력하세요!")
     @Pattern(regexp = "(?=.*[a-zA-Z])(?=.*[\\d])(?=.*[~!@#$%^&*])[a-zA-Z\\d~!@#$%^&*]{8,20}$", message = "비밀번호 조건을 만족해주세요!")
+    //@Pattern(regexp = "([\\d])\\1\\1\\1", message = "연속된 숫자는 사용할 수 없습니다.")
     @Size(min = 8, max = 20, message = "8자~20자 입력하세요!")
     private String userPassword;
 
