@@ -5,11 +5,11 @@
     <table id="accountBook">
       <thead>
         <tr>
-          <th>Date</th>
-          <th>Description</th>
-          <th>tag</th>
-          <th>Amount</th>
-          <th>Total</th>
+          <th class="th-1">Date</th>
+          <th class="th-2">Description</th>
+          <th class="th-3">tag</th>
+          <th class="th-4">Amount</th>
+          <th class="th-5">Total</th>
         </tr>
       </thead>
       <tbody>
@@ -102,12 +102,12 @@ export default {
 }
 </script>
 
-<style>    
-  * {
-    font-family:serif; 
+<style scoped>
+  .th-1 {
+    width: 14%
   }
-  h2 {
-    color: rgb(46, 46, 139);
+  .th-3 {
+    width: 19%;
   }
   #new, #delete {
     width: 55px;

@@ -1,8 +1,10 @@
 <template>
   <div class="home"> 
     <nav>
-      <router-link to="/" class="navLogo"> UsNe </router-link>
       <ul>
+        <li>
+          <router-link to="/" class="navLogo"> USNE </router-link>
+        </li>
         <li>
           <router-link to="/accountbook" class="navitem"> Account Book </router-link>
         </li>
@@ -30,31 +32,41 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+  * {
+    font-family:serif; 
+  }
   .navLogo, .navitem {
     text-decoration-line: none;
-    color: white;
+    color: rgb(189, 189, 189);
   }
-  .navLogo {
-    padding-top: 8px;
+  .navitem:hover {
+    color: white;
   }
   .routerView{
     width: 100%;
+    margin-top: 60px;
   }
   nav {
-    width: 100%;
-    height: 50px;
     margin-top: 50px;
-    padding: 10px 50px;
-    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
   }
-  .navLogo, ul li {
-    float: left;
-    font-size: 35px;
+  .navLogo {
+    font-size: 30px;
+    color: white;
   }
   ul li {
-    margin-left: 60px;
+    text-align: center;
     list-style-type: none;
-    font-size: 20px;
+    font-size: 18px;
+    float: left;
+  }
+  ul {
+    display: inline-grid;
+    grid-template-columns: 300px 1fr 1fr 1fr 1fr 300px;
+    align-items: center;
+    width: 100%;
+    padding: 0px;
   }
 </style>
