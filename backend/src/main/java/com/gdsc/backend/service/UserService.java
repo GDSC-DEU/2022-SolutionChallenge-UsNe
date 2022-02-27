@@ -9,9 +9,12 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -35,10 +38,18 @@ public class UserService {
     }
 
     public String joinUser(UserRequest userRequest) {
-        User findUser = userRepository.findByUserId(userRequest.getUserId());
-        User findPhoneNumber = userRepository.findByUserPhoneNumber(userRequest.getUserPhoneNumber());
+//        if (bindingResult.hasErrors()) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
+//        }
+//
+//        /*
+//        	save Memeber
+//        */
+//
+//        return .ok(userRequest.getUserId());
 
-        if (findUser == null && findPhoneNumber == null) {
+        if (joinCheck(userRequest)) {
+
             User user = new User(userRequest);
             userRepository.save(user);
             return userRequest.getUserId();
