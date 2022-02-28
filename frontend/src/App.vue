@@ -64,7 +64,7 @@ export default {
   }
   ul {
     display: inline-grid;
-    grid-template-columns: 350px 1fr 1fr 1fr 1fr 300px;
+    grid-template-columns: 5fr 2fr 2fr 2fr 2fr 4fr;
     align-items: center;
     width: 100%;
     padding: 0px;

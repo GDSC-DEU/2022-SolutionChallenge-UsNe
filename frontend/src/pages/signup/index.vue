@@ -23,8 +23,10 @@
         <div>
           <input type="date" id="userBirth" v-model="userBirth"/>
         </div>
+        <div class="signupbutton">
+          <input type="submit" value="Sign Up" id="signupbutton" @click="submitSignup">
+        </div>
       </div>
-      <input type="submit" value="Sign Up" id="signupbutton">
     </form>
   </div>
 </template>
@@ -66,8 +68,18 @@ export default {
 </script>
 
 <style scoped>
+  .signupgrid {
+    display: grid;
+    grid-template-columns: 42% 58%;
+    grid-template-rows: 70px 50px 50px 50px 50px 50px 80px;
+    text-align: center;
+    align-items: center;
+  }
+  .signupbutton {
+    grid-column: 1/3;
+  }
   #signupbutton {
-    width: 114px;
+    width: 115px;
     height: 45px;
     border: none;
     background-color: #6b6b6b;
@@ -79,30 +91,29 @@ export default {
   #signupbutton:hover {
     box-shadow:0 2px 5px rgba(0, 0, 0, 0.5) inset;
   }
-  .signupgrid {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: 50px;
-    text-align: center;
-  }
   .signupgrid > div,  .signupgrid > label {
     line-height: 50px;
   }
+  div > input {
+    border: none;
+    border-radius: 2px;
+    height: 16px;
+    padding: 5px;
+  }
   #signuphead {
-    grid-column-start: 1;
-    grid-column-end: 3;
+    grid-column: 1/3;
     text-align: center;
   }
   .signupform {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 350px;
     height: auto;
     padding: 15px;
     border-radius: 43px;
     background-color: rgb(232, 232, 232);
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     box-shadow:0 5px 10px rgba(0, 0, 0, 0.5)
   }
 </style>
