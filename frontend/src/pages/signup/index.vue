@@ -3,29 +3,25 @@
     <form @submit.prevent="submitSignup" class="signupform">
       <div class="signupgrid">
         <h2 id="signuphead">회원가입</h2>
-        <label for="username"> 회원 ID : </label>
+        <label for="userId"> 회원 ID : </label>
         <div>
-          <input type="text" id="username" v-model="username"/>
+          <input type="text" id="userId" v-model="userId"/>
         </div>
-        <label for="password"> 비밀번호 : </label>
+        <label for="userPassword"> 비밀번호 : </label>
         <div>
-          <input type="text" id="password" v-model="password"/>
+          <input type="password" id="userPassword" v-model="userPassword"/>
         </div>
-        <!-- <label for="checkPassword"> 비밀번호 확인 : </label>
+        <label for="userName"> 이름 : </label>
         <div>
-          <input type="text" id="checkPassword" v-model="checkPassword"/>
-        </div> -->
-        <label for="nickname"> 닉네임 : </label>
-        <div>
-          <input type="text" id="nickname" v-model="nickname"/>
+          <input type="text" id="userName" v-model="userName"/>
         </div>
-        <label for="phonenumber"> 전화번호 : </label>
+        <label for="userPhoneNumber"> 전화번호 : </label>
         <div>
-          <input type="text" id="phonenumber" v-model="phonenumber"/>
+          <input type="text" id="userPhoneNumber" v-model="userPhoneNumber"/>
         </div>
-        <label for="birth"> 생년월일 : </label>
+        <label for="userBirth"> 생년월일 : </label>
         <div>
-          <input type="text" id="birth" v-model="birth"/>
+          <input type="date" id="userBirth" v-model="userBirth"/>
         </div>
       </div>
       <input type="submit" value="Sign Up" id="signupbutton">
@@ -34,41 +30,37 @@
 </template>
 
 <script>
-import { registerUser } from "@/api/index.js";
+import { registerUser } from "@/api/index";
 export default {
+  data() {
+    return {
+      userId: "",
+      userPassword: "",
+      userName: "",
+      userPhoneNumber: "",
+      userBirth: "",
+    };
+  },
   methods: {
     async submitSignup() {
-      console.log("submitSignup가 실행됨")
       const userData = {
-        username: this.username,
-        password: this.password,
-        checkPassword: this.checkPassword,
-        nickname: this.nickname,
-        phonenumber: this.phonenumber,
-        birth: this.birth,
+        userId: this.userId,
+        userPassword: this.userPassword,
+        userName: this.userName,
+        userPhoneNumber: this.userPhoneNumber,
+        userBirth: this.userBirth,
       };
       const { data } = await registerUser(userData);
       console.log(data)
       this.initForm();
     },
     initForm() {
-      this.username = "";
-      this.password = "";
-      this.checkPassword = "";
-      this.nickname = "";
-      this.phonenumber = "";
-      this.birth = "";
+      this.userId = "";
+      this.userPassword = "";
+      this.userName = "";
+      this.userPhoneNumber = "";
+      this.userBirth = "";
     }
-  },
-  data() {
-    return {
-      username: "",
-      password: "",
-      checkPassword: "",
-      nickname: "",
-      phonenumber: "",
-      birth: "",
-    };
   },
 }
 </script>
