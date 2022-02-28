@@ -3,79 +3,83 @@
     <form @submit.prevent="submitSignup" class="signupform">
       <div class="signupgrid">
         <h2 id="signuphead">회원가입</h2>
-        <label for="username"> 회원 ID : </label>
+        <label for="userId"> 회원 ID : </label>
         <div>
-          <input type="text" id="username" v-model="username"/>
+          <input type="text" id="userId" v-model="userId"/>
         </div>
-        <label for="password"> 비밀번호 : </label>
+        <label for="userPassword"> 비밀번호 : </label>
         <div>
-          <input type="text" id="password" v-model="password"/>
+          <input type="password" id="userPassword" v-model="userPassword"/>
         </div>
-        <!-- <label for="checkPassword"> 비밀번호 확인 : </label>
+        <label for="userName"> 이름 : </label>
         <div>
-          <input type="text" id="checkPassword" v-model="checkPassword"/>
-        </div> -->
-        <label for="nickname"> 닉네임 : </label>
-        <div>
-          <input type="text" id="nickname" v-model="nickname"/>
+          <input type="text" id="userName" v-model="userName"/>
         </div>
-        <label for="phonenumber"> 전화번호 : </label>
+        <label for="userPhoneNumber"> 전화번호 : </label>
         <div>
-          <input type="text" id="phonenumber" v-model="phonenumber"/>
+          <input type="text" id="userPhoneNumber" v-model="userPhoneNumber"/>
         </div>
-        <label for="birth"> 생년월일 : </label>
+        <label for="userBirth"> 생년월일 : </label>
         <div>
-          <input type="text" id="birth" v-model="birth"/>
+          <input type="date" id="userBirth" v-model="userBirth"/>
+        </div>
+        <div class="signupbutton">
+          <input type="submit" value="Sign Up" id="signupbutton" @click="submitSignup">
         </div>
       </div>
-      <input type="submit" value="Sign Up" id="signupbutton">
     </form>
   </div>
 </template>
 
 <script>
-import { registerUser } from "@/api/index.js";
+import { registerUser } from "@/api/index";
 export default {
+  data() {
+    return {
+      userId: "",
+      userPassword: "",
+      userName: "",
+      userPhoneNumber: "",
+      userBirth: "",
+    };
+  },
   methods: {
     async submitSignup() {
-      console.log("submitSignup가 실행됨")
       const userData = {
-        username: this.username,
-        password: this.password,
-        checkPassword: this.checkPassword,
-        nickname: this.nickname,
-        phonenumber: this.phonenumber,
-        birth: this.birth,
+        userId: this.userId,
+        userPassword: this.userPassword,
+        userName: this.userName,
+        userPhoneNumber: this.userPhoneNumber,
+        userBirth: this.userBirth,
       };
       const { data } = await registerUser(userData);
       console.log(data)
       this.initForm();
     },
     initForm() {
-      this.username = "";
-      this.password = "";
-      this.checkPassword = "";
-      this.nickname = "";
-      this.phonenumber = "";
-      this.birth = "";
+      this.userId = "";
+      this.userPassword = "";
+      this.userName = "";
+      this.userPhoneNumber = "";
+      this.userBirth = "";
     }
-  },
-  data() {
-    return {
-      username: "",
-      password: "",
-      checkPassword: "",
-      nickname: "",
-      phonenumber: "",
-      birth: "",
-    };
   },
 }
 </script>
 
 <style scoped>
+  .signupgrid {
+    display: grid;
+    grid-template-columns: 42% 58%;
+    grid-template-rows: 70px 50px 50px 50px 50px 50px 80px;
+    text-align: center;
+    align-items: center;
+  }
+  .signupbutton {
+    grid-column: 1/3;
+  }
   #signupbutton {
-    width: 114px;
+    width: 115px;
     height: 45px;
     border: none;
     background-color: #6b6b6b;
@@ -87,30 +91,29 @@ export default {
   #signupbutton:hover {
     box-shadow:0 2px 5px rgba(0, 0, 0, 0.5) inset;
   }
-  .signupgrid {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: 50px;
-    text-align: center;
-  }
   .signupgrid > div,  .signupgrid > label {
     line-height: 50px;
   }
+  div > input {
+    border: none;
+    border-radius: 2px;
+    height: 16px;
+    padding: 5px;
+  }
   #signuphead {
-    grid-column-start: 1;
-    grid-column-end: 3;
+    grid-column: 1/3;
     text-align: center;
   }
   .signupform {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 350px;
     height: auto;
     padding: 15px;
     border-radius: 43px;
     background-color: rgb(232, 232, 232);
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     box-shadow:0 5px 10px rgba(0, 0, 0, 0.5)
   }
 </style>
