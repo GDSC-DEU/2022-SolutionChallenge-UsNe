@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class UserRequest {
     @Schema(description = "사용자의 아이디", nullable = false, example = "ujeong1009")
     @NotBlank(message = "아이디를 입력하세요!")
-    @Size(max = 10, message = "10자 이하로 입력하세요!")
+    @Size(max = 15, message = "15자 이하로 입력하세요!")
     @Pattern(regexp = "(?=\\w)[\\w]{1,10}$")
     private String userId;
 
