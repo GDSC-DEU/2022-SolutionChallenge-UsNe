@@ -8,6 +8,9 @@ function registerUser(userData) {
 function loginUser(userData) {
   return axios.post(`${url}/login`, userData);
 }
+function consumptions(userData) {
+  return axios.post(`${url}/consumptions`, userData);
+} 
 
 
-export { registerUser, loginUser };
+export { registerUser, loginUser, consumptions };

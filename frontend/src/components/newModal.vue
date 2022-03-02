@@ -13,42 +13,58 @@
                 <div>
                     소비 내용 <br>
                     <hr>
-                    <input type="text" v-model="description" id="description">
+                    <input type="text" v-model="content" id="content">
                     <br><br>
                 </div>
                 <div>
                     소비 용도 <br>
                     <hr>
                     <label class="inputTag">
-                        <input type="radio" v-model="useTag" name="useTag" value="식비">
+                        <input type="radio" v-model="useType" name="useType" value="식비" key="FOOD">
                         <span>식비</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="useTag" name="useTag" value="교통비">
+                        <input type="radio" v-model="useType" name="useType" value="뷰티" key="BEAUTY">
+                        <span>뷰티</span>
+                    </label>
+                    <label class="inputTag">
+                        <input type="radio" v-model="useType" name="useType" value="의류비" key="CLOTHES">
+                        <span>의류비</span>
+                    </label>
+                    <label class="inputTag">
+                        <input type="radio" v-model="useType" name="useType" value="교육비" key="EDUCATION">
+                        <span>교육비</span>
+                    </label>
+                    <label class="inputTag">
+                        <input type="radio" v-model="useType" name="useType" value="교통비" key="TRAFFIC">
                         <span>교통비</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="useTag" name="useTag" value="생활비">
+                        <input type="radio" v-model="useType" name="useType" value="생활비" key="LIFE">
                         <span>생활비</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="useTag" name="useTag" value="문화활동">
+                        <input type="radio" v-model="useType" name="useType" value="문화활동" key="CULTURE">
                         <span>문화활동</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="useTag" name="useTag" value="용돈">
+                        <input type="radio" v-model="useType" name="useType" value="병원비" key="MADECALTREATMENT">
+                        <span>병원비</span>
+                    </label>
+                    <!--<label class="inputTag">
+                        <input type="radio" v-model="useType" name="useType" value="용돈" >
                         <span>용돈</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="useTag" name="useTag" value="월급">
+                        <input type="radio" v-model="useType" name="useType" value="월급">
                         <span>월급</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="useTag" name="useTag" value="장학금">
+                        <input type="radio" v-model="useType" name="useType" value="장학금">
                         <span>장학금</span>
-                    </label>
+                    </label> -->
                     <label class="inputTag">
-                        <input type="radio" v-model="useTag" name="useTag" value="기타">
+                        <input type="radio" v-model="useType" name="useType" value="기타" key="ETC">
                         <span>기타</span>
                     </label>
                     <br><br>
@@ -57,23 +73,23 @@
                     사용 수단 <br>
                     <hr>
                     <label class="inputTag">
-                        <input type="radio" v-model="toolTag" name="toolTag" value="카드">
+                        <input type="radio" v-model="payType" name="payType" value="카드" key="CARD">
                         <span>카드</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="toolTag" name="toolTag" value="현금" >
+                        <input type="radio" v-model="payType" name="payType" value="현금" key="CASH">
                         <span>현금</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="toolTag" name="toolTag" value="계좌이체">
+                        <input type="radio" v-model="payType" name="payType" value="계좌이체" key="ACCOUNTTRANSFER">
                         <span>계좌이체</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="toolTag" name="toolTag" value="상품권">
+                        <input type="radio" v-model="payType" name="payType" value="기프트카드" key="GIFTCARD">
                         <span>상품권</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="toolTag" name="toolTag" value="기타">
+                        <input type="radio" v-model="payType" name="payType" value="기타">
                         <span>기타</span>
                     </label>
                     <br><br>
@@ -82,11 +98,11 @@
                     수입/지출 <br>
                     <hr>
                     <label class="inputTag">
-                        <input type="radio" v-model="inoutTag" name="inoutTag" value="수입">
+                        <input type="radio" v-model="dwType" name="dwType" value="수입" key="DEPOSIT">
                         <span>수입</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="inoutTag" name="inoutTag" value="지출">
+                        <input type="radio" v-model="dwType" name="dwType" value="지출" key="WITHDRAW">
                         <span>지출</span>
                     </label>
                     <br><br>
@@ -94,13 +110,13 @@
                 <div>
                     금액 <br>
                     <hr>
-                    <input type="number" v-model="amount" id="money"> 원
+                    <input type="number" v-model="cost" id="money"> 원
                     <br><br>
                 </div>
                 <div>
                     날짜 <br>
                     <hr>
-                    <input type="date" v-model="date" id="date">
+                    <input type="date" v-model="consumptionDatetime" id="consumptionDatetime">
                     <br><br>
                 </div>
                 <div class="end">
@@ -120,25 +136,23 @@
 export default {
     methods: {
         onSubmit() {
-            if(this.description === undefined || 
-            this.useTag === undefined || 
-            this.toolTag === undefined ||
-            this.inoutTag === undefined ||
-            this.amount === undefined ||
-            this.date === undefined) 
+            if(this.content === undefined || 
+            this.useType === undefined || 
+            this.payType === undefined ||
+            this.dwType === undefined ||
+            this.cost === undefined ||
+            this.consumptionDatetime === undefined) 
             { 
                 this.hasError = true;
             }
             else{
                 this.$emit('insert', {
-                    date: this.date,
-                    description: this.description,
-                    tag: {
-                        useTag: this.useTag,
-                        toolTag:this.toolTag,
-                        inoutTag: this.inoutTag 
-                    },
-                    amount: this.amount,
+                    consumptionDatetime: this.consumptionDatetime,
+                    content: this.content,
+                    useType: this.useType,
+                    payType: this.payType,
+                    dwType: this.dwType,
+                    cost: this.cost,
                 })
                 this.hasError = false;
             }
@@ -146,7 +160,13 @@ export default {
     },
     data() {
         return {
-            hasError: false
+            hasError: false,
+            content: "",
+            useType: "",
+            payType: "",
+            dwType: "",
+            cost: "",
+            consumptionDatetime: "",
         }
     }
 }
@@ -173,13 +193,13 @@ export default {
         border: solid 1px gray;
         margin: 5px;
     }
-    #description {
+    #content {
         width: 200px;
         height: 18px;
         border: solid 1px gray;
         margin: 5px;
     }
-    #date {
+    #consumptionDatetime {
         width: 180px;
         height: 18px;
         border: solid 1px gray;

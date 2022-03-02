@@ -17,10 +17,10 @@
       </thead>
       <tbody>
         <tr v-for="(list, index) in lists" :key="index">
-          <td>{{ list.date }}</td>
-          <td>{{ list.description }}</td>
-          <td>{{ Object.values(list.tag)?.join(",") }}</td>
-          <td>{{ list.amount }}</td>
+          <td>{{ list.consumptionDatetime }}</td>
+          <td>{{ list.content }}</td>
+          <td>{{ list.dwType }}, {{ list.payType }}, {{ list.useType }}</td>
+          <td>{{ list.cost }}</td>
           <td>{{ list.total }}</td>
         </tr> 
       </tbody>
@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { consumptions } from "@/api/index";
 import Modal from "@/components/newModal.vue";
 export default {
   components: {
@@ -46,34 +47,46 @@ export default {
     closeNewModal() {
       this.showNewModal = false;
     },
-    inputUpdate(data) {
-      console.log(data.tag.inoutTag);
-      console.log(data)
+    async inputUpdate(listData) {
+      const userData = {
+        consumptionDatetime: Number(listData.consumptionDatetime.replace(/-/g, "")),
+        content: listData.content,
+        useType: this.types.useType[listData.useType],
+        payType: this.types.payType[listData.payType],
+        dwType: this.types.dwType[listData.dwType],
+        cost: listData.cost
+      };
+      
+      console.log(userData)
+      const { data } = await consumptions(userData);
+      console.log(data);
       this.lists.push({
-        date: data.date,
-        description: data.description,
-        tag: {
-          useTag: data.tag.useTag,
-          toolTag: data.tag.toolTag,
-          inoutTag: data.tag.inoutTag
-        },
-        amount: data.amount,
-        total: this.countTotal(data.amount, data.tag.inoutTag)
+        consumptionDatetime: listData.consumptionDatetime,
+        content: listData.content,
+        useType: listData.useType,
+        payType: listData.payType,
+        dwType: listData.dwType,
+        cost: listData.cost,
+        total: this.countTotal(listData.cost, listData.dwType)
       })
       console.log(this.lists);
-      this.date = ""
-      this.description = ""
-      this.tag = []
-      this.amount = ""
+      console.log(Object.entries(this.useType));
+      this.consumptionDatetime = ""
+      this.content = ""
+      this.useType = ""
+      this.payType = ""
+      this.dwType = ""
+      this.cost = ""
       this.total = ""
+
       this.closeNewModal()
     },
-    countTotal(amount, inoutTag) {
+    countTotal(cost, dwType) {
       let newAmount = 0;
-      if(inoutTag === "지출") {
-        newAmount = -amount;
-      } else if(inoutTag === "수입") {
-        newAmount = amount;
+      if(dwType === "지출") {
+        newAmount = -cost;
+      } else if(dwType === "수입") {
+        newAmount = cost;
       }
 
       if (this.lists.length === 0) {
@@ -87,7 +100,30 @@ export default {
     return {
       showNewModal: false,
       lists: [],
-      lastTotal: 0
+      lastTotal: 0,
+      types: {
+        useType: {
+          "뷰티": "BEAUTY",
+          "의류비": "CLOTHES",
+          "문화활동": "CULTURE",
+          "교육비": "EDUCATION",
+          "기타": "ETC",
+          "식비": "FOOD",
+          "생활비": "LIFE",
+          "병원비": "MEDICALTREATMENT",
+          "교통비": "TRAFFIC",
+        },
+        payType: {
+          "계좌이체": "ACCOUNTTRANSFER",
+          "카드": "CARD",
+          "현금": "CASH",
+          "기프트카드": "GIRTCARD", 
+        },
+        dwType: {
+          "지출": "WITHDRAW",
+          "수입": "DEPOSIT",
+        },
+      }
     };
   }
 }
