@@ -11,7 +11,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("http://10.0.0.10:8080/")
                 .allowedHeaders("*")
-                .allowedMethods("*");
+                .allowedMethods("*")
+                .allowCredentials(true);
 
     }
 }
