@@ -24,7 +24,7 @@
           <input type="date" id="userBirth" v-model="userBirth"/>
         </div>
         <div class="signupbutton">
-          <input type="submit" value="Sign Up" id="signupbutton" @click="submitSignup">
+          <button type="button" id="signupbutton" @click="submitSignup">Sign Up</button>
         </div>
       </div>
     </form>
