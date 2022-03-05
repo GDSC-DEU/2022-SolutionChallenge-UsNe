@@ -2,19 +2,6 @@
   <div class="accountTable">
     <p style="letter-spacing: 14px;">FEBRUARY</p>
     <p style="text-decoration: underline; text-underline-position:under; font-size: 18px;">2022</p>
-    <div class="searchButton">
-      <!-- <button type="button">All</button>
-      <button type="button">식비</button>
-      <button type="button">교통비</button>
-      <button type="button">생활비</button>
-      <button type="button">문화활동</button>
-      <button type="button">카드</button>
-      <button type="button">현금</button>
-      <button type="button">계좌이체</button>
-      <button type="button">상품권</button>
-      <button type="button">All</button>
-      <button type="button">All</button> -->
-    </div>
     <div class="tableButton">
       <div/>
       <button id="new" @click.stop="onNew">New</button>
@@ -34,12 +21,13 @@
         <tr v-for="(list, index) in lists" :key="index">
           <td>{{ list.consumptionDatetime }}</td>
           <td>{{ list.content }}</td>
-          <td>{{ list.dwType }}, {{ list.payType }}, {{ list.useType }}</td>
+          <td>{{ list.payType }}, {{ list.dwType }}, {{ list.useType }}</td>
           <td>{{ list.cost }}</td>
           <td>{{ list.total }}</td>
         </tr> 
       </tbody>
     </table>
+    <button @click="getLists" >test</button>
     <Modal 
       v-if = "showNewModal"
       @close="closeNewModal"
@@ -49,11 +37,14 @@
 </template>
 
 <script>
-import { consumptions } from "@/api/index";
+import { postConsumption, getConsumptions } from "@/api/index";
 import Modal from "@/components/newModal.vue";
 export default {
   components: {
     Modal
+  },
+  mounted() {
+    this.getLists();
   },
   methods: {
     onNew() {
@@ -71,9 +62,8 @@ export default {
         dwType: this.types.dwType[listData.dwType],
         cost: listData.cost
       };
-      
       console.log(userData)
-      const { data } = await consumptions(userData);
+      const { data } = await postConsumption(userData);
       console.log(data);
       this.lists.push({
         consumptionDatetime: listData.consumptionDatetime,
@@ -108,7 +98,12 @@ export default {
       } else {
         return this.lists[this.lists.length - 1].total + newAmount;
       }      
-    }
+    },
+    async getLists() {
+      const response = await getConsumptions();
+      this.lists = response.data;
+      console.log(this.lists);
+    },
   },
   data() {
     return {
@@ -166,10 +161,10 @@ export default {
     width: 16%
   }
   .th-2 {
-    width: 45%;
+    width: 41%;
   }
   .th-3 {
-    width: 19%;
+    width: 23%;
   }
   .th-4, .th-5 {
     width: 10%;

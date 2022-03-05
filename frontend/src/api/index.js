@@ -8,9 +8,11 @@ function registerUser(userData) {
 function loginUser(userData) {
   return axios.post(`${url}/login`, userData, { withCredentials: true });
 }
-function consumptions(userData) {
+function postConsumption(userData) {
   return axios.post(`${url}/consumptions`, userData, { withCredentials: true });
 } 
+function getConsumptions() {
+  return axios.get(`${url}/consumptions`,  { withCredentials: true });
+}
 
-
-export { registerUser, loginUser, consumptions };
+export { registerUser, loginUser, postConsumption, getConsumptions };
