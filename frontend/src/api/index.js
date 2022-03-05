@@ -14,5 +14,8 @@ function postConsumption(userData) {
 function getConsumptions() {
   return axios.get(`${url}/consumptions`,  { withCredentials: true });
 }
+function deleteConsumption(consumptionIndex) {
+  return axios.delete(`${url}/consumptions/` + consumptionIndex,  { withCredentials: true });
+}
 
-export { registerUser, loginUser, postConsumption, getConsumptions };
+export { registerUser, loginUser, postConsumption, getConsumptions, deleteConsumption };
