@@ -5,7 +5,7 @@
     <div class="tableButton">
       <div/>
       <button id="new" @click.stop="onNew">New</button>
-      <button id="delete">Delete</button>
+      <button id="delete" @click="onDelete">Delete</button>
     </div>
     <table id="accountBook">
       <thead>
@@ -15,6 +15,7 @@
           <th class="th-3">tag</th>
           <th class="th-4">Amount</th>
           <th class="th-5">Total</th>
+          <th v-show="showDelete">delete</th>
         </tr>
       </thead>
       <tbody>
@@ -24,10 +25,10 @@
           <td>{{ list.payType }}, {{ list.dwType }}, {{ list.useType }}</td>
           <td>{{ list.cost }}</td>
           <td>{{ list.total }}</td>
+          <td><button type="button" v-show="showDelete" @click="deleteList(index)">Delete</button></td>
         </tr> 
       </tbody>
     </table>
-    <button @click="getLists" >test</button>
     <Modal 
       v-if = "showNewModal"
       @close="closeNewModal"
@@ -37,7 +38,7 @@
 </template>
 
 <script>
-import { postConsumption, getConsumptions } from "@/api/index";
+import { postConsumption, getConsumptions, deleteConsumption } from "@/api/index";
 import Modal from "@/components/newModal.vue";
 export default {
   components: {
@@ -47,8 +48,18 @@ export default {
     this.getLists();
   },
   methods: {
+    async deleteList(index) {
+      const id = this.lists[index].consumptionIndex
+      console.log(id)
+      await deleteConsumption(id);
+      this.lists.splice(index,1);
+      this.showDelete = false;
+    },
     onNew() {
       this.showNewModal = true;
+    },
+    onDelete() {
+      this.showDelete = true;
     },
     closeNewModal() {
       this.showNewModal = false;
@@ -107,6 +118,7 @@ export default {
   },
   data() {
     return {
+      showDelete: false,
       showNewModal: false,
       lists: [],
       lastTotal: 0,
