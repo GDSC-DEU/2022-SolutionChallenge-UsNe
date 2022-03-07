@@ -2,6 +2,7 @@
   <div class="accountTable">
     <p style="letter-spacing: 14px;">FEBRUARY</p>
     <p style="text-decoration: underline; text-underline-position:under; font-size: 18px;">2022</p>
+    <SearchBar/>
     <div class="tableButton">
       <div/>
       <button id="new" @click.stop="onNew">New</button>
@@ -40,9 +41,11 @@
 <script>
 import { postConsumption, getConsumptions, deleteConsumption } from "@/api/index";
 import Modal from "@/components/newModal.vue";
+import SearchBar from "@/components/SearchBar.vue";
 export default {
   components: {
-    Modal
+    Modal,
+    SearchBar
   },
   mounted() {
     this.getLists();
@@ -151,7 +154,7 @@ export default {
 </script>
 
 <style scoped>
-  .searchButton {
+  .searchBar {
     text-align: center;
   }
   p {
