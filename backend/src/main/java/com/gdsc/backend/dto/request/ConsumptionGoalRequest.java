@@ -1,24 +1,15 @@
-package com.gdsc.backend.domain;
+package com.gdsc.backend.dto.request;
 
-import com.gdsc.backend.domain.enums.UseType;
+
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import javax.persistence.Column;
 
-@Entity
 @Getter
 @Setter
-@NoArgsConstructor
-public class ConsumptionGoal {
-    @Id
-    @Schema(description = "소비 목표 인덱스", nullable = false)
-    @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long consumptionGoalIndex;
-
+public class ConsumptionGoalRequest {
     @Schema(description = "교육 목표 소비액", nullable = false, example = "500000")
     @Column(nullable = false)
     private int education;
@@ -54,28 +45,4 @@ public class ConsumptionGoal {
     @Schema(description = "기타 목표 소비액", nullable = false, example = "500000")
     @Column(nullable = false)
     private int ect;
-
-    @Schema(description = "소비 목표 작성일", nullable = false, example = "20220201")
-    @Column(nullable = false)
-    @CreationTimestamp
-    private LocalDateTime consumptionGoalDatetime;
-
-    @ManyToOne
-    @JoinColumn(name = "userId",referencedColumnName = "userId",nullable = false)
-    private User user;
-
-    @Builder
-    public ConsumptionGoal(int education, int traffic, int beauty, int culture,
-                           int food, int life, int medicaltreatment, int clothes, int ect,User user){
-        this.education=education;
-        this.traffic=traffic;
-        this.beauty=beauty;
-        this.culture=culture;
-        this.food=food;
-        this.life=life;
-        this.medicaltreatment=medicaltreatment;
-        this.clothes=clothes;
-        this.ect=ect;
-        this.user=user;
-    }
 }
