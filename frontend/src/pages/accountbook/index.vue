@@ -77,7 +77,7 @@ export default {
         ect: goalData.ect
       };
       console.log(userData);
-      const { data } = await postGoals(this.userData);
+      const { data } = await postGoals(userData);
       console.log(data);
       // 목표 출력
       this.goals.push({
@@ -90,8 +90,9 @@ export default {
         traffic: goalData.traffic,
         beauty: goalData.beauty,
         ect: goalData.ect
-      });
-      this.onClosebutton();
+      })
+      console.log(this.goals);
+      this.onClosebutton()
     }
   },
   data() {
