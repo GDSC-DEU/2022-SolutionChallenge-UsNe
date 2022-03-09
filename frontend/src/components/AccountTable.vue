@@ -2,7 +2,9 @@
   <div class="accountTable">
     <p style="letter-spacing: 14px;">FEBRUARY</p>
     <p style="text-decoration: underline; text-underline-position:under; font-size: 18px;">2022</p>
-    <SearchBar/>
+    <SearchBar
+      @filterCon="output"
+    />
     <div class="tableButton">
       <div/>
       <button id="new" @click.stop="onNew">New</button>
@@ -51,6 +53,23 @@ export default {
     this.getLists();
   },
   methods: {
+    output(data) {
+      this.bringdata.push({
+        useType: data.useType,
+        dwType:  data.dwType,
+        payType:  data.payType
+      })
+      console.log("output 실행됨")
+      if (this.bringdata) {
+        console.log("if문 실행됨");
+        return this.lists.filter(lists => {
+          console.log("filter 실행");
+          console.log(this.bringdata.dwType);
+          return lists.dwType.includes(this.bringdata.dwType);
+        });
+      }
+      return console.log("아무것도 없다..");
+    },
     async deleteList(index) {
       const id = this.lists[index].consumptionIndex
       console.log(id)
@@ -124,6 +143,7 @@ export default {
       showDelete: false,
       showNewModal: false,
       lists: [],
+      bringdata: [],
       lastTotal: 0,
       types: {
         useType: {
