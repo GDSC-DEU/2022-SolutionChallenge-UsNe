@@ -1,6 +1,5 @@
 <template>
-  <div>
-    
+  <div>   
     <div class="loginBar">
       <label> 회원 ID : </label>
       <input type="text" class="inputLogin" v-model="userId">
@@ -10,12 +9,11 @@
         <input type="submit" value="Log In" id="onlogin" @click="submitLogin">
       </div>
     </div>
-    <button @click="test" >test</button>
   </div>
 </template>
 
 <script>
-import { loginUser, getConsumptions } from "@/api/index";
+import { loginUser } from "@/api/index";
 
 export default {
   data() {
@@ -40,10 +38,6 @@ export default {
       this.userId = "";
       this.userPassword = "";
     },
-    async test() {
-      const response = await getConsumptions();
-      console.log(response)
-    }
   },
 }
 </script>

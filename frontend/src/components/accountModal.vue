@@ -1,45 +1,93 @@
 <template>
-    <div class="modalBody">
-        <h1>Goal</h1>
-       <p>한 달 예산</p> 
-       <p><input> 원 </p> <br>
-       <p>식비 <input> 문화 <input></p> <br>
-       <p>생활 <input> 의류 <input></p> <br>
-       <p>쇼핑 <input> 미용 <input></p> <br>
-       <p>금융 <input> 의료 <input></p> 
-       <div class="input"><button>Input</button> </div>
-       <div class="cancel"><button>Cancel</button> </div>       
-     </div> 
+  <div class="modalBody">
+    <h1>Goal</h1>
+    <div v-show="errorMessage" style="color: red;">예산이 부족합니다.</div>
+    <p>한 달 예산</p>
+    <div>{{ budget }}</div>
+    <button type="button" @click="showBudget" v-show="showSetButton">설정</button>
+    <input type="number" v-show="showBudgetBox" v-model="budget">
+    <button type="button" v-show="showBudgetBox" @click="budgetSet">저장</button>
+    <p>총 지출</p>
+    <div>{{ totalConsumption }}</div>
+    <div class="goalInput"></div>
+    <p>
+      #식비<input type="number" v-model="food">  
+      #문화<input type="number" v-model="culture">
+    </p>
+    <p>
+      #생활<input type="number" v-model="life">  
+      #의류<input type="number" v-model="clothes">
+    </p>
+    <p>
+      #교육<input type="number" v-model="education">  
+      #의료<input type="number" v-model="medicaltreatment">
+    </p>
+    <p>
+      #교통<input type="number" v-model="traffic">  
+      #뷰티<input type="number" v-model="beauty">
+    </p>
+    <p>  
+      #기타<input type="number" v-model="ect">
+    </p>
+
+    <button type="button" @click="addbudget">input</button>
+    <button type="button" @click="$emit('close')">close</button>
+  </div> 
 </template> 
 
 <script>
-import { defineComponent } from '@vue/composition-api'
 
-export default defineComponent({
-    setup() {
-     const body = document.querySelector('body')
-     const modal = document.querySelector('.modal');
-     const btnOpenPopup = document.querySelector('.btnPopup');
 
-     btnOpenPopup.addEventListener('click', () => {
-     modal.classList.toggle('show');
-
-     if (modal.classList.contains('show')) {
-     body.style.overflow = 'hidden';
-        }
-      });
+export default {
+  methods: {
+    showBudget() {
+      this.showBudgetBox = true;
+      this.showSetButton = false;
     },
-})
-
- modal.addEventListener('click', (event) => {
-        if (event.target === modal) {
-          modal.classList.toggle('show');
-
-          if (!modal.classList.contains('show')) {
-            body.style.overflow = 'auto';
-          }
-        }
-      });
+    budgetSet() {
+      this.showBudgetBox = false;
+      this.showSetButton = true;
+    },
+    addbudget() {
+      console.log("실행됨");
+      this.totalConsumption = 
+        this.food + 
+        this.culture + 
+        this.life + 
+        this.clothes + 
+        this.education + 
+        this.medicaltreatment + 
+        this.traffic + 
+        this.beauty + 
+        this.ect;
+      if(this.totalConsumption > this.budget) {
+        this.errorMessage = true;
+      } else {
+        this.errorMessage = false;
+        this.$emit('submitGoal', {
+          food: this.food,
+          culture: this.culture,
+          life: this.life,
+          clothes: this.clothes,
+          education: this.education,
+          medicaltreatment: this.medicaltreatment,
+          traffic: this.traffic,
+          beauty: this.beauty,
+          ect: this.ect
+        })
+      }
+    }
+  },
+  data() {
+    return {
+      budget: 0,
+      showBudgetBox: false,
+      showSetButton: true,
+      totalConsumption: 0,
+      errorMessage: false,
+    }
+  },
+}
 </script>
 
 <style scoped>
@@ -88,5 +136,13 @@ export default defineComponent({
       box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
       transform: translateX(-50%) translateY(-50%);
 }
+.goalInput {
+  text-align: center;
+  font-family: 'pinokio';
+  font-size: 20px;
+}
+ 
+
+  
 
 </style>
