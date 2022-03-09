@@ -1,6 +1,7 @@
 package com.gdsc.backend.domain;
 
 import com.gdsc.backend.domain.enums.UseType;
+import com.gdsc.backend.dto.request.ConsumptionGoalRequest;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -77,5 +78,17 @@ public class ConsumptionGoal {
         this.clothes=clothes;
         this.ect=ect;
         this.user=user;
+    }
+
+    public void update(ConsumptionGoalRequest consumptionGoalRequest){
+        this.education=consumptionGoalRequest.getEducation();
+        this.traffic=consumptionGoalRequest.getTraffic();
+        this.beauty=consumptionGoalRequest.getBeauty();
+        this.culture=consumptionGoalRequest.getCulture();
+        this.food=consumptionGoalRequest.getFood();
+        this.life=consumptionGoalRequest.getLife();
+        this.medicaltreatment=consumptionGoalRequest.getMedicaltreatment();
+        this.clothes=consumptionGoalRequest.getClothes();
+        this.ect=consumptionGoalRequest.getEct();
     }
 }
