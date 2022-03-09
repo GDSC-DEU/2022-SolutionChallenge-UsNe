@@ -20,4 +20,6 @@ public interface ConsumptionRepository extends JpaRepository<Consumption,Long> {
 
     public List<Consumption> findAllByUser(Pageable pageable,User user);
 
+    public List<Consumption> findConsumptionByUser(User user);
+
 }
