@@ -17,6 +17,10 @@
         <li>
           <router-link to="/preferences" class="navitem"> Preferences </router-link>
         </li>
+        <li>
+          회원 프로필
+          <button @click="onLogout">LogOut</button>
+        </li>
       </ul>
     </nav>
     <div>
@@ -28,7 +32,18 @@
 </template>
 
 <script scoped>
+import { postLogout } from "@/api/index.js";
 export default {
+  methods: {
+    async onLogout() {
+      const logoutBody = {
+        "body": {}
+      }
+      console.log("실행됨");
+      const { data } = await postLogout(logoutBody);
+      console.log(data);
+    }
+  },
 }
 </script>
 
