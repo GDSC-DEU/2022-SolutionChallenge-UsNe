@@ -1,24 +1,25 @@
 package com.gdsc.backend.service;
 
 import com.gdsc.backend.domain.Consumption;
-import com.gdsc.backend.domain.ConsumptionGoal;
 import com.gdsc.backend.domain.User;
+import com.gdsc.backend.domain.enums.DwType;
+import com.gdsc.backend.domain.enums.PayType;
+import com.gdsc.backend.domain.enums.UseType;
 import com.gdsc.backend.dto.request.ConsumptionRequest;
 import com.gdsc.backend.dto.response.ConsumptionGoalResponse;
 import com.gdsc.backend.dto.response.ConsumptionResponse;
 import com.gdsc.backend.exception.ConsumptionDeleteFailException;
 import com.gdsc.backend.exception.ConsumptionGetFailException;
 import com.gdsc.backend.exception.ConsumptionUpdateFailException;
-import com.gdsc.backend.exception.LoginFailException;
 import com.gdsc.backend.repository.ConsumptionRepository;
 import com.gdsc.backend.repository.UserRepository;
-import org.apache.tomcat.jni.Local;
-import org.slf4j.Logger;
 import org.springframework.data.domain.Pageable;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -141,4 +142,25 @@ public class ConsumptionManagementService {
 
     }
 
+    public List<ConsumptionResponse> search(@Nullable UseType useType, @Nullable DwType dwType, @Nullable PayType payType, final String userId){
+        try{
+            User user = userRepository.findByUserId(userId);
+            List<Consumption> consumptionList = consumptionRepository.findConsumptionByUser(user);
+            List<ConsumptionResponse> tagConsumption= new ArrayList<>();
+            for(Consumption co:consumptionList){
+                if(co.getUseType().equals(useType)){
+                    tagConsumption.add(ConsumptionResponse.builder()
+                            .dwType(co.getDwType())
+                            .payType(co.getPayType())
+                            .useType(co.getUseType())
+                            .consumptionDatetime(co.getConsumptionDatetime())
+                            .content(co.getContent())
+                            .cost(co.getCost()).build());
+                }
+            }
+            return tagConsumption;
+        }catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }
