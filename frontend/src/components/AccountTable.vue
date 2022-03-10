@@ -56,8 +56,8 @@ export default {
     output(data) {
       this.bringdata.push({
         useType: data.useType,
-        dwType:  data.dwType,
-        payType:  data.payType
+        dwType: data.dwType,
+        payType: data.payType
       })
       console.log("output 실행됨")
       if (this.bringdata) {

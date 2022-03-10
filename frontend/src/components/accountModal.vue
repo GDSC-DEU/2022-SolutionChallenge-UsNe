@@ -85,6 +85,15 @@ export default {
       showSetButton: true,
       totalConsumption: 0,
       errorMessage: false,
+      food: "",
+      culture: "",
+      life: "",
+      clothes: "",
+      education: "",
+      medicaltreatment: "",
+      traffic: "",
+      beauty: "",
+      ect: ""
     }
   },
 }
