@@ -28,7 +28,6 @@ import java.util.regex.Matcher;
 public class UserService {
     @Autowired
     private final UserRepository userRepository;
-    //private Logger log;
 
    public boolean joinCheck(UserRequest userRequest) {
         User findUser = userRepository.findByUserId(userRequest.getUserId());
@@ -58,7 +57,6 @@ public class UserService {
             return SignUpResponse.from(user);
         }
       else{
-            //log.info("not");
             return null;
         }
     }
