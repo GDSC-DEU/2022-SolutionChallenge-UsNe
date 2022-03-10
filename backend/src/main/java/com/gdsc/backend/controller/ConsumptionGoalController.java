@@ -3,7 +3,6 @@ package com.gdsc.backend.controller;
 import com.gdsc.backend.domain.ConsumptionGoal;
 import com.gdsc.backend.dto.request.ConsumptionGoalRequest;
 import com.gdsc.backend.dto.response.ConsumptionGoalResponse;
-import com.gdsc.backend.repository.ConsumptionGoalRepository;
 import com.gdsc.backend.service.ConsumptionGoalService;
 import com.gdsc.backend.service.ConsumptionManagementService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,8 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 @Tag(name = "consumptionGoal", description = "목표 소비 설정 관련 API")
 @RestController
@@ -27,6 +24,7 @@ public class ConsumptionGoalController {
 
     private final ConsumptionGoalService consumptionGoalService;
     private final ConsumptionManagementService consumptionManagementService;
+
     public ConsumptionGoalController(final ConsumptionGoalService consumptionGoalService,final ConsumptionManagementService consumptionManagementService){
         this.consumptionGoalService=consumptionGoalService;
         this.consumptionManagementService=consumptionManagementService;
@@ -46,7 +44,7 @@ public class ConsumptionGoalController {
 
     @Operation(summary = "목표 소비 조회", description = "목표 소비를 조회합니다.", tags = "consumptionGoal",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "목표 조회 등록 성공",
+                    @ApiResponse(responseCode = "200", description = "목표 조회 성공",
                             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ConsumptionGoal.class)))
             }
     )
@@ -58,7 +56,7 @@ public class ConsumptionGoalController {
 
     @Operation(summary = "목표 소비 업데이트", description = "목표 소비를 업데이트합니다.", tags = "consumptionGoal",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "목표 조회 업데이트 성공",
+                    @ApiResponse(responseCode = "200", description = "목표 소비 업데이트 성공",
                             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ConsumptionGoal.class)))
             }
     )
@@ -68,6 +66,12 @@ public class ConsumptionGoalController {
         return new ResponseEntity<ConsumptionGoal>(updatedConsumptionGoal, HttpStatus.OK);
     }
 
+    @Operation(summary = "현재 소비 총합 조회", description = "이번달 소비를 태그별로 총합계를 조회합니다..", tags = "consumptionGoal",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "소비 총합 조회 성공",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ConsumptionGoalResponse.class)))
+            }
+    )
     @GetMapping("/calc")
     public ResponseEntity<ConsumptionGoalResponse> calcConsumption(HttpSession httpSession){
         ConsumptionGoalResponse consumptionGoal = consumptionManagementService.calcThisMonthConsumption(httpSession.getAttribute("user_id").toString());

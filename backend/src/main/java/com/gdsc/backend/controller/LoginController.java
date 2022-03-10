@@ -1,8 +1,5 @@
 package com.gdsc.backend.controller;
 
-import com.gdsc.backend.annotation.LoginUser;
-import com.gdsc.backend.config.SessionConfig;
-import com.gdsc.backend.domain.Consumption;
 import com.gdsc.backend.dto.request.LoginRequest;
 import com.gdsc.backend.dto.response.UserResponse;
 import com.gdsc.backend.service.LoginService;
@@ -13,8 +10,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,10 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import static com.gdsc.backend.service.UserSession.USER_SESSION_KEY;
 
 
 @Tag(name = "login", description = "로그인과 로그아웃 관련 API")
@@ -41,6 +34,7 @@ public class LoginController {
         this.loginService=loginService;
         this.userService=userService;
     }
+
     @Operation(summary = "로그인", description = "로그인 합니다.", tags = "login",
             responses = {
                     @ApiResponse(responseCode = "200", description = "로그인 성공",
@@ -57,7 +51,7 @@ public class LoginController {
             httpSession.setAttribute("user_id", loginRequest.getUserId());
         }
 
-        return new ResponseEntity<UserResponse>(userService.findUserResponseById(userSession.getUserId()), HttpStatus.OK);
+        return new ResponseEntity<UserResponse>(userService.findUserResponseById(userSession.getUserId()), HttpStatus.OK); //
     }
 
     @Operation(summary = "로그아웃", description = "로그아웃 합니다.", tags = "login",

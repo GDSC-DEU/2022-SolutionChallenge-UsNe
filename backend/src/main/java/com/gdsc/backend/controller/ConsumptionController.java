@@ -1,11 +1,12 @@
 package com.gdsc.backend.controller;
 
-import com.gdsc.backend.annotation.LoginUser;
 import com.gdsc.backend.domain.Consumption;
+import com.gdsc.backend.domain.enums.DwType;
+import com.gdsc.backend.domain.enums.PayType;
+import com.gdsc.backend.domain.enums.UseType;
 import com.gdsc.backend.dto.request.ConsumptionRequest;
 import com.gdsc.backend.dto.response.ConsumptionResponse;
 import com.gdsc.backend.service.ConsumptionManagementService;
-import com.gdsc.backend.service.UserSession;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -19,12 +20,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Optional;
-
-import static com.gdsc.backend.service.UserSession.USER_SESSION_KEY;
 
 @Tag(name = "consumption", description = "소비 관련 API")
 @RestController
@@ -99,6 +96,16 @@ public class ConsumptionController {
                                                 @PathVariable("index")Long index,HttpSession httpSession){
         consumptionManagementService.delete(index, httpSession.getAttribute("user_id").toString());
         return new ResponseEntity<>("{}", HttpStatus.NO_CONTENT);
+    }
+
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ConsumptionResponse>> searchConsumptionByTag(@RequestParam(value="useType", required = false) UseType useType,
+                                                                            @RequestParam(value = "dwType", required = false) DwType dwType,
+                                                                            @RequestParam(value="payType", required = false) PayType payType,
+                                                                            HttpSession httpSession){
+        List<ConsumptionResponse> consumptions = consumptionManagementService.search(useType,dwType,payType,httpSession.getAttribute("user_id").toString());
+        return new ResponseEntity<List<ConsumptionResponse>>(consumptions,HttpStatus.OK);
     }
 
 }
