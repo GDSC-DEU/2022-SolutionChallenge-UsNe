@@ -19,22 +19,22 @@ public class User {
     public static final String INVALID_PASSWORD_MESSAGE = "비밀번호가 틀렸습니다.";
 
     @Id
-    @Schema(description = "사용자의 아이디", nullable = false)
+    @Schema(description = "사용자 아이디", nullable = false, example = "ujeong1009")
     String userId;
 
-    @Schema(description = "사용자의 비밀번호", nullable = false)
+    @Schema(description = "사용자 비밀번호", nullable = false, example = "asdf1234")
     @Column(nullable = false)
     String userPassword;
 
-    @Schema(description = "사용자의 휴대전화번호", nullable = false)
+    @Schema(description = "사용자 휴대전화번호", nullable = false, example = "010-2546-7788")
     @Column(nullable = false)
     String userPhoneNumber;
 
-    @Schema(description = "사용자의 이름", nullable = false)
+    @Schema(description = "사용자 이름", nullable = false, example = "남지정")
     @Column(nullable = false,columnDefinition = "varchar(20)")
     String userName;
 
-    @Schema(description = "사용자의 생일", nullable = false)
+    @Schema(description = "사용자 생일", nullable = false, example = "2000.12.24")
     @Column(nullable = true)
     String userBirth;
 

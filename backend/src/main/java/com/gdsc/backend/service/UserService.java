@@ -2,6 +2,7 @@ package com.gdsc.backend.service;
 
 import com.gdsc.backend.domain.User;
 import com.gdsc.backend.dto.request.UserRequest;
+import com.gdsc.backend.dto.response.SignUpResponse;
 import com.gdsc.backend.dto.response.UserResponse;
 import com.gdsc.backend.exception.LoginFailException;
 import com.gdsc.backend.repository.UserRepository;
@@ -38,7 +39,7 @@ public class UserService {
         } else {
             return false;
         }
-    }
+   }
 
     public boolean samePwd(UserRequest userRequest) {
         final String p1 = "(\\w)\\1\\1\\1";
@@ -49,13 +50,14 @@ public class UserService {
         return match.find() ? false : true;
     }
 
-    public String joinUser(UserRequest userRequest) {
-
+    @Transactional
+    public SignUpResponse joinUser(UserRequest userRequest) {
         if (joinCheck(userRequest) && samePwd(userRequest)) {
             User user = new User(userRequest);
             userRepository.save(user);
-            return userRequest.getUserId();
-        } else{
+            return SignUpResponse.from(user);
+        }
+      else{
             //log.info("not");
             return null;
         }

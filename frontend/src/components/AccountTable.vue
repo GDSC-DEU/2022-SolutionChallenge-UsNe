@@ -42,7 +42,7 @@ import { postConsumption, getConsumptions, deleteConsumption } from "@/api/index
 import Modal from "@/components/newModal.vue";
 export default {
   components: {
-    Modal
+    Modal,
   },
   mounted() {
     this.getLists();
@@ -121,6 +121,7 @@ export default {
       showDelete: false,
       showNewModal: false,
       lists: [],
+      bringdata: [],
       lastTotal: 0,
       types: {
         useType: {
@@ -151,9 +152,6 @@ export default {
 </script>
 
 <style scoped>
-  .searchButton {
-    text-align: center;
-  }
   p {
     text-align: center;
     font-family: 'pinokio';
