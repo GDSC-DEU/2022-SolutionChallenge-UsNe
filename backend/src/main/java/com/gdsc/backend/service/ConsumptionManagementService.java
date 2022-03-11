@@ -10,6 +10,7 @@ import com.gdsc.backend.dto.response.ConsumptionGoalResponse;
 import com.gdsc.backend.dto.response.ConsumptionResponse;
 import com.gdsc.backend.exception.ConsumptionDeleteFailException;
 import com.gdsc.backend.exception.ConsumptionGetFailException;
+import com.gdsc.backend.exception.ConsumptionSearchFailException;
 import com.gdsc.backend.exception.ConsumptionUpdateFailException;
 import com.gdsc.backend.repository.ConsumptionRepository;
 import com.gdsc.backend.repository.UserRepository;
@@ -142,7 +143,7 @@ public class ConsumptionManagementService {
 
     }
 
-    public List<ConsumptionResponse> search(@Nullable UseType useType, @Nullable DwType dwType, @Nullable PayType payType, final String userId){
+    public List<ConsumptionResponse> oneSearch(@Nullable UseType useType, @Nullable DwType dwType, @Nullable PayType payType, final String userId){
         try{
             User user = userRepository.findByUserId(userId);
             List<Consumption> consumptionList = consumptionRepository.findConsumptionByUser(user);
@@ -157,10 +158,100 @@ public class ConsumptionManagementService {
                             .content(co.getContent())
                             .cost(co.getCost()).build());
                 }
+                else if(co.getDwType().equals(dwType)){
+                    tagConsumption.add(ConsumptionResponse.builder()
+                            .dwType(co.getDwType())
+                            .payType(co.getPayType())
+                            .useType(co.getUseType())
+                            .consumptionDatetime(co.getConsumptionDatetime())
+                            .content(co.getContent())
+                            .cost(co.getCost()).build());
+                }
+                else if(co.getPayType().equals(payType)){
+                    tagConsumption.add(ConsumptionResponse.builder()
+                            .dwType(co.getDwType())
+                            .payType(co.getPayType())
+                            .useType(co.getUseType())
+                            .consumptionDatetime(co.getConsumptionDatetime())
+                            .content(co.getContent())
+                            .cost(co.getCost()).build());
+                }
             }
             return tagConsumption;
         }catch (Exception e){
-            throw new RuntimeException(e.getMessage());
+            throw new ConsumptionSearchFailException(e.getMessage());
         }
     }
+
+
+    public List<ConsumptionResponse> twoSearch(@Nullable UseType useType, @Nullable DwType dwType, @Nullable PayType payType, final String userId){
+        try{
+            User user = userRepository.findByUserId(userId);
+            List<Consumption> consumptionList = consumptionRepository.findConsumptionByUser(user);
+            List<ConsumptionResponse> tagConsumption= new ArrayList<>();
+            for(Consumption co:consumptionList){
+                if(useType==null){
+                    if(co.getDwType().equals(dwType) && co.getPayType().equals(payType)){
+                        tagConsumption.add(ConsumptionResponse.builder()
+                                .dwType(co.getDwType())
+                                .payType(co.getPayType())
+                                .useType(co.getUseType())
+                                .consumptionDatetime(co.getConsumptionDatetime())
+                                .content(co.getContent())
+                                .cost(co.getCost()).build());
+                    }
+                }
+                else if(dwType==null){
+                    if(co.getUseType().equals(useType) && co.getPayType().equals(payType)){
+                        tagConsumption.add(ConsumptionResponse.builder()
+                                .dwType(co.getDwType())
+                                .payType(co.getPayType())
+                                .useType(co.getUseType())
+                                .consumptionDatetime(co.getConsumptionDatetime())
+                                .content(co.getContent())
+                                .cost(co.getCost()).build());
+                    }
+                }
+                else if(payType==null){
+                    if(co.getUseType().equals(useType) && co.getDwType().equals(dwType)){
+                        tagConsumption.add(ConsumptionResponse.builder()
+                                .dwType(co.getDwType())
+                                .payType(co.getPayType())
+                                .useType(co.getUseType())
+                                .consumptionDatetime(co.getConsumptionDatetime())
+                                .content(co.getContent())
+                                .cost(co.getCost()).build());
+                    }
+                }
+
+            }
+            return tagConsumption;
+        }catch (Exception e){
+            throw new ConsumptionSearchFailException(e.getMessage());
+        }
+    }
+
+    public List<ConsumptionResponse> threeSearch(@Nullable UseType useType, @Nullable DwType dwType, @Nullable PayType payType, final String userId){
+        try{
+            User user = userRepository.findByUserId(userId);
+            List<Consumption> consumptionList = consumptionRepository.findConsumptionByUser(user);
+            List<ConsumptionResponse> tagConsumption= new ArrayList<>();
+            for(Consumption co:consumptionList){
+                if(co.getUseType().equals(useType) && co.getUseType().equals(useType) && co.getPayType().equals(payType)){
+                    tagConsumption.add(ConsumptionResponse.builder()
+                            .dwType(co.getDwType())
+                            .payType(co.getPayType())
+                            .useType(co.getUseType())
+                            .consumptionDatetime(co.getConsumptionDatetime())
+                            .content(co.getContent())
+                            .cost(co.getCost()).build());
+
+                }
+            }
+            return tagConsumption;
+        }catch (Exception e){
+            throw new ConsumptionSearchFailException(e.getMessage());
+        }
+    }
+
 }
