@@ -49,33 +49,4 @@ public class UserSignController {
         return new ResponseEntity<SignUpResponse>(creation, HttpStatus.CREATED);
     }
 
-/*
-    @PostMapping("/signup")
-    public ResponseEntity<SignUpResponse> login(@RequestBody LoginRequest loginRequest, HttpSession httpSession){
-        UserSession userSession = loginService.login(loginRequest);
-
-        if(userSession == null) {
-            httpSession.setAttribute("user_id", null);
-        } else {
-            httpSession.setAttribute("user_id", loginRequest.getUserId());
-        }
-
-        return new ResponseEntity<UserResponse>(userService.findUserResponseById(userSession.getUserId()), HttpStatus.OK);
-    }
-    @GetMapping(value = "/signup")
-    public ResponseEntity<SignUpResponse> findById(@PathVariable int id) {
-        userService.joinUser(userRequest);
-
-        User user = userRepository.findByUserId(userRequest.getUserId());
-        Message message = new Message();
-        HttpHeaders headers= new HttpHeaders();
-        headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-
-        message.setStatus(StatusEnum.OK);
-        message.setMessage("성공 코드");
-        message.setData(user);
-
-        return new ResponseEntity<SignUpResponse>(message, headers, HttpStatus.OK);
-    }
-*/
 }

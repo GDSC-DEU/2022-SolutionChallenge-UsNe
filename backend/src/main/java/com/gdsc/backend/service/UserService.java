@@ -5,6 +5,7 @@ import com.gdsc.backend.dto.request.UserRequest;
 import com.gdsc.backend.dto.response.SignUpResponse;
 import com.gdsc.backend.dto.response.UserResponse;
 import com.gdsc.backend.exception.LoginFailException;
+import com.gdsc.backend.exception.SignUpFailException;
 import com.gdsc.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -28,7 +29,6 @@ import java.util.regex.Matcher;
 public class UserService {
     @Autowired
     private final UserRepository userRepository;
-    //private Logger log;
 
    public boolean joinCheck(UserRequest userRequest) {
         User findUser = userRepository.findByUserId(userRequest.getUserId());
@@ -52,17 +52,18 @@ public class UserService {
 
     @Transactional
     public SignUpResponse joinUser(UserRequest userRequest) {
-        if (joinCheck(userRequest) && samePwd(userRequest)) {
-            User user = new User(userRequest);
-            userRepository.save(user);
-            return SignUpResponse.from(user);
-        }
-      else{
-            //log.info("not");
-            return null;
-        }
-    }
+       try {
+           if (joinCheck(userRequest) && samePwd(userRequest)) {
+                User user = new User(userRequest);
+                userRepository.save(user);
 
+                return SignUpResponse.from(user);
+           }
+           else throw new SignUpFailException("올바르지 못한 가입");
+       } catch (Exception e) {
+           throw new SignUpFailException(e.getMessage());
+       }
+    }
     public User findById(final String userId){
         return userRepository.findByUserId(userId);
     }
