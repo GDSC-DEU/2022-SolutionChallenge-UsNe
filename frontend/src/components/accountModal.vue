@@ -135,7 +135,7 @@ export default {
 .modal_body {
       position: absolute;
       text-align: center; 
-      top: 50%;
+      top: 51%;
       left: 50%;
       width: 600px;
       height: 500px;
