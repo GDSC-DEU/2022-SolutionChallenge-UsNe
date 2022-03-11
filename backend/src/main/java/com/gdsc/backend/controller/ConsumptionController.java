@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Tag(name = "consumption", description = "소비 관련 API")
@@ -98,13 +99,33 @@ public class ConsumptionController {
         return new ResponseEntity<>("{}", HttpStatus.NO_CONTENT);
     }
 
-
+    @Operation(summary = "소비 검색", description = "소비를 검색합니다.", tags = "consumption",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "소비 검색 성공",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ConsumptionResponse.class)))
+            }
+    )
     @GetMapping("/search")
     public ResponseEntity<List<ConsumptionResponse>> searchConsumptionByTag(@RequestParam(value="useType", required = false) UseType useType,
                                                                             @RequestParam(value = "dwType", required = false) DwType dwType,
                                                                             @RequestParam(value="payType", required = false) PayType payType,
                                                                             HttpSession httpSession){
-        List<ConsumptionResponse> consumptions = consumptionManagementService.search(useType,dwType,payType,httpSession.getAttribute("user_id").toString());
+        int count=0;
+
+        if(useType==null) count++;
+        if(dwType==null) count++;
+        if(payType==null) count++;
+
+        List<ConsumptionResponse> consumptions=new ArrayList<>();
+        if(count==2) {
+            consumptions = consumptionManagementService.oneSearch(useType, dwType, payType, httpSession.getAttribute("user_id").toString());
+        }
+        else if(count==1){
+            consumptions = consumptionManagementService.twoSearch(useType, dwType, payType, httpSession.getAttribute("user_id").toString());
+        }
+        else if(count==0){
+            consumptions = consumptionManagementService.threeSearch(useType, dwType, payType, httpSession.getAttribute("user_id").toString());
+        }
         return new ResponseEntity<List<ConsumptionResponse>>(consumptions,HttpStatus.OK);
     }
 
