@@ -42,6 +42,7 @@ export default {
       console.log("실행됨");
       const { data } = await postLogout(logoutBody);
       console.log(data);
+      this.$router.push("/login")
     }
   },
 }
