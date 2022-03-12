@@ -1,5 +1,6 @@
 package com.gdsc.backend.domain;
 
+import com.gdsc.backend.dto.request.GroupRequest;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,8 +29,21 @@ public class GroupList {
     @CreationTimestamp
     private LocalDateTime GroupListDateTime;
 
+    @Schema(description = "그룹 생성 유저", nullable = false)
+    @ManyToOne
+    private User user;
+
     @Builder
-    public GroupList(String name){
+    public GroupList(String name,User user){
         this.name=name;
+        this.user=user;
+    }
+
+    public GroupList(GroupRequest groupRequest){
+        this.name=groupRequest.getName();
+    }
+
+    public void update(GroupRequest groupRequest){
+        this.name=groupRequest.getName();
     }
 }
