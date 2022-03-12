@@ -22,7 +22,6 @@ export default {
       userId: "",
       userPassword: "",
       errorMessage: "",
-      specialChar: ["!", "@", "#", "$", "%", "^", "&", "*"]
     }
   },
   methods: {

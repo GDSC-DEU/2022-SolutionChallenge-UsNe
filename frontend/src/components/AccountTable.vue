@@ -2,6 +2,8 @@
   <div class="accountTable">
     <p style="letter-spacing: 14px;">FEBRUARY</p>
     <p style="text-decoration: underline; text-underline-position:under; font-size: 18px;">2022</p>
+    <SearchBar/>
+    <button type="button" @click="searching">검색하기</button>
     <div class="tableButton">
       <div/>
       <button id="new" @click.stop="onNew">New</button>
@@ -34,15 +36,18 @@
       @close="closeNewModal"
       @insert="inputUpdate"
     />
+    
   </div>
 </template>
 
 <script>
-import { postConsumption, getConsumptions, deleteConsumption } from "@/api/index";
+import { postConsumption, getConsumptions, deleteConsumption, getSearch } from "@/api/index";
 import Modal from "@/components/newModal.vue";
+import SearchBar from "@/components/SearchBar.vue";
 export default {
   components: {
     Modal,
+    SearchBar
   },
   mounted() {
     this.getLists();
@@ -115,9 +120,19 @@ export default {
       this.lists = response.data;
       console.log(this.lists);
     },
+    async searching() {
+      const searchitems = "useType=FOOD"
+      const response = await getSearch(searchitems);
+      this.lists = response.data;
+    }
   },
   data() {
     return {
+      checkData: {
+        testdwType: "DEPOSIT",
+        testpayType: "CARD",
+        testuseType: "FOOD",
+      },
       showDelete: false,
       showNewModal: false,
       lists: [],
