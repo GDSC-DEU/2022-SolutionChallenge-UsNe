@@ -4,6 +4,7 @@
     <p style="text-decoration: underline; text-underline-position:under; font-size: 18px;">2022</p>
     <SearchBar
       @getSearching="searching"
+      @all="getAll"
     />
     <div class="tableButton">
       <div/>
@@ -37,7 +38,6 @@
       @close="closeNewModal"
       @insert="inputUpdate"
     />
-    
   </div>
 </template>
 
@@ -54,6 +54,9 @@ export default {
     this.getLists();
   },
   methods: {
+    getAll() {
+      this.getLists();
+    },
     async searching(data) {
       const searchitem = {
         searchUseType: data.searchUseType,
@@ -107,7 +110,6 @@ export default {
         dwType: listData.dwType,
         cost: listData.cost
       };
-      // this.types.useType[listData.useType],
       console.log(userData)
       const { data } = await postConsumption(userData);
       console.log(data);
@@ -147,7 +149,6 @@ export default {
     },
     async getLists() {
       const response = await getConsumptions();
-
       this.lists = response.data;
       console.log(this.lists);
     },
@@ -212,10 +213,10 @@ export default {
     width: 16%
   }
   .th-2 {
-    width: 41%;
+    width: 39%;
   }
   .th-3 {
-    width: 23%;
+    width: 25%;
   }
   .th-4, .th-5 {
     width: 10%;
