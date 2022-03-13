@@ -2,8 +2,9 @@
   <div class="accountTable">
     <p style="letter-spacing: 14px;">FEBRUARY</p>
     <p style="text-decoration: underline; text-underline-position:under; font-size: 18px;">2022</p>
-    <SearchBar/>
-    <button type="button" @click="searching">검색하기</button>
+    <SearchBar
+      @getSearching="searching"
+    />
     <div class="tableButton">
       <div/>
       <button id="new" @click.stop="onNew">New</button>
@@ -53,6 +54,34 @@ export default {
     this.getLists();
   },
   methods: {
+    async searching(data) {
+      const searchitem = {
+        searchUseType: data.searchUseType,
+        searchPayType: data.searchPayType,
+        searchDwType: data.searchDwType,
+      }
+      if(data.searchUseType==undefined && data.searchPayType==undefined && data.searchDwType==undefined) {
+        alert("안돼애!!")
+      } else if(data.searchUseType!=undefined && data.searchPayType==undefined && data.searchDwType==undefined) {
+        this.searchitems = "useType=" + data.searchUseType;
+      } else if(data.searchUseType==undefined && data.searchPayType!=undefined && data.searchDwType==undefined) {
+        this.searchitems = "payType=" + data.searchPayType;
+      } else if(data.searchUseType==undefined && data.searchPayType==undefined && data.searchDwType!=undefined) {
+        this.searchitems = "dwType=" + data.searchDwType;
+      } else if(data.searchUseType!=undefined && data.searchPayType!=undefined && data.searchDwType==undefined) {
+        this.searchitems = "useType=" + data.searchUseType + "&payType=" + data.searchPayType;
+      } else if(data.searchUseType==undefined && data.searchPayType!=undefined && data.searchDwType!=undefined) {
+        this.searchitems = "payType=" + data.searchPayType + "&dwType=" + data.searchDwType;
+      } else if(data.searchUseType!=undefined && data.searchPayType==undefined && data.searchDwType!=undefined) {
+        this.searchitems = "useType=" + data.searchUseType + "&dwType=" + data.searchDwType;
+      } else if(data.searchUseType!=undefined && data.searchPayType!=undefined && data.searchDwType!=undefined) {
+        this.searchitems = "useType=" + data.searchUseType + "&payType=" + data.searchPayType + "&dwType=" + data.searchDwType;
+      }
+      const response = await getSearch(this.searchitems);
+      this.lists = response.data;
+      console.log(searchitem);
+      console.log(data.searchUseType);
+    },
     async deleteList(index) {
       const id = this.lists[index].consumptionIndex
       console.log(id)
@@ -120,19 +149,13 @@ export default {
       this.lists = response.data;
       console.log(this.lists);
     },
-    async searching() {
-      const searchitems = "useType=FOOD"
-      const response = await getSearch(searchitems);
-      this.lists = response.data;
-    }
   },
   data() {
     return {
-      checkData: {
-        testdwType: "DEPOSIT",
-        testpayType: "CARD",
-        testuseType: "FOOD",
-      },
+      searchitems: "",
+      searchUseType: "",
+      searchPayType: "",
+      searchDwType: "",
       showDelete: false,
       showNewModal: false,
       lists: [],
@@ -154,7 +177,7 @@ export default {
           "계좌이체": "ACCOUNTTRANSFER",
           "카드": "CARD",
           "현금": "CASH",
-          "기프트카드": "GIRTCARD", 
+          "기프트카드": "GIFTCARD", 
         },
         dwType: {
           "지출": "WITHDRAW",
