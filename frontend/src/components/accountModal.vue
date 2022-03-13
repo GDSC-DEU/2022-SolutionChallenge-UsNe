@@ -2,7 +2,7 @@
   <div class="modalBody">
     <h1>Goal</h1>
     <div v-show="errorMessage" style="color: red;">예산이 부족합니다.</div>
-    <p>한 달 예산</p>
+    <p>한달예산</p>
     <div>{{ budget }}</div>
     <button type="button" @click="showBudget" v-show="showSetButton">설정</button>
     <input type="number" v-show="showBudgetBox" v-model="budget">
@@ -150,8 +150,4 @@ export default {
   font-family: 'pinokio';
   font-size: 20px;
 }
- 
-
-  
-
 </style>
