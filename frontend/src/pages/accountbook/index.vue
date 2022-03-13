@@ -3,7 +3,7 @@
     <AccountTable />
     <body>
       <div class="goalSetting">
-        <h2>My Goal</h2> 
+        <h1>My Goal</h1> 
       </div>
       <p> <button type="button" @click="onGoalSet" id="goalSetButton">Goal setting</button></p>
       <div class="goalGraph">
@@ -160,7 +160,7 @@ export default {
     
   }
   body { 
-    padding: 250px;
+    padding: 200px;
   }
   .graph {
     height:30px; 
