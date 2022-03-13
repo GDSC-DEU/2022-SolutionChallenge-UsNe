@@ -2,6 +2,10 @@
   <div class="accountTable">
     <p style="letter-spacing: 14px;">FEBRUARY</p>
     <p style="text-decoration: underline; text-underline-position:under; font-size: 18px;">2022</p>
+    <SearchBar
+      @getSearching="searching"
+      @all="getAll"
+    />
     <div class="tableButton">
       <div/>
       <button id="new" @click.stop="onNew">New</button>
@@ -22,9 +26,9 @@
         <tr v-for="(list, index) in lists" :key="index">
           <td>{{ list.consumptionDatetime }}</td>
           <td>{{ list.content }}</td>
-          <td>{{ list.payType }}, {{ list.dwType }}, {{ list.useType }}</td>
+          <td>{{ this.types.payType[list.payType] }}, {{ this.types.dwType[list.dwType] }}, {{ this.types.useType[list.useType] }}</td>
           <td>{{ list.cost }}</td>
-          <td>{{ list.total }}</td>
+          <td>{{ this.countTotal(list.cost, list.dwType) }}</td>
           <td><button type="button" v-show="showDelete" @click="deleteList(index)">Delete</button></td>
         </tr> 
       </tbody>
@@ -38,16 +42,49 @@
 </template>
 
 <script>
-import { postConsumption, getConsumptions, deleteConsumption } from "@/api/index";
+import { postConsumption, getConsumptions, deleteConsumption, getSearch } from "@/api/index";
 import Modal from "@/components/newModal.vue";
+import SearchBar from "@/components/SearchBar.vue";
 export default {
   components: {
     Modal,
+    SearchBar
   },
   mounted() {
     this.getLists();
   },
   methods: {
+    getAll() {
+      this.getLists();
+    },
+    async searching(data) {
+      const searchitem = {
+        searchUseType: data.searchUseType,
+        searchPayType: data.searchPayType,
+        searchDwType: data.searchDwType,
+      }
+      if(data.searchUseType==undefined && data.searchPayType==undefined && data.searchDwType==undefined) {
+        alert("안돼애!!")
+      } else if(data.searchUseType!=undefined && data.searchPayType==undefined && data.searchDwType==undefined) {
+        this.searchitems = "useType=" + data.searchUseType;
+      } else if(data.searchUseType==undefined && data.searchPayType!=undefined && data.searchDwType==undefined) {
+        this.searchitems = "payType=" + data.searchPayType;
+      } else if(data.searchUseType==undefined && data.searchPayType==undefined && data.searchDwType!=undefined) {
+        this.searchitems = "dwType=" + data.searchDwType;
+      } else if(data.searchUseType!=undefined && data.searchPayType!=undefined && data.searchDwType==undefined) {
+        this.searchitems = "useType=" + data.searchUseType + "&payType=" + data.searchPayType;
+      } else if(data.searchUseType==undefined && data.searchPayType!=undefined && data.searchDwType!=undefined) {
+        this.searchitems = "payType=" + data.searchPayType + "&dwType=" + data.searchDwType;
+      } else if(data.searchUseType!=undefined && data.searchPayType==undefined && data.searchDwType!=undefined) {
+        this.searchitems = "useType=" + data.searchUseType + "&dwType=" + data.searchDwType;
+      } else if(data.searchUseType!=undefined && data.searchPayType!=undefined && data.searchDwType!=undefined) {
+        this.searchitems = "useType=" + data.searchUseType + "&payType=" + data.searchPayType + "&dwType=" + data.searchDwType;
+      }
+      const response = await getSearch(this.searchitems);
+      this.lists = response.data;
+      console.log(searchitem);
+      console.log(data.searchUseType);
+    },
     async deleteList(index) {
       const id = this.lists[index].consumptionIndex
       console.log(id)
@@ -68,16 +105,16 @@ export default {
       const userData = {
         consumptionDatetime: Number(listData.consumptionDatetime.replace(/-/g, "")),
         content: listData.content,
-        useType: this.types.useType[listData.useType],
-        payType: this.types.payType[listData.payType],
-        dwType: this.types.dwType[listData.dwType],
+        useType: listData.useType,
+        payType: listData.payType,
+        dwType: listData.dwType,
         cost: listData.cost
       };
       console.log(userData)
       const { data } = await postConsumption(userData);
       console.log(data);
       this.lists.push({
-        consumptionDatetime: listData.consumptionDatetime,
+        consumptionDatetime: Number(listData.consumptionDatetime.replace(/-/g, "")),
         content: listData.content,
         useType: listData.useType,
         payType: listData.payType,
@@ -98,12 +135,11 @@ export default {
     },
     countTotal(cost, dwType) {
       let newAmount = 0;
-      if(dwType === "지출") {
+      if(dwType === "WITHDRAW") {
         newAmount = -cost;
-      } else if(dwType === "수입") {
+      } else if(dwType === "DEPOSIT") {
         newAmount = cost;
       }
-
       if (this.lists.length === 0) {
         return newAmount;
       } else {
@@ -112,12 +148,21 @@ export default {
     },
     async getLists() {
       const response = await getConsumptions();
+      // response.data.push({
+      //   total: this.countTotal(response.cost, response.dwType)
+      // })
       this.lists = response.data;
       console.log(this.lists);
+      console.log(response.data);
     },
   },
   data() {
     return {
+      newResponse: [],
+      searchitems: "",
+      searchUseType: "",
+      searchPayType: "",
+      searchDwType: "",
       showDelete: false,
       showNewModal: false,
       lists: [],
@@ -125,25 +170,26 @@ export default {
       lastTotal: 0,
       types: {
         useType: {
-          "뷰티": "BEAUTY",
-          "의류비": "CLOTHES",
-          "문화활동": "CULTURE",
-          "교육비": "EDUCATION",
-          "기타": "ETC",
-          "식비": "FOOD",
-          "생활비": "LIFE",
-          "병원비": "MEDICALTREATMENT",
-          "교통비": "TRAFFIC",
+          "BEAUTY": "뷰티",
+          "CLOTHES": "의류비",
+          "CULTURE": "문화활동",
+          "EDUCATION": "교육비",
+          "ETC": "기타",
+          "FOOD": "식비",
+          "LIFE": "생활비",
+          "MEDICALTREATMENT": "병원비",
+          "TRAFFIC": "교통비",
         },
         payType: {
-          "계좌이체": "ACCOUNTTRANSFER",
-          "카드": "CARD",
-          "현금": "CASH",
-          "기프트카드": "GIRTCARD", 
+          "ACCOUNTTRANSFER": "계좌이체",
+          "CARD": "카드",
+          "CASH": "현금",
+          "GIFTCARD": "기프트카드",
+          "ETC": "기타", 
         },
         dwType: {
-          "지출": "WITHDRAW",
-          "수입": "DEPOSIT",
+          "WITHDRAW": "지출",
+          "DEPOSIT": "수입",
         },
       }
     };
@@ -171,10 +217,10 @@ export default {
     width: 16%
   }
   .th-2 {
-    width: 41%;
+    width: 39%;
   }
   .th-3 {
-    width: 23%;
+    width: 25%;
   }
   .th-4, .th-5 {
     width: 10%;

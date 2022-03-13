@@ -2,10 +2,9 @@
    <div>
      <div class="search">
       <h4>search</h4>
-      <!-- <label class="searchitem">
-        <input type="radio" value="All">
-        <span>All</span>
-      </label> <br> -->
+      <label class="searchitem">
+        <button type="button" value="All" @click="$emit('all')">All</button>
+      </label> <br>
       <label class="searchitem">
         <input type="radio" name="useType" value="FOOD" v-model="checkUseType">
         <span>식비</span>
@@ -66,7 +65,7 @@
         <input type="radio" name="dwType" value="WITHDRAW" v-model="checkDwType">
         <span>지출</span>
       </label> <br>
-      <button type="button" @click="searchButton">검색하기</button>
+      <button type="button" @click="searchButton">검색</button>
      </div>
     </div>
 </template>
@@ -83,16 +82,31 @@ export default {
       })
     }
   },
+  data() {
+    return {
+      checkUseType: "",
+      checkPayType: "",
+      checkDwType: "",
+    }
+  },
 }
 </script>
 <style scoped>
+  button {
+    width: 80px;
+    padding: 4px;
+    margin: 5px;
+    border-radius: 35px;
+    border: none;
+    color: black;
+    font-size: 15px;
+  }
   .search {
     text-align: center;
   }
   .searchitem input[type="radio"] {
       display: none;
   }
-  
   .searchitem input[type="radio"] + span {
     display: inline-block;
     padding: 4px 10px 2px;
