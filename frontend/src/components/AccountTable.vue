@@ -28,7 +28,7 @@
           <td>{{ list.content }}</td>
           <td>{{ this.types.payType[list.payType] }}, {{ this.types.dwType[list.dwType] }}, {{ this.types.useType[list.useType] }}</td>
           <td>{{ list.cost }}</td>
-          <td>{{ list.total }}</td>
+          <td>{{ this.countTotal(list.cost, list.dwType) }}</td>
           <td><button type="button" v-show="showDelete" @click="deleteList(index)">Delete</button></td>
         </tr> 
       </tbody>
@@ -135,12 +135,11 @@ export default {
     },
     countTotal(cost, dwType) {
       let newAmount = 0;
-      if(dwType === "지출") {
+      if(dwType === "WITHDRAW") {
         newAmount = -cost;
-      } else if(dwType === "수입") {
+      } else if(dwType === "DEPOSIT") {
         newAmount = cost;
       }
-
       if (this.lists.length === 0) {
         return newAmount;
       } else {
@@ -149,12 +148,17 @@ export default {
     },
     async getLists() {
       const response = await getConsumptions();
+      // response.data.push({
+      //   total: this.countTotal(response.cost, response.dwType)
+      // })
       this.lists = response.data;
       console.log(this.lists);
+      console.log(response.data);
     },
   },
   data() {
     return {
+      newResponse: [],
       searchitems: "",
       searchUseType: "",
       searchPayType: "",

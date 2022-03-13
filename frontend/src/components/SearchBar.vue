@@ -82,6 +82,13 @@ export default {
       })
     }
   },
+  data() {
+    return {
+      checkUseType: "",
+      checkPayType: "",
+      checkDwType: "",
+    }
+  },
 }
 </script>
 <style scoped>
