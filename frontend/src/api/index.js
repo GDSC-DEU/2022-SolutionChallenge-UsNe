@@ -20,8 +20,8 @@ function deleteConsumption(consumptionIndex) {
 function postGoals(userData) {
   return axios.post(`${url}/consumptionGoals`, userData, { withCredentials: true });
 }
-function getGoals() {
-  return axios.get(`${url}/consumptionGoals`, { withCredentials: true });
+function postLogout(userData) {
+  return axios.post(`${url}/logout`, userData, { withCredentials: true });
 }
 
-export { registerUser, loginUser, postConsumption, getConsumptions, deleteConsumption, postGoals, getGoals };
+export { registerUser, loginUser, postConsumption, getConsumptions, deleteConsumption, postGoals, postLogout };
