@@ -2,6 +2,9 @@
   <div class="accountTable">
     <p style="letter-spacing: 14px;">FEBRUARY</p>
     <p style="text-decoration: underline; text-underline-position:under; font-size: 18px;">2022</p>
+    <SearchBar
+      @getSearching="searching"
+    />
     <div class="tableButton">
       <div/>
       <button id="new" @click.stop="onNew">New</button>
@@ -34,20 +37,51 @@
       @close="closeNewModal"
       @insert="inputUpdate"
     />
+    
   </div>
 </template>
 
 <script>
-import { postConsumption, getConsumptions, deleteConsumption } from "@/api/index";
+import { postConsumption, getConsumptions, deleteConsumption, getSearch } from "@/api/index";
 import Modal from "@/components/newModal.vue";
+import SearchBar from "@/components/SearchBar.vue";
 export default {
   components: {
     Modal,
+    SearchBar
   },
   mounted() {
     this.getLists();
   },
   methods: {
+    async searching(data) {
+      const searchitem = {
+        searchUseType: data.searchUseType,
+        searchPayType: data.searchPayType,
+        searchDwType: data.searchDwType,
+      }
+      if(data.searchUseType==undefined && data.searchPayType==undefined && data.searchDwType==undefined) {
+        alert("안돼애!!")
+      } else if(data.searchUseType!=undefined && data.searchPayType==undefined && data.searchDwType==undefined) {
+        this.searchitems = "useType=" + data.searchUseType;
+      } else if(data.searchUseType==undefined && data.searchPayType!=undefined && data.searchDwType==undefined) {
+        this.searchitems = "payType=" + data.searchPayType;
+      } else if(data.searchUseType==undefined && data.searchPayType==undefined && data.searchDwType!=undefined) {
+        this.searchitems = "dwType=" + data.searchDwType;
+      } else if(data.searchUseType!=undefined && data.searchPayType!=undefined && data.searchDwType==undefined) {
+        this.searchitems = "useType=" + data.searchUseType + "&payType=" + data.searchPayType;
+      } else if(data.searchUseType==undefined && data.searchPayType!=undefined && data.searchDwType!=undefined) {
+        this.searchitems = "payType=" + data.searchPayType + "&dwType=" + data.searchDwType;
+      } else if(data.searchUseType!=undefined && data.searchPayType==undefined && data.searchDwType!=undefined) {
+        this.searchitems = "useType=" + data.searchUseType + "&dwType=" + data.searchDwType;
+      } else if(data.searchUseType!=undefined && data.searchPayType!=undefined && data.searchDwType!=undefined) {
+        this.searchitems = "useType=" + data.searchUseType + "&payType=" + data.searchPayType + "&dwType=" + data.searchDwType;
+      }
+      const response = await getSearch(this.searchitems);
+      this.lists = response.data;
+      console.log(searchitem);
+      console.log(data.searchUseType);
+    },
     async deleteList(index) {
       const id = this.lists[index].consumptionIndex
       console.log(id)
@@ -118,6 +152,10 @@ export default {
   },
   data() {
     return {
+      searchitems: "",
+      searchUseType: "",
+      searchPayType: "",
+      searchDwType: "",
       showDelete: false,
       showNewModal: false,
       lists: [],
@@ -139,7 +177,7 @@ export default {
           "계좌이체": "ACCOUNTTRANSFER",
           "카드": "CARD",
           "현금": "CASH",
-          "기프트카드": "GIRTCARD", 
+          "기프트카드": "GIFTCARD", 
         },
         dwType: {
           "지출": "WITHDRAW",

@@ -23,5 +23,8 @@ function postGoals(userData) {
 function postLogout(userData) {
   return axios.post(`${url}/logout`, userData, { withCredentials: true });
 }
+function getSearch(searchitems) {
+  return axios.get(`${url}/consumptions/search?` + searchitems , { withCredentials: true });
+}
 
-export { registerUser, loginUser, postConsumption, getConsumptions, deleteConsumption, postGoals, postLogout };
+export { registerUser, loginUser, postConsumption, getConsumptions, deleteConsumption, postGoals, postLogout,getSearch };
