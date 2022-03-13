@@ -5,7 +5,6 @@
       <input type="text" class="inputLogin" v-model="userId">
       <label> 비밀번호 : </label>
       <input type="password" class="inputLogin" v-model="userPassword">
-      <div class="loginButton" style="color: red">{{ errorMessage }}</div>
       <div class="loginButton">
         <input type="submit" value="Log In" id="onlogin" @click="submitLogin">
       </div>
@@ -20,14 +19,12 @@ export default {
   data() {
     return {
       userId: "",
-      userPassword: "",
-      errorMessage: "",
+      userPassword: ""
     }
   },
   methods: {
     async submitLogin() {
       console.log("submitLogin실행됨")
-      this.checkID();
       const userData = {
         userId: this.userId,
         userPassword: this.userPassword
@@ -41,28 +38,6 @@ export default {
       this.userId = "";
       this.userPassword = "";
     },
-    checkID() {
-      // 영어 or 숫자 쓰면 됨! 조합 -> 15자 이하
-      if(this.userId.length > 15) {
-        this.errorMessage = "아이디를 잘못입력하셨습니다."
-        console.log(this.errorMessage)
-      } else {
-        this.errorMessage = "";
-        this.checkPassword();
-      }
-    },
-    checkPassword() {
-      if(this.userPassword > 20 || this.userPassword < 8 || this.userPassword.includes("!"||"@"||"#"||"$"||"%"||"^"||"&"||"*") == false) {
-        this.errorMessage = "비밀번호를 잘못입력하셨습니다."
-        console.log("비번실행")
-      } else {
-        this.errorMessage = "";
-        return {
-          userId: this.userId,
-          userPassword: this.userPassword
-        }
-      }
-    }
   },
 }
 </script>
