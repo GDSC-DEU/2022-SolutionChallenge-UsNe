@@ -3,7 +3,7 @@
     <AccountTable />
     <body>
       <div class="goalSetting">
-        <h1>My Goal</h1> 
+        <h2>My Goal</h2> 
       </div>
       <p> <button type="button" @click="onGoalSet" id="goalSetButton">Goal setting</button></p>
       <div class="goalGraph">
