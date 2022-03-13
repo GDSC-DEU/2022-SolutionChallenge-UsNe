@@ -150,8 +150,4 @@ export default {
   font-family: 'pinokio';
   font-size: 20px;
 }
- 
-
-  
-
 </style>
