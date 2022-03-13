@@ -25,7 +25,7 @@
         <tr v-for="(list, index) in lists" :key="index">
           <td>{{ list.consumptionDatetime }}</td>
           <td>{{ list.content }}</td>
-          <td>{{ list.payType }}, {{ list.dwType }}, {{ list.useType }}</td>
+          <td>{{ this.types.payType[list.payType] }}, {{ this.types.dwType[list.dwType] }}, {{ this.types.useType[list.useType] }}</td>
           <td>{{ list.cost }}</td>
           <td>{{ list.total }}</td>
           <td><button type="button" v-show="showDelete" @click="deleteList(index)">Delete</button></td>
@@ -102,16 +102,17 @@ export default {
       const userData = {
         consumptionDatetime: Number(listData.consumptionDatetime.replace(/-/g, "")),
         content: listData.content,
-        useType: this.types.useType[listData.useType],
-        payType: this.types.payType[listData.payType],
-        dwType: this.types.dwType[listData.dwType],
+        useType: listData.useType,
+        payType: listData.payType,
+        dwType: listData.dwType,
         cost: listData.cost
       };
+      // this.types.useType[listData.useType],
       console.log(userData)
       const { data } = await postConsumption(userData);
       console.log(data);
       this.lists.push({
-        consumptionDatetime: listData.consumptionDatetime,
+        consumptionDatetime: Number(listData.consumptionDatetime.replace(/-/g, "")),
         content: listData.content,
         useType: listData.useType,
         payType: listData.payType,
@@ -146,6 +147,7 @@ export default {
     },
     async getLists() {
       const response = await getConsumptions();
+
       this.lists = response.data;
       console.log(this.lists);
     },
@@ -163,25 +165,26 @@ export default {
       lastTotal: 0,
       types: {
         useType: {
-          "뷰티": "BEAUTY",
-          "의류비": "CLOTHES",
-          "문화활동": "CULTURE",
-          "교육비": "EDUCATION",
-          "기타": "ETC",
-          "식비": "FOOD",
-          "생활비": "LIFE",
-          "병원비": "MEDICALTREATMENT",
-          "교통비": "TRAFFIC",
+          "BEAUTY": "뷰티",
+          "CLOTHES": "의류비",
+          "CULTURE": "문화활동",
+          "EDUCATION": "교육비",
+          "ETC": "기타",
+          "FOOD": "식비",
+          "LIFE": "생활비",
+          "MEDICALTREATMENT": "병원비",
+          "TRAFFIC": "교통비",
         },
         payType: {
-          "계좌이체": "ACCOUNTTRANSFER",
-          "카드": "CARD",
-          "현금": "CASH",
-          "기프트카드": "GIFTCARD", 
+          "ACCOUNTTRANSFER": "계좌이체",
+          "CARD": "카드",
+          "CASH": "현금",
+          "GIFTCARD": "기프트카드",
+          "ETC": "기타", 
         },
         dwType: {
-          "지출": "WITHDRAW",
-          "수입": "DEPOSIT",
+          "WITHDRAW": "지출",
+          "DEPOSIT": "수입",
         },
       }
     };
