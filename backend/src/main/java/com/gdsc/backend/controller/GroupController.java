@@ -27,7 +27,7 @@ public class GroupController {
         this.groupListService = groupListService;
     }
 
-    @Operation(summary = "그룹 생성", description = "그룹을 생성합니다.", tags = "consumption",
+    @Operation(summary = "그룹 생성", description = "그룹을 생성합니다.", tags = "group",
             responses = {
                     @ApiResponse(responseCode = "201", description = "그룹 생성 성공",
                             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = GroupList.class)))
@@ -39,7 +39,7 @@ public class GroupController {
         return new ResponseEntity<GroupList>(creation, HttpStatus.CREATED);
     }
 
-    @Operation(summary = "그룹 조회", description = "모든 그룹을 조회합니다.", tags = "consumption",
+    @Operation(summary = "그룹 조회", description = "모든 그룹을 조회합니다.", tags = "group",
             responses = {
                     @ApiResponse(responseCode = "200", description = "그룹 조회 성공",
                             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = GroupList.class)))
@@ -51,7 +51,7 @@ public class GroupController {
         return new ResponseEntity<List<GroupList>>(groupLists, HttpStatus.OK);
     }
 
-    @Operation(summary = "그룹 수정", description = "그룹을 수정합니다.", tags = "consumption",
+    @Operation(summary = "그룹 수정", description = "그룹을 수정합니다.", tags = "group",
             responses = {
                     @ApiResponse(responseCode = "200", description = "그룹 수정 성공",
                             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = GroupList.class)))
@@ -63,7 +63,7 @@ public class GroupController {
         return new ResponseEntity<GroupList>(groupList, HttpStatus.OK);
     }
 
-    @Operation(summary = "그룹 삭제", description = "그룹을 삭제합니다.", tags = "consumption",
+    @Operation(summary = "그룹 삭제", description = "그룹을 삭제합니다.", tags = "group",
             responses = {
                     @ApiResponse(responseCode = "200", description = "그룹 삭제 성공",
                             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
