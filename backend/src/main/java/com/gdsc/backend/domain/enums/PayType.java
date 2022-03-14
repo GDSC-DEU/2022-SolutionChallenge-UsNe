@@ -8,7 +8,8 @@ public enum PayType {
     ACCOUNTTRANSFER("게좌이체"),
     CARD("카드"),
     GIRTCARD("상품권"),
-    CASH("현금");
+    CASH("현금"),
+    ETC("기타");
 
     private String name;
 
