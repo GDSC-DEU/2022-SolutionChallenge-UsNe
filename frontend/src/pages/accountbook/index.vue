@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { postGoals, getGoals } from "@/api/index";
+import { postGoals } from "@/api/index";
 import AccountTable from "@/components/AccountTable.vue";
 import Goal from "@/components/accountModal.vue"
 export default {
