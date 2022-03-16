@@ -1,6 +1,6 @@
 <template>
   <div class="accountTable">
-    <p style="letter-spacing: 14px;">FEBRUARY</p>
+    <p style="letter-spacing: 21px;">FEBRUARY</p>
     <p style="text-decoration: underline; text-underline-position:under; font-size: 18px;">2022</p>
     <SearchBar
       @getSearching="searching"
@@ -210,7 +210,7 @@ export default {
   .tableButton {
     display: grid;
     grid-template-columns: 66% 60px 60px ;
-    grid-gap: 6px;
+    grid-gap: 5px;
     margin-bottom: 5px;
   }
  .th-1 {

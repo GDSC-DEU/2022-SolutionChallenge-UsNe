@@ -23,5 +23,20 @@ function postGoals(userData) {
 function getGoals() {
   return axios.get(`${url}/consumptionGoals`, { withCredentials: true });
 }
+<<<<<<< HEAD
+function getSearch(searchitems) {
+  return axios.get(`${url}/consumptions/search?` + searchitems , { withCredentials: true });
+}
+function postLogout(userData) {
+  return axios.post(`${url}/logout`, userData, { withCredentials: true });
+}
+=======
+function postLogout(userData) {
+  return axios.post(`${url}/logout`, userData, { withCredentials: true });
+}
+function getSearch(searchitems) {
+  return axios.get(`${url}/consumptions/search?` + searchitems , { withCredentials: true });
+}
+>>>>>>> bb1ad77 (Style: community 구조, Fix: api 재복구)
 
-export { registerUser, loginUser, postConsumption, getConsumptions, deleteConsumption, postGoals, getGoals };
+export { registerUser, loginUser, postConsumption, getConsumptions, deleteConsumption, postGoals, getGoals, getSearch, postLogout };
