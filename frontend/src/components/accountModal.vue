@@ -107,7 +107,7 @@ export default {
     left: 50%;
     width: 600px;
     height: 500px;
-    padding: 40px;
+    padding: 130px;
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
@@ -135,7 +135,7 @@ export default {
 .modal_body {
       position: absolute;
       text-align: center; 
-      top: 51%;
+      top: 50%;
       left: 50%;
       width: 600px;
       height: 500px;
