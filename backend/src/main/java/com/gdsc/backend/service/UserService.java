@@ -1,9 +1,12 @@
 package com.gdsc.backend.service;
 
+import com.gdsc.backend.domain.Consumption;
 import com.gdsc.backend.domain.User;
 import com.gdsc.backend.dto.request.UserRequest;
+import com.gdsc.backend.dto.response.ConsumptionResponse;
 import com.gdsc.backend.dto.response.SignUpResponse;
 import com.gdsc.backend.dto.response.UserResponse;
+import com.gdsc.backend.exception.ConsumptionGetFailException;
 import com.gdsc.backend.exception.LoginFailException;
 import com.gdsc.backend.exception.SignUpFailException;
 import com.gdsc.backend.repository.UserRepository;
@@ -64,6 +67,7 @@ public class UserService {
            throw new SignUpFailException(e.getMessage());
        }
     }
+
     public User findById(final String userId){
         return userRepository.findByUserId(userId);
     }
@@ -71,4 +75,5 @@ public class UserService {
     public UserResponse findUserResponseById(final String userId) {
         return UserResponse.from(findById(userId));
     }
+
 }
