@@ -77,7 +77,7 @@ public class UserController {
     )
     @PutMapping("/{id}")
     public ResponseEntity<UserResponse> updateUserInfo(@Parameter(name = "id", in = ParameterIn.PATH, description = "수정할 회원 아이디")
-                                                   @PathVariable("id")Long index, @RequestBody UserRequest userRequest, HttpSession httpSession) {
+                                                   @PathVariable("id")String id, @RequestBody UserRequest userRequest, HttpSession httpSession) {
         UserResponse updation= userService.update(userRequest, httpSession.getAttribute("user_id").toString());
         return new ResponseEntity<UserResponse>(updation, HttpStatus.OK);
     }
@@ -88,9 +88,9 @@ public class UserController {
                             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
             }
     )
-    @DeleteMapping("/{index}")
+    @DeleteMapping("/{id}")
     public ResponseEntity deleteUserInfo(@Parameter(name = "id", in = ParameterIn.PATH, description = "삭제할 회원의 아이디")
-                                            @PathVariable("id")Long index,HttpSession httpSession){
+                                            @PathVariable("id")String id,HttpSession httpSession){
         userService.delete(httpSession.getAttribute("user_id").toString());
         return new ResponseEntity<>("{}", HttpStatus.NO_CONTENT);
     }
