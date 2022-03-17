@@ -20,35 +20,35 @@
                     소비 용도 <br>
                     <hr>
                     <label class="inputTag">
-                        <input type="radio" v-model="useType" name="useType" value="식비">
+                        <input type="radio" v-model="useType" name="useType" value="FOOD">
                         <span>식비</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="useType" name="useType" value="뷰티">
+                        <input type="radio" v-model="useType" name="useType" value="BEAUTY">
                         <span>뷰티</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="useType" name="useType" value="의류비">
+                        <input type="radio" v-model="useType" name="useType" value="CLOTHES">
                         <span>의류비</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="useType" name="useType" value="교육비">
+                        <input type="radio" v-model="useType" name="useType" value="EDUCATION">
                         <span>교육비</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="useType" name="useType" value="교통비">
+                        <input type="radio" v-model="useType" name="useType" value="TRAFFIC">
                         <span>교통비</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="useType" name="useType" value="생활비">
+                        <input type="radio" v-model="useType" name="useType" value="LIFE">
                         <span>생활비</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="useType" name="useType" value="문화활동">
+                        <input type="radio" v-model="useType" name="useType" value="CULTURE">
                         <span>문화활동</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="useType" name="useType" value="병원비">
+                        <input type="radio" v-model="useType" name="useType" value="NEDICALTREATMENT">
                         <span>병원비</span>
                     </label>
                     <!--<label class="inputTag">
@@ -64,7 +64,7 @@
                         <span>장학금</span>
                     </label> -->
                     <label class="inputTag">
-                        <input type="radio" v-model="useType" name="useType" value="기타" key="ETC">
+                        <input type="radio" v-model="useType" name="useType" value="ETC">
                         <span>기타</span>
                     </label>
                     <br><br>
@@ -73,23 +73,23 @@
                     사용 수단 <br>
                     <hr>
                     <label class="inputTag">
-                        <input type="radio" v-model="payType" name="payType" value="카드">
+                        <input type="radio" v-model="payType" name="payType" value="CARD">
                         <span>카드</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="payType" name="payType" value="현금">
+                        <input type="radio" v-model="payType" name="payType" value="CASH">
                         <span>현금</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="payType" name="payType" value="계좌이체">
+                        <input type="radio" v-model="payType" name="payType" value="ACCOUNTTRANSFER">
                         <span>계좌이체</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="payType" name="payType" value="기프트카드">
+                        <input type="radio" v-model="payType" name="payType" value="GIFTCARD">
                         <span>기프트카드</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="payType" name="payType" value="기타">
+                        <input type="radio" v-model="payType" name="payType" value="ETC">
                         <span>기타</span>
                     </label>
                     <br><br>
@@ -98,11 +98,11 @@
                     수입/지출 <br>
                     <hr>
                     <label class="inputTag">
-                        <input type="radio" v-model="dwType" name="dwType" value="수입">
+                        <input type="radio" v-model="dwType" name="dwType" value="DEPOSIT">
                         <span>수입</span>
                     </label>
                     <label class="inputTag">
-                        <input type="radio" v-model="dwType" name="dwType" value="지출">
+                        <input type="radio" v-model="dwType" name="dwType" value="WITHDRAW">
                         <span>지출</span>
                     </label>
                     <br><br>

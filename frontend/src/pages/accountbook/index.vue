@@ -5,36 +5,33 @@
       <div class="goalSetting">
         <h1>My Goal</h1> 
       </div>
-      <div class="settingBtn">
-      <button type="button" @click="onGoalSet">Goal setting</button>
-      </div>
+      <p> <button type="button" @click="onGoalSet" id="goalSetButton">Goal setting</button></p>
       <div class="goalGraph">
         <div class="graph stack">
-          <span style="width:100%;">100%</span>
+          <span id="foodGraph">{{ foodWidth }}</span>
         </div>
         <div class="graph stack2">
-          <span style="width:90%;">90%</span> 
+          <span id="cultureGraph">{{ cultureWidth }}</span> 
         </div>
         <div class="graph stack3">
-          <span style="width:80%;">80%</span>
+          <span id="lifeGraph">{{ lifeWidth }}</span>
         </div>
          <div class="graph stack4">
-          <span style="width:70%;">70%</span>
+          <span id="clothesGraph">{{ clothesWidth }}</span>
         </div>
         <div class="graph stack5">
-          <span style="width:60%;">60%</span>
+          <span id="educationGraph">{{ educationWidth }}</span>
         </div>
         <div class="graph stack6">
-          <span style="width:50%;">50%</span>
+          <span id="medicaltreatmentGraph">{{ medicaltreatmentWidth }}</span>
         </div>
         <div class="graph stack7">
-          <span style="width:40%;">40%</span>
+          <span id="trafficGraph">{{ trafficWidth }}</span>
         </div>
         <div class="graph stack8">
-          <span style="width:30%;">30%</span>
+          <span id="beautyGraph">{{ beautyWidth }}</span>
         </div>
       </div>
-       
     </body>
     <div>
       {{goals}}
@@ -58,6 +55,9 @@ export default {
     Goal
   },
   methods: {
+    async getGoalSettingData() {
+      
+    },
     onGoalSet() {
       this.showAccountModal = true;
     },
@@ -99,26 +99,68 @@ export default {
     return {
       showAccountModal: false,
       goals: [],
+      foodWidth: '100%',
+      cultureWidth: "90%",
+      lifeWidth: "90%",
+      clothesWidth: "90%",
+      educationWidth: "90%",
+      medicaltreatmentWidth: "90%",
+      trafficWidth: "90%",
+      beautyWidth: "90%",
     }
   },
 }
 </script>
 
 <style scoped>
+  p {
+    text-align: center;
+  }
+  #foodGraph {
+    width: v-bind(foodWidth);
+  }
+  #cultureGraph {
+    width: v-bind(cultureWidth);
+  }
+  #lifeGraph {
+    width: v-bind(lifeWidth);
+  }
+  #clothesGraph {
+    width: v-bind(clothesWidth);
+  }
+  #educationGraph {
+    width: v-bind(educationWidth);
+  }
+  #medicaltreatmentGraph {
+    width: v-bind(medicaltreatmentWidth);
+  }
+  #trafficGraph {
+    width: v-bind(trafficWidth);
+  }
+  #beautyGraph {
+    width: v-bind(beautyWidth);
+  }
+
   .goalGraph {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px 50px;
   }
-  .settingBtn {
+  #goalSetButton {
+    
+    border-radius: 35px;
     text-align: center;
-    }
+    background: white;
+    border: none;
+    border-color: red;
+    color: red;
+  }
   .goalSetting {
     text-align: center;
     
   }
   body { 
-    padding: 250px;
+    padding: 150px;
   }
   .graph {
     height:30px; 
