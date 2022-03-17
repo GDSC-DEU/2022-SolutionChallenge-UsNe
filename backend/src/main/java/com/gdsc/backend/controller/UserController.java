@@ -82,6 +82,7 @@ public class UserController {
         return new ResponseEntity<UserResponse>(updation, HttpStatus.OK);
     }
 
+    //////
     @Operation(summary = "회원 정보 삭제", description = "회원 정보를 삭제합니다.", tags = "User",
             responses = {
                     @ApiResponse(responseCode = "200", description = "회원 정보 삭제 성공",
