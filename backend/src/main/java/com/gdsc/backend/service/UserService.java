@@ -6,14 +6,13 @@ import com.gdsc.backend.dto.request.UserRequest;
 import com.gdsc.backend.dto.response.ConsumptionResponse;
 import com.gdsc.backend.dto.response.SignUpResponse;
 import com.gdsc.backend.dto.response.UserResponse;
-import com.gdsc.backend.exception.ConsumptionGetFailException;
-import com.gdsc.backend.exception.LoginFailException;
-import com.gdsc.backend.exception.SignUpFailException;
+import com.gdsc.backend.exception.*;
 import com.gdsc.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,6 +22,7 @@ import javax.validation.Valid;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -65,6 +65,24 @@ public class UserService {
            else throw new SignUpFailException("올바르지 못한 가입");
        } catch (Exception e) {
            throw new SignUpFailException(e.getMessage());
+       }
+    }
+
+    @Transactional
+    public List<User> showUserList() {
+        try{
+            return userRepository.findAll();
+        }catch (Exception e){
+            throw new UserGetFailException(e.getMessage());
+        }
+    }
+
+    @Transactional
+    public User update(final UserRequest userRequest, String id) {
+       try {
+    // if회원 아이디가 있는 것인가? // 비밀번호 체크도 해야 함
+       }catch(Exception e){
+           throw new UserInfoUpdateFailException(e.getMessage());
        }
     }
 
