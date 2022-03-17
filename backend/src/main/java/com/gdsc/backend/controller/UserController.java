@@ -88,9 +88,9 @@ public class UserController {
                             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
             }
     )
-    @DeleteMapping("/{index}")
+    @DeleteMapping("/{id}")
     public ResponseEntity deleteUserInfo(@Parameter(name = "id", in = ParameterIn.PATH, description = "삭제할 회원의 아이디")
-                                            @PathVariable("id")Long index,HttpSession httpSession){
+                                            @PathVariable("id")Long id,HttpSession httpSession){
         userService.delete(httpSession.getAttribute("user_id").toString());
         return new ResponseEntity<>("{}", HttpStatus.NO_CONTENT);
     }
