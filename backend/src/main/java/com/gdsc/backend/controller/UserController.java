@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.awt.*;
-import java.awt.print.Pageable;
 import java.util.List;
 
 @Tag(name = "user", description = "회원 관리 관련 API")

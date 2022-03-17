@@ -1,27 +1,16 @@
 package com.gdsc.backend.service;
 
-import com.gdsc.backend.domain.Consumption;
 import com.gdsc.backend.domain.User;
 import com.gdsc.backend.dto.request.UserRequest;
-import com.gdsc.backend.dto.response.ConsumptionResponse;
 import com.gdsc.backend.dto.response.SignUpResponse;
 import com.gdsc.backend.dto.response.UserResponse;
 import com.gdsc.backend.exception.*;
 import com.gdsc.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
