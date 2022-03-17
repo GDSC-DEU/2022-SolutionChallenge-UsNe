@@ -78,13 +78,28 @@ public class UserService {
     }
 
     @Transactional
-    public User update(final UserRequest userRequest, String id) {
+    public UserResponse update(final UserRequest userRequest, String id) {
        try {
-    // if회원 아이디가 있는 것인가? // 비밀번호 체크도 해야 함
+           User userinfo = userRepository.findUserByUserId(id);
+           userinfo.update(userRequest);
+           userRepository.save(userinfo);
+           return UserResponse.from(userinfo);
+
        }catch(Exception e){
            throw new UserInfoUpdateFailException(e.getMessage());
        }
     }
+
+    public void delete(final String id) {
+       try {
+           User user = userRepository.findUserByUserId(id);
+           userRepository.delete(user);
+           return;
+       }catch(Exception e){
+           throw new UserInfoDeleteFailException(e.getMessage());
+       }
+    }
+
 
     public User findById(final String userId){
         return userRepository.findByUserId(userId);

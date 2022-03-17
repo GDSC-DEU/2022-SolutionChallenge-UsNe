@@ -78,34 +78,24 @@ public class UserController {
             }
     )
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUserInfo(@Parameter(name = "id", in = ParameterIn.PATH, description = "수정할 회원 아이디")
+    public ResponseEntity<UserResponse> updateUserInfo(@Parameter(name = "id", in = ParameterIn.PATH, description = "수정할 회원 아이디")
                                                    @PathVariable("id")Long index, @RequestBody UserRequest userRequest, HttpSession httpSession) {
-        User updation= userService.update(userRequest, httpSession.getAttribute("user_id").toString());
-        return new ResponseEntity<>(updation, HttpStatus.OK);
+        UserResponse updation= userService.update(userRequest, httpSession.getAttribute("user_id").toString());
+        return new ResponseEntity<UserResponse>(updation, HttpStatus.OK);
     }
-//
-//    @Operation(summary = "회원 정보 삭제", description = "회원 정보를 삭제합니다.", tags = "User",
-//            responses = {
-//                    @ApiResponse(responseCode = "200", description = "회원 정보 삭제 성공",
-//                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
-//            }
-//    )
-//    @DeleteMapping("/{index}")
-//    resign
-//    public ResponseEntity deleteConsumption(@Parameter(name = "index", in = ParameterIn.PATH, description = "삭제할 소비의 인덱스")
-//                                            @PathVariable("index")Long index,HttpSession httpSession){
-//        consumptionManagementService.delete(index, httpSession.getAttribute("user_id").toString());
-//        return new ResponseEntity<>("{}", HttpStatus.NO_CONTENT);
-//    }
-//
-//
-//    @GetMapping("/search")
-//    public ResponseEntity<List<ConsumptionResponse>> searchConsumptionByTag(@RequestParam(value="useType", required = false) UseType useType,
-//                                                                            @RequestParam(value = "dwType", required = false) DwType dwType,
-//                                                                            @RequestParam(value="payType", required = false) PayType payType,
-//                                                                            HttpSession httpSession){
-//        List<ConsumptionResponse> consumptions = consumptionManagementService.search(useType,dwType,payType,httpSession.getAttribute("user_id").toString());
-//        return new ResponseEntity<List<ConsumptionResponse>>(consumptions,HttpStatus.OK);
-//    }
+
+    @Operation(summary = "회원 정보 삭제", description = "회원 정보를 삭제합니다.", tags = "User",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "회원 정보 삭제 성공",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
+            }
+    )
+    @DeleteMapping("/{index}")
+    public ResponseEntity deleteUserInfo(@Parameter(name = "id", in = ParameterIn.PATH, description = "삭제할 회원의 아이디")
+                                            @PathVariable("id")Long index,HttpSession httpSession){
+        userService.delete(httpSession.getAttribute("user_id").toString());
+        return new ResponseEntity<>("{}", HttpStatus.NO_CONTENT);
+    }
+
 
 }
