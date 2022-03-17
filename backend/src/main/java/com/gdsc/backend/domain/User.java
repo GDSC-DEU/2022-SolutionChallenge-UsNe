@@ -4,7 +4,6 @@ import com.gdsc.backend.dto.request.ConsumptionRequest;
 import com.gdsc.backend.dto.request.UserRequest;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
