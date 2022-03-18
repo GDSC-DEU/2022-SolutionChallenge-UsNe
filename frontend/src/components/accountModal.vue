@@ -26,20 +26,43 @@
       #교통<input type="number" v-model="traffic">  
       #뷰티<input type="number" v-model="beauty">
     </p>
-    <p>  
-      #기타<input type="number" v-model="ect">
-    </p>
-
-    <button type="button" @click="addbudget">input</button>
-    <button type="button" @click="$emit('close')">close</button>
+    <button type="button" @click="putbudget">수정</button>
+    <button type="button" @click="addbudget" v-show="addGoals">입력</button>
+    <button type="button" @click="$emit('close')">닫기</button>
   </div> 
 </template> 
 
 <script>
-
-
 export default {
   methods: {
+    putbudget() {
+      this.totalConsumption = 
+        this.food + 
+        this.culture + 
+        this.life + 
+        this.clothes + 
+        this.education + 
+        this.medicaltreatment + 
+        this.traffic + 
+        this.beauty + 
+        this.ect;
+      if(this.totalConsumption > this.budget) {
+        this.errorMessage = true;
+      } else {
+        this.errorMessage = false;
+        this.$emit('putGoal', {
+          food: this.food,
+          culture: this.culture,
+          life: this.life,
+          clothes: this.clothes,
+          education: this.education,
+          medicaltreatment: this.medicaltreatment,
+          traffic: this.traffic,
+          beauty: this.beauty,
+          ect: this.ect
+        })
+      }
+    },
     showBudget() {
       this.showBudgetBox = true;
       this.showSetButton = false;
@@ -93,7 +116,8 @@ export default {
       medicaltreatment: "",
       traffic: "",
       beauty: "",
-      ect: ""
+      ect: 0,
+      addGoals: false,
     }
   },
 }
@@ -105,9 +129,9 @@ export default {
     text-align: center; 
     top: 50%;
     left: 50%;
-    width: 600px;
-    height: 500px;
-    padding: 130px;
+    width: 500px;
+    height: 400px;
+    padding: 80px;
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
