@@ -34,8 +34,7 @@
       </div>
     </body>
     <div>
-      {{goals}}
-
+      <button type="button" @click="getGoalSettingData">input Goal</button>
     </div>
     <Goal 
       v-if="showAccountModal"
@@ -46,7 +45,7 @@
 </template>
 
 <script>
-import { postGoals } from "@/api/index";
+import { postGoals, getGoals, getGoalCalc } from "@/api/index";
 import AccountTable from "@/components/AccountTable.vue";
 import Goal from "@/components/accountModal.vue"
 export default {
@@ -54,9 +53,31 @@ export default {
     AccountTable,
     Goal
   },
+  mounted() {
+    this.getGoalSettingData();
+  },
   methods: {
+    async getTotalConsumption() {
+      const response = await getGoalCalc();
+      this.totalCons = response.data;
+      this.calculateGoal()
+    },
+    calculateGoal() {
+      this.foodWidth = this.totalCons.food*100/this.goals.food + "%";
+      this.cultureWidth = this.totalCons.culture*100/this.goals.culture + "%";
+      this.lifeWidth = this.totalCons.life*100/this.goals.life + "%";
+      this.clothesWidth = this.totalCons.clothes*100/this.goals.clothes + "%";
+      this.educationWidth = this.totalCons.education*100/this.goals.education + "%";
+      this.medicaltreatmentWidth = this.totalCons.medicaltreatment*100/this.goals.medicaltreatment + "%";
+      this.trafficWidth = this.totalCons.traffic*100/this.goals.traffic + "%";
+      this.beautyWidth = this.totalCons.beauty*100/this.goals.beauty + "%";
+      console.log(this.foodWidth);
+    },
     async getGoalSettingData() {
-      
+      const response = await getGoals();
+      this.goals = response.data;
+      console.log(this.goals);
+      this.getTotalConsumption();
     },
     onGoalSet() {
       this.showAccountModal = true;
@@ -79,19 +100,6 @@ export default {
       console.log(userData);
       const { data } = await postGoals(userData);
       console.log(data);
-      // 목표 출력
-      this.goals.push({
-        food: goalData.food,
-        culture: goalData.culture,
-        life: goalData.life,
-        clothes: goalData.clothes,
-        education: goalData.education,
-        medicaltreatment: goalData.medicaltreatment,
-        traffic: goalData.traffic,
-        beauty: goalData.beauty,
-        ect: goalData.ect
-      })
-      console.log(this.goals);
       this.onClosebutton()
     }
   },
@@ -99,14 +107,15 @@ export default {
     return {
       showAccountModal: false,
       goals: [],
-      foodWidth: '100%',
-      cultureWidth: "90%",
-      lifeWidth: "90%",
-      clothesWidth: "90%",
-      educationWidth: "90%",
-      medicaltreatmentWidth: "90%",
-      trafficWidth: "90%",
-      beautyWidth: "90%",
+      totalCons: [],
+      foodWidth: '0%',
+      cultureWidth: "0%",
+      lifeWidth: "0%",
+      clothesWidth: "0%",
+      educationWidth: "0%",
+      medicaltreatmentWidth: "0%",
+      trafficWidth: "0%",
+      beautyWidth: "0%",
     }
   },
 }
@@ -118,27 +127,35 @@ export default {
   }
   #foodGraph {
     width: v-bind(foodWidth);
+    max-width: 100%;
   }
   #cultureGraph {
     width: v-bind(cultureWidth);
+    max-width: 100%;
   }
   #lifeGraph {
     width: v-bind(lifeWidth);
+    max-width: 100%;
   }
   #clothesGraph {
     width: v-bind(clothesWidth);
+    max-width: 100%;
   }
   #educationGraph {
     width: v-bind(educationWidth);
+    max-width: 100%;
   }
   #medicaltreatmentGraph {
     width: v-bind(medicaltreatmentWidth);
+    max-width: 100%;
   }
   #trafficGraph {
     width: v-bind(trafficWidth);
+    max-width: 100%;
   }
   #beautyGraph {
     width: v-bind(beautyWidth);
+    max-width: 100%;
   }
 
   .goalGraph {
