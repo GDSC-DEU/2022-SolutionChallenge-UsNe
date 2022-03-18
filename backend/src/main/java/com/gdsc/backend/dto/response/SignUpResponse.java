@@ -14,9 +14,6 @@ public class SignUpResponse {
     @Schema(description = "사용자 아이디", nullable = false, example = "Content")
     private String userId;
 
-    @Schema(description = "사용자 비밀번호", nullable = false, example = "Content")
-    private String userPassword;
-
     @Schema(description = "사용자 휴대전화번호", nullable = false, example = "Content")
     private String userPhoneNumber;
 
@@ -30,9 +27,8 @@ public class SignUpResponse {
     private Boolean status;
 
     @Builder
-    public SignUpResponse(String userId, String userPassword, String userPhoneNumber, String userName, String userBirth, Boolean status){
+    public SignUpResponse(String userId, String userPhoneNumber, String userName, String userBirth, Boolean status){
         this.userId=userId;
-        this.userPassword=userPassword;
         this.userPhoneNumber=userPhoneNumber;
         this.userName=userName;
         this.userBirth=userBirth;

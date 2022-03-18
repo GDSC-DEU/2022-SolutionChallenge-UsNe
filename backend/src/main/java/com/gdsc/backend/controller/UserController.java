@@ -63,10 +63,10 @@ public class UserController {
             }
     )
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> showUserInfo(@Parameter(name = "id", in = ParameterIn.PATH, description = "조회할 회원 아이디")
+    public ResponseEntity<SignUpResponse> showUserInfo(@Parameter(name = "id", in = ParameterIn.PATH, description = "조회할 회원 아이디")
                                                          @PathVariable("id")String id, HttpSession httpSession) {
-        UserResponse userResponse = userService.findUserResponseById(httpSession.getAttribute("user_id").toString());
-        return new ResponseEntity<UserResponse>(userResponse, HttpStatus.OK);
+        SignUpResponse userResponse = userService.userInfo(httpSession.getAttribute("user_id").toString());
+        return new ResponseEntity<SignUpResponse>(userResponse, HttpStatus.OK);
     }
 
     @Operation(summary = "회원 정보 수정", description = "회원 정보를 수정합니다.", tags = "User",
@@ -90,10 +90,8 @@ public class UserController {
     )
     @DeleteMapping("/{id}")
     public ResponseEntity deleteUserInfo(@Parameter(name = "id", in = ParameterIn.PATH, description = "삭제할 회원의 아이디")
-                                            @PathVariable("id")String id,HttpSession httpSession){
+                                            @PathVariable("id")String id,HttpSession httpSession) {
         userService.delete(httpSession.getAttribute("user_id").toString());
         return new ResponseEntity<>("{}", HttpStatus.NO_CONTENT);
     }
-
-
 }

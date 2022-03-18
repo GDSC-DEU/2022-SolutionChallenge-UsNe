@@ -60,7 +60,8 @@ public class User {
         this.status=userRequest.getStatus();
     }
 
-    public void update(UserRequest userRequest) {
+    public void update(UserRequest userRequest, String id) {
+        this.userId=id;
         this.userPassword = userRequest.getUserPassword();
         this.userPhoneNumber = userRequest.getUserPhoneNumber();
         this.userName = userRequest.getUserName();
