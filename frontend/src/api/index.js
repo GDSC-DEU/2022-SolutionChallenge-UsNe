@@ -32,6 +32,8 @@ function postLogout(userData) {
 function getGoalCalc() {
   return axios.get(`${url}/consumptionGoals/calc`, { withCredentials: true });
 }
+function putGoals(userData) {
+  return axios.put(`${url}/consumptionGoals`,userData, { withCredentials: true });
+}
 
-
-export { registerUser, loginUser, postConsumption, getConsumptions, deleteConsumption, postGoals, getGoals, getSearch, postLogout, getGoalCalc };
+export { registerUser, loginUser, postConsumption, getConsumptions, deleteConsumption, postGoals, getGoals, getSearch, postLogout, getGoalCalc, putGoals };

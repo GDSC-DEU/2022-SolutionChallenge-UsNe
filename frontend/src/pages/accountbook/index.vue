@@ -40,12 +40,13 @@
       v-if="showAccountModal"
       @close="onClosebutton"
       @submitGoal="insertGoal"
+      @putGoal="retouchGoals"
     />
   </div>
 </template>
 
 <script>
-import { postGoals, getGoals, getGoalCalc } from "@/api/index";
+import { postGoals, getGoals, getGoalCalc, putGoals } from "@/api/index";
 import AccountTable from "@/components/AccountTable.vue";
 import Goal from "@/components/accountModal.vue"
 export default {
@@ -57,6 +58,24 @@ export default {
     this.getGoalSettingData();
   },
   methods: {
+    async retouchGoals(goalData) {
+      const userData = {
+        food: goalData.food,
+        culture: goalData.culture,
+        life: goalData.life,
+        clothes: goalData.clothes,
+        education: goalData.education,
+        medicaltreatment: goalData.medicaltreatment,
+        traffic: goalData.traffic,
+        beauty: goalData.beauty,
+        ect: goalData.ect
+      };
+      console.log(userData);
+      const { data } = await putGoals(userData);
+      console.log(data);
+      this.onClosebutton()
+      this.getGoalSettingData();
+    },
     async getTotalConsumption() {
       const response = await getGoalCalc();
       this.totalCons = response.data;
@@ -164,13 +183,17 @@ export default {
     gap: 20px 50px;
   }
   #goalSetButton {
-    
     border-radius: 35px;
+    padding: 3px 10px;
     text-align: center;
-    background: white;
-    border: none;
+    background-color: white;
+    border: solid 1px red;
     border-color: red;
     color: red;
+  }
+  #goalSetButton:hover {
+    color: white;
+    background-color: red;
   }
   .goalSetting {
     text-align: center;
