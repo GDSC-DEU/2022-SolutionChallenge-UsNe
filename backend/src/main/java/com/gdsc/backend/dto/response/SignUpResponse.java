@@ -26,13 +26,17 @@ public class SignUpResponse {
     @Schema(description = "사용자 생일", nullable = false, example = "Content")
     private String userBirth;
 
+    @Schema(description = "활동 가능 상태", nullable = false, example = "True")
+    private Boolean status;
+
     @Builder
-    public SignUpResponse(String userId, String userPassword, String userPhoneNumber, String userName, String userBirth){
+    public SignUpResponse(String userId, String userPassword, String userPhoneNumber, String userName, String userBirth, Boolean status){
         this.userId=userId;
         this.userPassword=userPassword;
         this.userPhoneNumber=userPhoneNumber;
         this.userName=userName;
         this.userBirth=userBirth;
+        this.status=status;
     }
 
     public static SignUpResponse from(User user) {
@@ -41,6 +45,7 @@ public class SignUpResponse {
                 .userPhoneNumber(user.getUserPhoneNumber())
                 .userName(user.getUserName())
                 .userBirth(user.getUserBirth())
+                .status(user.getStatus())
                 .build();
         return signUpResponse;
     }

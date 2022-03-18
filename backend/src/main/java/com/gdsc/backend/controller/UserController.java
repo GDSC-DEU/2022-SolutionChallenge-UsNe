@@ -76,12 +76,11 @@ public class UserController {
             }
     )
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponse> updateUserInfo(@Parameter(name = "id", in = ParameterIn.PATH, description = "수정할 회원 아이디")
+    public ResponseEntity<SignUpResponse> updateUserInfo(@Parameter(name = "id", in = ParameterIn.PATH, description = "수정할 회원 아이디")
                                                    @PathVariable("id")String id, @RequestBody UserRequest userRequest, HttpSession httpSession) {
-        UserResponse updation= userService.update(userRequest, httpSession.getAttribute("user_id").toString());
-        return new ResponseEntity<UserResponse>(updation, HttpStatus.OK);
+        SignUpResponse updation= userService.update(userRequest, httpSession.getAttribute("user_id").toString());
+        return new ResponseEntity<SignUpResponse>(updation, HttpStatus.OK);
     }
-    ////////////
 
     @Operation(summary = "회원 정보 삭제", description = "회원 정보를 삭제합니다.", tags = "User",
             responses = {
