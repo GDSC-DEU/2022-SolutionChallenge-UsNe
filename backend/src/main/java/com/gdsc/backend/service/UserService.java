@@ -70,7 +70,7 @@ public class UserService {
     public SignUpResponse update(final UserRequest userRequest, String id) {
        try {
            User userinfo = userRepository.findUserByUserId(id);
-           userinfo.update(userRequest);
+           userinfo.update(userRequest, id);
            userRepository.save(userinfo);
            return SignUpResponse.from(userinfo);
 
@@ -79,11 +79,11 @@ public class UserService {
        }
     }
 
-    public boolean delete(final String id) { // 실험실험
+    public void delete(final String id) {
        try {
            User user = userRepository.findUserByUserId(id);
            user.setStatus(false);
-           return user.getStatus();
+           return;
        }catch(Exception e){
            throw new UserInfoDeleteFailException(e.getMessage());
        }
@@ -96,6 +96,10 @@ public class UserService {
 
     public UserResponse findUserResponseById(final String userId) {
         return UserResponse.from(findById(userId));
+    }
+
+    public SignUpResponse userInfo(final String userId) {
+        return SignUpResponse.from(findById(userId));
     }
 
 }
