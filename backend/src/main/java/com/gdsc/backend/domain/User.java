@@ -37,13 +37,18 @@ public class User {
     @Column(nullable = true)
     String userBirth;
 
+    @Schema(description = "활동 가능 상태", nullable = false, example = "True")
+    @Column(nullable = false)
+    Boolean status;
+
     @Builder
-    public User(String userId, String userPassword, String userPhoneNumber, String userName, String userBirth){
+    public User(String userId, String userPassword, String userPhoneNumber, String userName, String userBirth, Boolean status){
         this.userId=userId;
         this.userPassword=userPassword;
         this.userPhoneNumber=userPhoneNumber;
         this.userName=userName;
         this.userBirth=userBirth;
+        this.status=status;
     }
 
     public User(UserRequest userRequest){
@@ -52,6 +57,7 @@ public class User {
         this.userPhoneNumber=userRequest.getUserPhoneNumber();
         this.userName=userRequest.getUserName();
         this.userBirth=userRequest.getUserBirth();
+        this.status=userRequest.getStatus();
     }
 
     public void update(UserRequest userRequest) {
@@ -59,6 +65,7 @@ public class User {
         this.userPhoneNumber = userRequest.getUserPhoneNumber();
         this.userName = userRequest.getUserName();
         this.userBirth = userRequest.getUserBirth();
+        this.status=userRequest.getStatus();
     }
 
     public void matchPassword(String password) { //비밀번호 확인인

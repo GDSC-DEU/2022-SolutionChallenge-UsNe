@@ -67,23 +67,23 @@ public class UserService {
     }
 
     @Transactional
-    public UserResponse update(final UserRequest userRequest, String id) {
+    public SignUpResponse update(final UserRequest userRequest, String id) {
        try {
            User userinfo = userRepository.findUserByUserId(id);
            userinfo.update(userRequest);
            userRepository.save(userinfo);
-           return UserResponse.from(userinfo);
+           return SignUpResponse.from(userinfo);
 
        }catch(Exception e){
            throw new UserInfoUpdateFailException(e.getMessage());
        }
     }
 
-    public void delete(final String id) {
+    public boolean delete(final String id) { // 실험실험
        try {
            User user = userRepository.findUserByUserId(id);
-           userRepository.delete(user);
-           return;
+           user.setStatus(false);
+           return user.getStatus();
        }catch(Exception e){
            throw new UserInfoDeleteFailException(e.getMessage());
        }

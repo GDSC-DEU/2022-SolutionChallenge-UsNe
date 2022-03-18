@@ -35,22 +35,22 @@ public class UserResponse {
         this.userBirth=userBirth;
     }
 
-//    public static UserResponse from(User user) {
-//        UserResponse userResponse = UserResponse.builder()
-//                .userId(user.getUserId())
-//                .userName(user.getUserName())
-//                .build();
-//        return userResponse;
-//    }
-
     public static UserResponse from(User user) {
         UserResponse userResponse = UserResponse.builder()
-                .userId(user.getUserPassword())
-                .userPhoneNumber(user.getUserPhoneNumber())
+                .userId(user.getUserId())
                 .userName(user.getUserName())
-                .userBirth(user.getUserBirth())
                 .build();
         return userResponse;
     }
+
+//    public static UserResponse from(User user) {
+//        UserResponse userResponse = UserResponse.builder()
+//                .userId(user.getUserPassword())
+//                .userPhoneNumber(user.getUserPhoneNumber())
+//                .userName(user.getUserName())
+//                .userBirth(user.getUserBirth())
+//                .build();
+//        return userResponse;
+//    }
 
 }

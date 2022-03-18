@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -39,6 +40,9 @@ public class UserRequest {
     @Schema(description = "사용자의 생일", nullable = true, example = "2000.12.24")
     @Pattern(regexp = "((19|20)\\d{2}).?(0[1-9]|1[0-2]).?(0[1-9]|[1-2][0-9]|3[0-1])$", message = "올바른 생년월일을 입력해주세요. (ex) xxxx.xx.xx)")
     private String userBirth;
+
+    @Schema(description = "활동 가능 상태", nullable = false, example = "True")
+    private Boolean status;
 
     @Builder
     public UserRequest(String userId, String userPassword, String userPhoneNumber, String userName, String userBirth) {
