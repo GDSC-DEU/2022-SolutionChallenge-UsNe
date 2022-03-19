@@ -41,6 +41,7 @@ export default {
       userName: "",
       userPhoneNumber: "",
       userBirth: "",
+      // status: true,
     };
   },
   methods: {
@@ -51,6 +52,7 @@ export default {
         userName: this.userName,
         userPhoneNumber: this.userPhoneNumber,
         userBirth: this.userBirth,
+        // status: this.status,
       };
       const { data } = await registerUser(userData);
       console.log(data)
