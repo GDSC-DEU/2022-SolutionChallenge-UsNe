@@ -6,6 +6,8 @@ import AccountBook from '../pages/accountbook';
 import Data from '../pages/data';
 import Community from '../pages/community';
 import Preferences from '../pages/preferences';
+import Group from '../pages/group';
+import Friend from '../pages/friend';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -44,6 +46,16 @@ const router = createRouter({
       path: '/preferences',
       name: 'Preferences',
       component: Preferences
+    },
+    {
+      path: '/group',
+      name: 'Group',
+      component: Group
+    },
+    {
+      path: '/friend',
+      name: 'Friend',
+      component: Friend
     },
   ]
 });
