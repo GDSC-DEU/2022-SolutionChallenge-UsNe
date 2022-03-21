@@ -10,8 +10,10 @@
         그룹탈퇴
       </button>    
     </div>
-    <h2>My Goal</h2>
-    <GoalTable />
+    <div>
+      <GoalTable />
+      <AccountTable v-show="lock"/>
+    </div>
     <div class="friends">
       <div class="gofriend1">
         친구이름
@@ -26,19 +28,28 @@
         친구이름
       </div> 
     </div>  
+  
   </div>
+  
 </template>
 
 <script>
+import AccountTable from "@/components/AccountTable.vue";
 import GoalTable from "@/components/GoalTable.vue";
 export default {
-  component: {
-    GoalTable,
-  }
+  components: {
+    AccountTable,
+    GoalTable
+  },
+  data() {
+    return {
+      lock: false
+    }
+  },
 }
 </script>
 
-<style>
+<style coped>
 .groupButton {
   text-align: center;
 }
@@ -60,7 +71,7 @@ export default {
   border: 1px solid;
   width: 100px;
   height: 100px;
-  padding: 50;
+  padding: 50px;
 }
 .gofriend2 {
   border: 1px solid;
