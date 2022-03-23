@@ -31,13 +31,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @Operation(summary = "회원 가입", description = "회원 가입합니다.", tags = "User",
+    @Operation(summary = "회원 가입", description = "회원 가입합니다.", tags = "user",
             responses = {
                     @ApiResponse(responseCode = "201", description = "회원 가입 성공",
                             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserResponse.class)))
             }
     )
-    @PostMapping("/signUp")
+    @PostMapping("/signup")
     public ResponseEntity<SignUpResponse> signUp(@Valid @RequestBody UserRequest userRequest, HttpSession httpSession){
         SignUpResponse creation = userService.joinUser(userRequest);
 
@@ -56,7 +56,7 @@ public class UserController {
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
 
-    @Operation(summary = "회원 정보 조회", description = "회원 정보를 조회합니다.", tags = "User",
+    @Operation(summary = "회원 정보 조회", description = "회원 정보를 조회합니다.", tags = "user",
             responses = {
                     @ApiResponse(responseCode = "200", description = "회원 정보 조회 성공",
                             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = User.class)))
@@ -69,7 +69,7 @@ public class UserController {
         return new ResponseEntity<SignUpResponse>(userResponse, HttpStatus.OK);
     }
 
-    @Operation(summary = "회원 정보 수정", description = "회원 정보를 수정합니다.", tags = "User",
+    @Operation(summary = "회원 정보 수정", description = "회원 정보를 수정합니다.", tags = "user",
             responses = {
                     @ApiResponse(responseCode = "200", description = "회원 정보 수정 성공",
                             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = User.class)))
@@ -82,7 +82,7 @@ public class UserController {
         return new ResponseEntity<SignUpResponse>(updation, HttpStatus.OK);
     }
 
-    @Operation(summary = "회원 정보 삭제", description = "회원 정보를 삭제합니다.", tags = "User",
+    @Operation(summary = "회원 정보 삭제", description = "회원 정보를 삭제합니다.", tags = "user",
             responses = {
                     @ApiResponse(responseCode = "200", description = "회원 정보 삭제 성공",
                             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
