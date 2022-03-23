@@ -35,5 +35,11 @@ function getGoalCalc() {
 function putGoals(userData) {
   return axios.put(`${url}/consumptionGoals`,userData, { withCredentials: true });
 }
+function postNewGroup(userData) {
+  return axios.post(`${url}/groups`, userData, { withCredentials: true });
+}
+function getMyGroup() {
+  return axios.get(`${url}/groups`, { withCredentials: true });
+}
 
-export { registerUser, loginUser, postConsumption, getConsumptions, deleteConsumption, postGoals, getGoals, getSearch, postLogout, getGoalCalc, putGoals };
+export { registerUser, loginUser, postConsumption, getConsumptions, deleteConsumption, postGoals, getGoals, getSearch, postLogout, getGoalCalc, putGoals, postNewGroup,getMyGroup };
