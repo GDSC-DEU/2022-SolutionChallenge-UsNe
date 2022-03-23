@@ -194,7 +194,7 @@ export default {
     
   }
   body { 
-    padding: 150px;
+    padding: 20px 150px;
   }
   .graph {
     height:30px; 
