@@ -13,12 +13,20 @@
     </div>
     <div class="groupbody">
       <div class="group1">
-       <a href="url"><img src="@/images/group-img.jpeg" border="0" width="100" height="100"></a>
-       <p>그룹1</p>
+       <a href="url"><img src="@/images/group-img.jpeg" border="0" width="200" height="200"></a>
+       <p>절므니</p>
       </div>
       <div class="group2">
-       <a href="url"><img src="@/images/img.jpg" border="0" width="100" height="100"></a>
-       <p>그룹2</p>
+       <a href="url"><img src="@/images/img.jpg" border="0" width="200" height="200"></a>
+       <p>GDSC DEU</p>
+      </div>
+       <div class="group3">
+       <a href="url"><img src="@/images/group-img.jpeg" border="0" width="200" height="200"></a>
+       <p>티끌모아 먼지</p>
+      </div>
+      <div class="group4">
+       <a href="url"><img src="@/images/img.jpg" border="0" width="200" height="200"></a>
+       <p>돈사모</p>
       </div>
     </div>
   </div>
@@ -45,26 +53,44 @@ export default {
   }
   .groupbody {
     text-align: center;
+    margin-top: 50px; 
   }
   .group1 {
     text-align: center;
     border: 1px solid;
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     padding: 50;
     margin-right: 20px;
-    margin-left: 850px;
+    margin-left: 500px;
     float: left;
   }
   .group2 {
     text-align: center;
     border: 1px solid;
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
+    padding: 50;
+     margin-right: 20px;
+    float: left;
+  }
+  .group3 {
+    text-align: center;
+    border: 1px solid;
+    width: 200px;
+    height: 200px;
+    padding: 50;
+     margin-right: 20px;
+    float: left;
+  }
+  .group4 {
+    text-align: center;
+    border: 1px solid;
+    width: 200px;
+    height: 200px;
     padding: 50;
     float: left;
   }
-  
   .groupBar {
     text-align: center;
   }
