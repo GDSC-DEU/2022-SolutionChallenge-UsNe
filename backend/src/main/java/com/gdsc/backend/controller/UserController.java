@@ -44,7 +44,7 @@ public class UserController {
         return new ResponseEntity<SignUpResponse>(creation, HttpStatus.CREATED);
     }
 
-    @Operation(summary = "전체 회원 조회", description = "회원 리스트를 조회합니다.", tags = "User",
+    @Operation(summary = "전체 회원 조회", description = "회원 리스트를 조회합니다.", tags = "user",
             responses = {
                     @ApiResponse(responseCode = "200", description = "전체 회원 조회 성공",
                             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = User.class)))
