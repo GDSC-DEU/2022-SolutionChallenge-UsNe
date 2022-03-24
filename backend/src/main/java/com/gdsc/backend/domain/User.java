@@ -49,6 +49,7 @@ public class User {
         this.userName=userName;
         this.userBirth=userBirth;
         this.status=status;
+        //////////////////
     }
 
     public User(UserRequest userRequest){
