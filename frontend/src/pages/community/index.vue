@@ -16,33 +16,16 @@
       </button>
     </div>
     <div class="groupbody">
-      <!-- <div class="group1">
-       <a href="url"><img src="@/images/group-img.jpeg" border="0" width="200" height="200"></a>
-       <p>절므니</p>
-      </div>
-      <div class="group2">
-       <a href="url"><img src="@/images/img.jpg" border="0" width="200" height="200"></a>
-       <p>GDSC DEU</p>
-      </div>
-       <div class="group3">
-       <a href="url"><img src="@/images/group-img.jpeg" border="0" width="200" height="200"></a>
-       <p>티끌모아 먼지</p>
-      </div>
-      <div class="group4">
-       <a href="url"><img src="@/images/img.jpg" border="0" width="200" height="200"></a>
-       <p>돈사모</p>
-      </div> -->
       <div class="myGrouplist">
         <ul class="groupGrid">
           <li v-for="(myGroup, index) in myGroups" :key="index">
             <div class="group1">
-              <a href="url"><img src="@/images/group-img.jpeg" border="0" width="200" height="200"></a>
+              <a href="/group"><img src="@/images/group-img.jpeg" border="0" width="200" height="200"></a>
             </div>
             <p>{{ myGroup.name }}</p>
           </li>
         </ul>
         <div style="clear:both;"></div>
-        <!-- {{ myGroups }} -->
       </div>
     </div>
   </div>
@@ -50,7 +33,11 @@
 
 <script>
 import { postNewGroup, getMyGroup } from "@/api/index.js";
+import DelateGroup from "@/components/delateCheck.vue";
 export default {
+  components: {
+    DelateGroup,
+  },
   mounted() {
     this.loadingGroup()
   },

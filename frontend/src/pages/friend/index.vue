@@ -1,7 +1,10 @@
 <template>
   <div>
+    <DelateGroup />
     <div class="friendData">
-      친구 데이터 들어갈 공간
+      <div class="friendFace">
+        친구이름 
+      </div>
     </div>
   </div>
 </template>
