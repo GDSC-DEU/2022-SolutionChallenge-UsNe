@@ -64,7 +64,7 @@ export default {
         searchDwType: data.searchDwType,
       }
       if(data.searchUseType==undefined && data.searchPayType==undefined && data.searchDwType==undefined) {
-        alert("안돼애!!")
+        alert("안돼!!")
       } else if(data.searchUseType!=undefined && data.searchPayType==undefined && data.searchDwType==undefined) {
         this.searchitems = "useType=" + data.searchUseType;
       } else if(data.searchUseType==undefined && data.searchPayType!=undefined && data.searchDwType==undefined) {
