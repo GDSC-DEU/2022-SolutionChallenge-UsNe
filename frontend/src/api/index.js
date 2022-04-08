@@ -41,5 +41,8 @@ function postNewGroup(userData) {
 function getMyGroup() {
   return axios.get(`${url}/groups`, { withCredentials: true });
 }
+function deleteGroup(groupIndex) {
+  return axios.delete(`${url}/groups/` + groupIndex,  { withCredentials: true });
+}
 
-export { registerUser, loginUser, postConsumption, getConsumptions, deleteConsumption, postGoals, getGoals, getSearch, postLogout, getGoalCalc, putGoals, postNewGroup,getMyGroup };
+export { registerUser, loginUser, postConsumption, getConsumptions, deleteConsumption, postGoals, getGoals, getSearch, postLogout, getGoalCalc, putGoals, postNewGroup,getMyGroup, deleteGroup };

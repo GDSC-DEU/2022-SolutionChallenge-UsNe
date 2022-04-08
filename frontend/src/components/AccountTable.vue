@@ -28,7 +28,7 @@
           <td>{{ list.content }}</td>
           <td>{{ this.types.payType[list.payType] }}, {{ this.types.dwType[list.dwType] }}, {{ this.types.useType[list.useType] }}</td>
           <td>{{ list.cost }}</td>
-          <td>{{ this.countTotal(list.cost, list.dwType) }}</td>
+          <td>{{ list.total }}</td>
           <td><button type="button" v-show="showDelete" @click="deleteList(index)">Delete</button></td>
         </tr> 
       </tbody>

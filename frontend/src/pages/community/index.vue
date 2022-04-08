@@ -20,7 +20,7 @@
         <ul class="groupGrid">
           <li v-for="(myGroup, index) in myGroups" :key="index">
             <div class="group1">
-              <a href="/group"><img src="@/images/group-img.jpeg" border="0" width="200" height="200"></a>
+              <a href="/group"><img src="@/images/usnelogo.jpg" border="0" width="200" height="200"></a>
             </div>
             <p>{{ myGroup.name }}</p>
           </li>
@@ -32,16 +32,18 @@
 </template>
 
 <script>
-import { postNewGroup, getMyGroup } from "@/api/index.js";
-import DelateGroup from "@/components/delateCheck.vue";
+import { postNewGroup, getMyGroup, deleteGroup } from "@/api/index.js";
 export default {
-  components: {
-    DelateGroup,
-  },
   mounted() {
     this.loadingGroup()
   },
   methods: {
+    async outGroup(index) {
+      const id = this.myGroups[index].groupListIndex
+      console.log(id);
+      await deleteGroup(id);
+      this.myGroups.splice(index,1);
+    },
     addGroup() {
       if(this.inputGroupname==true) {
         this.inputGroupname=false;
@@ -109,7 +111,7 @@ export default {
   }
   .group1 {
     text-align: center;
-    border: 1px solid;
+    border: 1px solid gray;
     width: 200px;
     height: 200px;
     margin: 10px;

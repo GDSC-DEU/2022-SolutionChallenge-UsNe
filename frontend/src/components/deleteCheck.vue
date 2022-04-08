@@ -1,13 +1,13 @@
 <template>
 <div>
     <div class="checkModal">
-    정말 그룹을 삭제하시겠습니까?
+        정말 그룹을 삭제하시겠습니까?
     </div>
     <div class="yes">
-        <button>YES</button>
+        <button @click="$emit('onYes')">YES</button>
     </div>
     <div class="no"></div>
-        <button>NO</button>
+        <button @click="$emit('onNo')">NO</button>
     
 </div>
 </template>
@@ -16,10 +16,9 @@
 export default {
     
 }
-</script>
-
+</script>  
 <style scoped>
-.friendFace {
+.checkModal {
     position: absolute;
     text-align: center; 
     top: 50%;
@@ -33,7 +32,8 @@ export default {
     transform: translateX(-50%) translateY(-50%);
 }
 .yes {
-     width: 87px;
+    text-align: center;
+    width: 87px;
     height: 25px;
     margin: 5px;
     border-radius: 45px;
@@ -43,7 +43,7 @@ export default {
     font-size: 12px;
 }
 .no {
-     width: 87px;
+    width: 87px;
     height: 25px;
     margin: 5px;
     border-radius: 45px;
