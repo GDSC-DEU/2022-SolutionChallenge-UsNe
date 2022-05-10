@@ -45,4 +45,4 @@ function deleteGroup(groupIndex) {
   return axios.delete(`${url}/groups/` + groupIndex,  { withCredentials: true });
 }
 
-export { registerUser, loginUser, postConsumption, getConsumptions, deleteConsumption, postGoals, getGoals, getSearch, postLogout, getGoalCalc, putGoals, postNewGroup,getMyGroup, deleteGroup };
+export { registerUser, loginUser, postConsumption, getConsumptions, deleteConsumption, postGoals, getGoals, getSearch, postLogout, getGoalCalc, putGoals, postNewGroup, getMyGroup, deleteGroup };

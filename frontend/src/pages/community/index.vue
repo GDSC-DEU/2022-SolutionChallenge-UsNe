@@ -1,6 +1,11 @@
 <template>
   <div>
     <h2>My Community</h2>
+    <!-- <DeleteCheck 
+      v-if="deleteModalShow"
+      @onNo="DeleteGroupbutton"
+      @onYes="outGroup(index)"
+    /> -->
     <div class="groupBar">
       <div class="inputGroup" v-show="inputGroupname">
         <input type="text" v-model="groupName">
@@ -14,6 +19,10 @@
         <img id="joinIcon" src="@/images/right-to-bracket-solid.png">
          그룹참가
       </button>
+      <button @click="deletebutton">
+        <img id="joinIcon" src="@/images/right-to-bracket-solid.png">
+         그룹탈퇴
+      </button>
     </div>
     <div class="groupbody">
       <div class="myGrouplist">
@@ -23,6 +32,7 @@
               <a href="/group"><img src="@/images/usnelogo.jpg" border="0" width="200" height="200"></a>
             </div>
             <p>{{ myGroup.name }}</p>
+            <p><button type="button" v-show="showDeleteGroupBtn" @click="outGroup(index)">Delete</button></p>
           </li>
         </ul>
         <div style="clear:both;"></div>
@@ -33,11 +43,29 @@
 
 <script>
 import { postNewGroup, getMyGroup, deleteGroup } from "@/api/index.js";
+// import DeleteCheck from "@/components/deleteCheck.vue";
 export default {
+  components : {
+    // DeleteCheck
+  },
   mounted() {
     this.loadingGroup()
   },
   methods: {
+    deletebutton() {
+      if(this.showDeleteGroupBtn== true) {
+        this.showDeleteGroupBtn= false;
+      } else {
+        this.showDeleteGroupBtn= true;
+      }
+    },
+    DeleteGroupbutton() {
+      if(this.deleteModalShow== true) {
+        this.deleteModalShow= false;
+      } else {
+        this.deleteModalShow= true;
+      }
+    },
     async outGroup(index) {
       const id = this.myGroups[index].groupListIndex
       console.log(id);
@@ -76,6 +104,8 @@ export default {
       groupName: "",
       inputGroupname: false,
       myGroups: [],
+      deleteModalShow: false,
+      showDeleteGroupBtn: false,
     }
   },
 }
