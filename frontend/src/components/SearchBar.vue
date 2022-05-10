@@ -3,7 +3,7 @@
      <div class="search">
       <h4>search</h4>
       <label class="searchitem">
-        <button type="button" value="All" @click="$emit('all')">All</button>
+        <button type="button" value="All" @click="onAll">All</button>
       </label> <br>
       <label class="searchitem">
         <input type="radio" name="useType" value="FOOD" v-model="checkUseType">
@@ -80,7 +80,13 @@ export default {
         searchPayType: this.checkPayType,
         searchDwType: this.checkDwType,
       })
-    }
+    },
+    onAll() {
+      this.$emit('all')
+      this.checkUseType=''
+      this.checkPayType=''
+      this.checkDwType=''
+    },
   },
   data() {
     return {
