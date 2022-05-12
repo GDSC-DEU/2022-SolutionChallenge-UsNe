@@ -4,7 +4,8 @@
       <div class="goalSetting">
         <h1>My Goal</h1> 
       </div>
-      <p> <button type="button" @click="onGoalSet" id="goalSetButton">Goal setting</button></p>
+      <p> <button type="button" @click="onGoalSet" id="goalSetButton" v-show="showGoalSetBtn">Goal setting</button></p>
+      <p> <button type="button" @click="onModifyGoal" id="goalSetButton" v-show="showModifyGoalBtn">Modify Goal</button></p>
       <div class="goalGraph">
         <div class="graph stack">
           <span id="foodGraph">{{ foodWidth }}</span>
@@ -36,6 +37,10 @@
       v-if="showAccountModal"
       @close="onClosebutton"
       @submitGoal="insertGoal"
+    />
+    <ModifyGoal 
+      v-if="showModifyModal"
+      @close="onCloseModify"
       @putGoal="retouchGoals"
     />
   </div>
@@ -44,15 +49,20 @@
 <script>
 import { postGoals, getGoals, getGoalCalc, putGoals } from "@/api/index";
 import Goal from "@/components/accountModal.vue";
+import ModifyGoal from "@/components/modifyGoalModal.vue";
 export default {
   components: {
-    Goal
+    Goal,
+    ModifyGoal
   },
   mounted() {
     this.getGoalSettingData();
   },
-    methods: {
-    async retouchGoals(goalData) {
+  methods: {
+    onModifyGoal() {
+      this.showModifyModal = true;
+    },
+    async retouchGoals(goalData) { // 목표 수정
       const userData = {
         food: goalData.food,
         culture: goalData.culture,
@@ -67,7 +77,7 @@ export default {
       console.log(userData);
       const { data } = await putGoals(userData);
       console.log(data);
-      this.onClosebutton()
+      this.onCloseModify()
       this.getGoalSettingData();
     },
     async getTotalConsumption() {
@@ -91,6 +101,14 @@ export default {
       this.goals = response.data;
       console.log(this.goals);
       this.getTotalConsumption();
+      // 수정, 설정 버튼 설정
+      if(this.goals) {
+        this.showGoalSetBtn = false;
+        this.showModifyGoalBtn = true;
+      } else {
+        this.showGoalSetBtn = true;
+        this.showModifyGoalBtn = false;
+      }
     },
     onGoalSet() {
       this.showAccountModal = true;
@@ -98,7 +116,10 @@ export default {
     onClosebutton() {
       this.showAccountModal = false;
     },
-    async insertGoal(goalData) {
+    onCloseModify() {
+      this.showModifyModal = false;
+    },
+    async insertGoal(goalData) { // 목표 설정
       const userData = {
         food: goalData.food,
         culture: goalData.culture,
@@ -118,7 +139,10 @@ export default {
   },
   data() {
     return {
+      showModifyModal:false,
       showAccountModal:false,
+      showGoalSetBtn:false,
+      showModifyGoalBtn:false,
       goals: [],
       totalCons: [],
       foodWidth: '0%',

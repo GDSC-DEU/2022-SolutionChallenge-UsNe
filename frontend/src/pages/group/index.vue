@@ -1,23 +1,14 @@
 <template>
   <div>
-    <DeleteGroup 
-      v-if="deleteModalShow"
-      @onNo="deletebutton"
-      @onYes="outGroup"
-    />
     <div class="groupButton">
       <button>
         <img class="linkicon" src=''>
         초대링크
-      </button>
-      <button @click="deletebutton">
-        <img class="deleteicon" src=''>
-        그룹탈퇴
-      </button>    
+      </button> 
     </div>
     <div>
       <GoalTable />
-      <AccountTable v-show="lock"/>
+      <AccountTable v-show="myGoal_Show"/>
     </div>
     <div class="friends">
       <div class="gofriend1">
@@ -39,28 +30,16 @@
 </template>
 
 <script>
-// import { deleteGroup } from "@/api/index.js";
 import AccountTable from "@/components/AccountTable.vue";
 import GoalTable from "@/components/GoalTable.vue";
-import DeleteGroup from "@/components/deleteCheck.vue";
 export default {
   components: {
     AccountTable,
     GoalTable,
-    DeleteGroup,
-  },
-  methods: {
-    deletebutton() {
-      if(this.deleteModalShow== true) {
-        this.deleteModalShow= false;
-      } else {
-        this.deleteModalShow= true;
-      }
-    },
   },
   data() {
     return {
-      lock: false,
+      myGoal_Show: false,
       deleteModalShow: false,
     }
   },
